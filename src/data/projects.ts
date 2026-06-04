@@ -233,11 +233,11 @@ export type DockItem = {
   id: string;
   label: string;
   href: string;
-  icon: "yandex" | "notes" | "instagram" | "telegram" | "whatsapp";
+  icon: "motions-gaad" | "notes" | "instagram" | "telegram" | "whatsapp";
 };
 
 export const dockItems: DockItem[] = [
-  { id: "yandex", label: "Yandex", href: "#", icon: "yandex" },
+  { id: "motions-gaad", label: "Motions Gaad", href: "#", icon: "motions-gaad" },
   { id: "notes", label: "Notes", href: "#", icon: "notes" },
   {
     id: "instagram",

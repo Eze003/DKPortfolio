@@ -30,14 +30,14 @@ function useIsMobile() {
   return isMobile;
 }
 
-function DockYandexIcon({ size }: { size: number }) {
+function DockMotionsGaadIcon({ size }: { size: number }) {
   return (
     <span
       style={{ width: size, height: size, fontSize: size * 0.45 }}
       className="flex shrink-0 items-center justify-center rounded-[9px] bg-[#fc3f1d] font-bold leading-none text-black"
       aria-hidden
     >
-      Y
+      M
     </span>
   );
 }
@@ -89,8 +89,8 @@ function DockWhatsappIcon({ size }: { size: number }) {
 
 function DockIcon({ item, size }: { item: DockItem; size: number }) {
   switch (item.icon) {
-    case "yandex":
-      return <DockYandexIcon size={size} />;
+    case "motions-gaad":
+      return <DockMotionsGaadIcon size={size} />;
     case "notes":
       return <DockNotesIcon size={size} />;
     case "instagram":
@@ -201,15 +201,10 @@ export function Dock({
         {dockItems.map((item, index) => (
           <li key={item.id} className="relative flex flex-col items-center">
             {!isMobile && hoveredId === item.id && (
-              <>
-                <span
-                  className="glass-dock-glow pointer-events-none absolute bottom-0 left-1/2 h-16 w-16 -translate-x-1/2 rounded-2xl"
-                  aria-hidden
-                />
-                <span className="glass-tooltip pointer-events-none absolute -top-8 whitespace-nowrap rounded-lg px-2.5 py-1 text-[10px] font-medium text-black">
-                  {item.label}
-                </span>
-              </>
+              <span
+                className="glass-dock-glow pointer-events-none absolute bottom-0 left-1/2 h-16 w-16 -translate-x-1/2 rounded-2xl"
+                aria-hidden
+              />
             )}
             <Link
               href={item.href}
@@ -221,17 +216,28 @@ export function Dock({
               onMouseEnter={() => !isMobile && setHoveredId(item.id)}
               onFocus={() => !isMobile && setHoveredId(item.id)}
               onBlur={() => setHoveredId(null)}
-              className="flex items-end rounded-xl p-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40 transition-transform duration-100 ease-out"
+              className="relative flex items-end rounded-xl p-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40 transition-transform duration-100 ease-out"
               style={
                 isMobile
                   ? undefined
                   : {
-                      transform: `translateY(${((scales[index] ?? 1) - 1) * -24}px) scale(${scales[index] ?? 1})`,
-                      transformOrigin: "bottom center",
-                    }
+                    transform: `translateY(${((scales[index] ?? 1) - 1) * -24}px) scale(${scales[index] ?? 1})`,
+                    transformOrigin: "bottom center",
+                  }
               }
               aria-label={item.label}
             >
+              {!isMobile && hoveredId === item.id && (
+                <span
+                  className="glass-tooltip pointer-events-none absolute left-1/2 bottom-[calc(100%+8px)] whitespace-nowrap rounded-lg px-2.5 py-1 text-xs font-medium text-black"
+                  style={{
+                    transform: `translateX(-50%) scale(${1 / (scales[index] ?? 1)})`,
+                    transformOrigin: "bottom center",
+                  }}
+                >
+                  {item.label}
+                </span>
+              )}
               <DockIcon item={item} size={baseSize} />
             </Link>
           </li>
@@ -249,15 +255,10 @@ export function Dock({
                   className="dock-minimized-icon relative flex flex-col items-center"
                 >
                   {!isMobile && isHovered && (
-                    <>
-                      <span
-                        className="glass-dock-glow pointer-events-none absolute bottom-0 left-1/2 h-16 w-16 -translate-x-1/2 rounded-2xl"
-                        aria-hidden
-                      />
-                      <span className="glass-tooltip pointer-events-none absolute -top-8 whitespace-nowrap rounded-lg px-2.5 py-1 text-[10px] font-medium text-black">
-                        {project.label}
-                      </span>
-                    </>
+                    <span
+                      className="glass-dock-glow pointer-events-none absolute bottom-0 left-1/2 h-16 w-16 -translate-x-1/2 rounded-2xl"
+                      aria-hidden
+                    />
                   )}
                   <button
                     type="button"
@@ -266,17 +267,28 @@ export function Dock({
                     onMouseEnter={() => !isMobile && setHoveredId(project.id)}
                     onFocus={() => !isMobile && setHoveredId(project.id)}
                     onBlur={() => setHoveredId(null)}
-                    className="flex cursor-pointer items-end rounded-xl p-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40 transition-transform duration-100 ease-out"
+                    className="relative flex cursor-pointer items-end rounded-xl p-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40 transition-transform duration-100 ease-out"
                     style={
                       isMobile
                         ? undefined
                         : {
-                            transform: `translateY(${((scales[globalIndex] ?? 1) - 1) * -24}px) scale(${scales[globalIndex] ?? 1})`,
-                            transformOrigin: "bottom center",
-                          }
+                          transform: `translateY(${((scales[globalIndex] ?? 1) - 1) * -24}px) scale(${scales[globalIndex] ?? 1})`,
+                          transformOrigin: "bottom center",
+                        }
                     }
                     aria-label={`Restore ${project.label}`}
                   >
+                    {!isMobile && isHovered && (
+                      <span
+                        className="glass-tooltip pointer-events-none absolute left-1/2 bottom-[calc(100%+8px)] whitespace-nowrap rounded-lg px-2.5 py-1 text-xs font-medium text-black"
+                        style={{
+                          transform: `translateX(-50%) scale(${1 / (scales[globalIndex] ?? 1)})`,
+                          transformOrigin: "bottom center",
+                        }}
+                      >
+                        {project.label}
+                      </span>
+                    )}
                     <MinimizedProjectDockIcon project={project} size={baseSize} />
                   </button>
                   <span className="absolute -bottom-1 h-1 w-1 rounded-full bg-white animate-pulse" />
