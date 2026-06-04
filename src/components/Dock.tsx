@@ -1,13 +1,34 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useRef, useState } from "react";
-import { SiInstagram, SiTelegram, SiWhatsapp } from "react-icons/si";
+import Image from "next/image";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { SiInstagram, SiWhatsapp } from "react-icons/si";
+import { FaTelegramPlane } from "react-icons/fa";
 import { DockNotesIcon } from "@/components/dock/DockNotesIcon";
-import { dockItems, type DockItem } from "@/data/projects";
+import { TransparentFolder } from "@/components/TransparentFolder";
+import { dockItems, type DockItem, type Project } from "@/data/projects";
 
-const BASE_SIZE = 60;
+const BASE_SIZE_DESKTOP = 60;
+const BASE_SIZE_MOBILE = 48;
 const MAX_SCALE = 1.45;
+
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.matchMedia("(max-width: 639px)").matches;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 639px)");
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+  return isMobile;
+}
 
 function DockYandexIcon({ size }: { size: number }) {
   return (
@@ -43,7 +64,7 @@ function DockTelegramIcon({ size }: { size: number }) {
       className="flex shrink-0 items-center justify-center rounded-[9px] bg-[#26A5E4] shadow-sm"
       aria-hidden
     >
-      <SiTelegram
+      <FaTelegramPlane
         style={{ width: size * 0.58, height: size * 0.58 }}
         className="text-white"
       />
@@ -81,17 +102,69 @@ function DockIcon({ item, size }: { item: DockItem; size: number }) {
   }
 }
 
-export function Dock() {
-  const dockRef = useRef<HTMLUListElement>(null);
-  const [scales, setScales] = useState<number[]>(() =>
-    dockItems.map(() => 1),
+function MinimizedProjectDockIcon({ project, size }: { project: Project; size: number }) {
+  const isFolder = project.kind === "folder";
+  const TILE_CLASS =
+    "relative shrink-0 overflow-hidden rounded-[9px] shadow-sm ring-1 ring-white/10 flex items-center justify-center";
+
+  if (isFolder && project.folderPreviews) {
+    return (
+      <span
+        style={{ width: size, height: size }}
+        className="flex shrink-0 items-center justify-center"
+        aria-hidden
+      >
+        <span style={{ transform: "scale(0.8)" }} className="flex shrink-0">
+          <TransparentFolder previews={project.folderPreviews} size={size} />
+        </span>
+      </span>
+    );
+  }
+
+  return (
+    <span
+      style={{ width: size, height: size }}
+      className={`${TILE_CLASS} ${!project.thumbnail ? (project.fallbackClassName ?? "bg-zinc-800") : "bg-zinc-900"}`}
+      aria-hidden
+    >
+      {project.thumbnail ? (
+        <Image
+          src={project.thumbnail}
+          alt=""
+          fill
+          className="object-cover rounded-[9px]"
+          sizes={`${size}px`}
+        />
+      ) : (
+        <span
+          style={{ fontSize: size * 0.45 }}
+          className="flex h-full w-full items-center justify-center font-semibold text-white leading-none"
+        >
+          {project.fallbackContent || project.label[0]}
+        </span>
+      )}
+    </span>
   );
+}
+
+export function Dock({
+  minimizedProjects = [],
+  onRestoreProject,
+}: {
+  minimizedProjects?: Project[];
+  onRestoreProject?: (id: string) => void;
+}) {
+  const dockRef = useRef<HTMLUListElement>(null);
+  const isMobile = useIsMobile();
+  const baseSize = isMobile ? BASE_SIZE_MOBILE : BASE_SIZE_DESKTOP;
+
+  const [scales, setScales] = useState<number[]>([]);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   const updateScales = useCallback((clientX: number | null) => {
     const dock = dockRef.current;
     if (!dock || clientX === null) {
-      setScales(dockItems.map(() => 1));
+      setScales([]);
       return;
     }
 
@@ -110,7 +183,7 @@ export function Dock() {
 
   return (
     <nav
-      className="fixed bottom-8 left-1/2 z-30 -translate-x-1/2 sm:bottom-11"
+      className="fixed bottom-6 left-1/2 z-30 -translate-x-1/2 sm:bottom-11"
       aria-label="Social links"
       onMouseLeave={() => {
         setHoveredId(null);
@@ -119,12 +192,15 @@ export function Dock() {
     >
       <ul
         ref={dockRef}
-        className="glass-dock flex items-end gap-2.5 rounded-[20px] px-4 py-1.5 sm:gap-3.5 sm:rounded-[24px] sm:px-5 sm:py-2"
-        onMouseMove={(e) => updateScales(e.clientX)}
+        className="glass-dock flex items-end gap-2 rounded-[18px] px-3 py-1.5 sm:gap-3.5 sm:rounded-[24px] sm:px-5 sm:py-2"
+        onMouseMove={(e) => {
+          // Disable magnification on touch/mobile
+          if (!isMobile) updateScales(e.clientX);
+        }}
       >
         {dockItems.map((item, index) => (
           <li key={item.id} className="relative flex flex-col items-center">
-            {hoveredId === item.id && (
+            {!isMobile && hoveredId === item.id && (
               <>
                 <span
                   className="glass-dock-glow pointer-events-none absolute bottom-0 left-1/2 h-16 w-16 -translate-x-1/2 rounded-2xl"
@@ -142,20 +218,73 @@ export function Dock() {
               rel={
                 item.href.startsWith("http") ? "noopener noreferrer" : undefined
               }
-              onMouseEnter={() => setHoveredId(item.id)}
-              onFocus={() => setHoveredId(item.id)}
+              onMouseEnter={() => !isMobile && setHoveredId(item.id)}
+              onFocus={() => !isMobile && setHoveredId(item.id)}
               onBlur={() => setHoveredId(null)}
               className="flex items-end rounded-xl p-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40 transition-transform duration-100 ease-out"
-              style={{
-                transform: `translateY(${((scales[index] ?? 1) - 1) * -24}px) scale(${scales[index] ?? 1})`,
-                transformOrigin: "bottom center",
-              }}
+              style={
+                isMobile
+                  ? undefined
+                  : {
+                      transform: `translateY(${((scales[index] ?? 1) - 1) * -24}px) scale(${scales[index] ?? 1})`,
+                      transformOrigin: "bottom center",
+                    }
+              }
               aria-label={item.label}
             >
-              <DockIcon item={item} size={BASE_SIZE} />
+              <DockIcon item={item} size={baseSize} />
             </Link>
           </li>
         ))}
+
+        {minimizedProjects.length > 0 && (
+          <>
+            <div className="h-8 w-px bg-white/20 self-center mx-1" aria-hidden />
+            {minimizedProjects.map((project, idx) => {
+              const globalIndex = dockItems.length + idx;
+              const isHovered = hoveredId === project.id;
+              return (
+                <li
+                  key={project.id}
+                  className="dock-minimized-icon relative flex flex-col items-center"
+                >
+                  {!isMobile && isHovered && (
+                    <>
+                      <span
+                        className="glass-dock-glow pointer-events-none absolute bottom-0 left-1/2 h-16 w-16 -translate-x-1/2 rounded-2xl"
+                        aria-hidden
+                      />
+                      <span className="glass-tooltip pointer-events-none absolute -top-8 whitespace-nowrap rounded-lg px-2.5 py-1 text-[10px] font-medium text-black">
+                        {project.label}
+                      </span>
+                    </>
+                  )}
+                  <button
+                    type="button"
+                    data-dock-item
+                    onClick={() => onRestoreProject?.(project.id)}
+                    onMouseEnter={() => !isMobile && setHoveredId(project.id)}
+                    onFocus={() => !isMobile && setHoveredId(project.id)}
+                    onBlur={() => setHoveredId(null)}
+                    className="flex cursor-pointer items-end rounded-xl p-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/40 transition-transform duration-100 ease-out"
+                    style={
+                      isMobile
+                        ? undefined
+                        : {
+                            transform: `translateY(${((scales[globalIndex] ?? 1) - 1) * -24}px) scale(${scales[globalIndex] ?? 1})`,
+                            transformOrigin: "bottom center",
+                          }
+                    }
+                    aria-label={`Restore ${project.label}`}
+                  >
+                    <MinimizedProjectDockIcon project={project} size={baseSize} />
+                  </button>
+                  <span className="absolute -bottom-1 h-1 w-1 rounded-full bg-white animate-pulse" />
+                </li>
+              );
+            })}
+          </>
+        )}
       </ul>
     </nav>
   );

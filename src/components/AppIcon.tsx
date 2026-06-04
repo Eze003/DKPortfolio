@@ -2,8 +2,6 @@ import Image from "next/image";
 import type { Project } from "@/data/projects";
 import { TransparentFolder } from "@/components/TransparentFolder";
 import {
-  DESKTOP_CELL_WIDTH,
-  DESKTOP_ICON_SIZE,
   DESKTOP_LABEL_CLASS,
 } from "@/constants/desktop";
 
@@ -23,7 +21,7 @@ export function AppIcon({ project, onOpen }: AppIconProps) {
       type="button"
       onClick={onOpen}
       className="group flex cursor-pointer flex-col items-center gap-1.5 border-0 bg-transparent p-0 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white/50"
-      style={{ width: DESKTOP_CELL_WIDTH }}
+      style={{ width: "var(--desktop-cell-width)" }}
     >
       <div className="relative p-1.5 rounded-[22px] transition-all duration-200 group-hover:scale-105 group-hover:ring-2 group-hover:ring-white group-hover:bg-white/5">
         {isFolder && project.folderPreviews ? (
@@ -32,8 +30,8 @@ export function AppIcon({ project, onOpen }: AppIconProps) {
           <div
             className={`${TILE_CLASS} ${!project.thumbnail ? (project.fallbackClassName ?? "bg-zinc-800") : "bg-zinc-900"}`}
             style={{
-              width: DESKTOP_ICON_SIZE,
-              height: DESKTOP_ICON_SIZE,
+              width: "var(--desktop-icon-size)",
+              height: "var(--desktop-icon-size)",
             }}
           >
             {project.thumbnail ? (
@@ -42,7 +40,7 @@ export function AppIcon({ project, onOpen }: AppIconProps) {
                 alt=""
                 fill
                 className="object-cover"
-                sizes={`${DESKTOP_ICON_SIZE}px`}
+                sizes="(max-width: 640px) 60px, 72px"
               />
             ) : (
               <span className="flex h-full w-full items-center justify-center text-xl font-semibold text-white">
@@ -55,6 +53,7 @@ export function AppIcon({ project, onOpen }: AppIconProps) {
 
       <span
         className={`${DESKTOP_LABEL_CLASS} line-clamp-2 rounded px-0.5 py-px transition-colors duration-200 group-hover:bg-[#0a84ff] group-hover:text-white`}
+        style={{ width: "var(--desktop-cell-width)" }}
       >
         {project.label}
       </span>

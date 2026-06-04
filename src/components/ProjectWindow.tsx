@@ -7,24 +7,42 @@ import type { Project } from "@/data/projects";
 type ProjectWindowProps = {
   project: Project;
   onClose: () => void;
+  onMinimize: () => void;
+  onMaximize: () => void;
+  isMaximized: boolean;
 };
 
-function TrafficLights({ onClose }: { onClose: () => void }) {
+function TrafficLights({
+  onClose,
+  onMinimize,
+  onMaximize,
+}: {
+  onClose: () => void;
+  onMinimize: () => void;
+  onMaximize: () => void;
+}) {
   return (
     <div className="flex items-center gap-2">
+      {/* Red — close */}
       <button
         type="button"
         onClick={onClose}
-        className="h-3 w-3 rounded-full bg-[#ff5f57] transition hover:brightness-90"
+        className="h-3 w-3 cursor-pointer rounded-full bg-[#ff5f57] transition hover:brightness-75 active:scale-90"
         aria-label="Close"
       />
-      <span
-        className="h-3 w-3 rounded-full bg-[#febc2e]"
-        aria-hidden
+      {/* Yellow — minimise */}
+      <button
+        type="button"
+        onClick={onMinimize}
+        className="h-3 w-3 cursor-pointer rounded-full bg-[#febc2e] transition hover:brightness-75 active:scale-90"
+        aria-label="Minimise"
       />
-      <span
-        className="h-3 w-3 rounded-full bg-[#28c840]"
-        aria-hidden
+      {/* Green — maximise */}
+      <button
+        type="button"
+        onClick={onMaximize}
+        className="h-3 w-3 cursor-pointer rounded-full bg-[#28c840] transition hover:brightness-75 active:scale-90"
+        aria-label="Maximise"
       />
     </div>
   );
@@ -70,26 +88,41 @@ function GalleryImage({
   );
 }
 
-export function ProjectWindow({ project, onClose }: ProjectWindowProps) {
+export function ProjectWindow({
+  project,
+  onClose,
+  onMinimize,
+  onMaximize,
+  isMaximized,
+}: ProjectWindowProps) {
   const { detail } = project;
   const [first, second] = detail.gallery;
 
   return (
     <div
-      className="glass-panel project-window mx-auto w-full max-w-4xl overflow-hidden rounded-2xl sm:rounded-3xl"
+      className={`glass-panel project-window mx-auto w-full overflow-hidden transition-all duration-300 ${
+        isMaximized
+          ? "h-full w-full rounded-none flex flex-col"
+          : "max-w-4xl rounded-2xl sm:rounded-3xl"
+      }`}
       role="dialog"
       aria-modal="true"
       aria-labelledby="project-title"
     >
       <header className="glass-panel__header flex items-center gap-4 px-4 py-3 sm:px-5">
-        <TrafficLights onClose={onClose} />
+        <TrafficLights
+          onClose={onClose}
+          onMinimize={onMinimize}
+          onMaximize={onMaximize}
+        />
         <p className="flex-1 truncate text-center text-xs font-medium text-zinc-400">
           {project.label}
         </p>
+        {/* Spacer to balance the traffic lights */}
         <div className="w-[52px]" aria-hidden />
       </header>
 
-      <div className="px-5 pb-6 pt-5 sm:px-8 sm:pb-8 sm:pt-6">
+      <div className={`px-5 pb-6 pt-5 sm:px-8 sm:pb-8 sm:pt-6 ${isMaximized ? "flex-1 overflow-y-auto" : ""}`}>
         <h1
           id="project-title"
           className="text-3xl font-bold tracking-tight text-black sm:text-4xl"

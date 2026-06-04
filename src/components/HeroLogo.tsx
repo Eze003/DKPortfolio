@@ -1,7 +1,7 @@
 export function HeroLogo() {
   return (
     <div
-      className="pointer-events-none absolute left-1/2 top-[46%] z-10 -translate-x-1/2 -translate-y-1/2 sm:top-[48%]"
+      className="pointer-events-none absolute left-1/2 top-[46%] z-10 -translate-x-1/2 -translate-y-1/2 opacity-20 sm:top-[48%] sm:opacity-100"
       aria-hidden
     >
       <svg

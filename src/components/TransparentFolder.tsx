@@ -1,17 +1,19 @@
 import Image from "next/image";
-import { DESKTOP_ICON_SIZE } from "@/constants/desktop";
 
 type TransparentFolderProps = {
   previews: string[];
+  size?: string | number;
 };
 
-export function TransparentFolder({ previews }: TransparentFolderProps) {
-  const size = DESKTOP_ICON_SIZE;
+export function TransparentFolder({ previews, size }: TransparentFolderProps) {
+  // Size is driven by the CSS custom property --desktop-icon-size (defined in globals.css)
+  // so it automatically shrinks on mobile without any JS.
+  const cssSize = size ?? "var(--desktop-icon-size)";
 
   return (
     <div
       className="relative shrink-0"
-      style={{ width: size, height: size }}
+      style={{ width: cssSize, height: cssSize }}
     >
       <div
         className="absolute overflow-hidden"
@@ -46,8 +48,7 @@ export function TransparentFolder({ previews }: TransparentFolderProps) {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className="pointer-events-none absolute inset-0 drop-shadow-md"
-        width={size}
-        height={size}
+        style={{ width: cssSize, height: cssSize }}
         aria-hidden
       >
         <defs>
