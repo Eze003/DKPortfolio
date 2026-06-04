@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import * as yup from "yup";
+import MediaUpload from "@/components/MediaUpload";
+import CustomSelect from "@/components/CustomSelect";
 
 // ── Types ──────────────────────────────────────────────────────
 interface GalleryImage {
@@ -68,12 +71,59 @@ async function apiFetch(
 }
 
 // ── Sub-components ─────────────────────────────────────────────
+// ── Validation Schemas ─────────────────────────────────────────
+const loginSchema = yup.object().shape({
+  password: yup.string().required("Password is required"),
+});
+
+const projectSchema = yup.object().shape({
+  id: yup
+    .string()
+    .required("ID is required")
+    .matches(
+      /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
+      "ID must contain only lowercase letters, numbers, and hyphens (e.g. my-project)"
+    ),
+  label: yup.string().required("Label is required"),
+  kind: yup.string().oneOf(["app", "file", "folder"], "Invalid kind").required("Kind is required"),
+  variant: yup.string().oneOf(["square", "wide", "tall"], "Invalid variant").required("Variant is required"),
+  thumbnail: yup.string().optional(),
+  fallbackClassName: yup.string().optional(),
+  fallbackContent: yup.string().max(3, "Max 3 characters").optional(),
+  detail: yup.object().shape({
+    client: yup.string().required("Client is required"),
+    year: yup
+      .string()
+      .required("Year is required")
+      .matches(/^\d{4}$/, "Year must be a 4-digit number"),
+    projectType: yup.string().required("Project type is required"),
+    description: yup.string().optional(),
+    instagramUrl: yup
+      .string()
+      .transform((val) => (val === "" ? undefined : val))
+      .url("Must be a valid URL (e.g. https://instagram.com/...)")
+      .nullable()
+      .optional(),
+    gallery: yup
+      .array()
+      .of(
+        yup.object().shape({
+          src: yup.string().required("Gallery image is required"),
+          alt: yup.string().required("Alt text is required"),
+        })
+      )
+      .required(),
+  }),
+});
+
 function Field({
   label,
   children,
+  error,
 }: {
   label: string;
   children: React.ReactNode;
+  error?: string;
 }) {
   return (
     <div className="flex flex-col gap-1">
@@ -81,6 +131,11 @@ function Field({
         {label}
       </label>
       {children}
+      {error && (
+        <span className="text-xs font-medium text-red-400 mt-0.5 animate-in fade-in slide-in-from-top-1 duration-200">
+          {error}
+        </span>
+      )}
     </div>
   );
 }
@@ -110,15 +165,31 @@ function ProjectFormModal({
   );
   const [saving, setSaving] = useState(false);
   const [err, setErr] = useState("");
+  const [errors, setErrors] = useState<Record<string, string>>({});
 
   function set<K extends keyof typeof form>(k: K, v: (typeof form)[K]) {
     setForm((prev) => ({ ...prev, [k]: v }));
+    if (errors[k]) {
+      setErrors((prev) => {
+        const copy = { ...prev };
+        delete copy[k];
+        return copy;
+      });
+    }
   }
   function setDetail<K extends keyof ProjectDetail>(
     k: K,
     v: ProjectDetail[K],
   ) {
     setForm((prev) => ({ ...prev, detail: { ...prev.detail, [k]: v } }));
+    const path = `detail.${k}`;
+    if (errors[path]) {
+      setErrors((prev) => {
+        const copy = { ...prev };
+        delete copy[path];
+        return copy;
+      });
+    }
   }
   function setGallery(idx: number, field: keyof GalleryImage, val: string) {
     setForm((prev) => {
@@ -126,21 +197,38 @@ function ProjectFormModal({
       g[idx] = { ...g[idx], [field]: val };
       return { ...prev, detail: { ...prev.detail, gallery: g } };
     });
+    const path = `detail.gallery[${idx}].${field}`;
+    if (errors[path]) {
+      setErrors((prev) => {
+        const copy = { ...prev };
+        delete copy[path];
+        return copy;
+      });
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!form.id || !form.label) {
-      setErr("ID and Label are required.");
-      return;
-    }
     setSaving(true);
     setErr("");
+    setErrors({});
     try {
+      await projectSchema.validate(form, { abortEarly: false });
       await onSave(form);
       onClose();
-    } catch (e: unknown) {
-      setErr(e instanceof Error ? e.message : "Failed to save.");
+    } catch (validationErr: unknown) {
+      if (validationErr instanceof yup.ValidationError) {
+        const newErrors: Record<string, string> = {};
+        validationErr.inner.forEach((e) => {
+          if (e.path) {
+            newErrors[e.path] = e.message;
+          }
+        });
+        setErrors(newErrors);
+        setErr("Please correct the errors in the form.");
+      } else {
+        setErr(validationErr instanceof Error ? validationErr.message : "Failed to save.");
+      }
     } finally {
       setSaving(false);
     }
@@ -182,7 +270,7 @@ function ProjectFormModal({
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
-            <Field label="ID (slug)">
+            <Field label="ID (slug)" error={errors.id}>
               <input
                 className={INPUT}
                 value={form.id}
@@ -191,7 +279,7 @@ function ProjectFormModal({
                 disabled={isEdit}
               />
             </Field>
-            <Field label="Label">
+            <Field label="Label" error={errors.label}>
               <input
                 className={INPUT}
                 value={form.label}
@@ -202,42 +290,63 @@ function ProjectFormModal({
           </div>
 
           <div className="grid grid-cols-2 gap-4">
-            <Field label="Kind">
-              <select
-                className={INPUT}
+            <Field label="Kind" error={errors.kind}>
+              <CustomSelect
+                options={[
+                  { value: "app", label: "App" },
+                  { value: "file", label: "File" },
+                  { value: "folder", label: "Folder" },
+                ]}
                 value={form.kind}
-                onChange={(e) => set("kind", e.target.value)}
-              >
-                <option value="app">App</option>
-                <option value="file">File</option>
-                <option value="folder">Folder</option>
-              </select>
+                onChange={(val) => set("kind", val)}
+                error={Boolean(errors.kind)}
+              />
             </Field>
-            <Field label="Variant">
-              <select
-                className={INPUT}
+            <Field label="Variant" error={errors.variant}>
+              <CustomSelect
+                options={[
+                  { value: "square", label: "Square" },
+                  { value: "wide", label: "Wide" },
+                  { value: "tall", label: "Tall" },
+                ]}
                 value={form.variant}
-                onChange={(e) => set("variant", e.target.value)}
-              >
-                <option value="square">Square</option>
-                <option value="wide">Wide</option>
-                <option value="tall">Tall</option>
-              </select>
+                onChange={(val) => set("variant", val)}
+                error={Boolean(errors.variant)}
+              />
             </Field>
           </div>
 
-          <Field label="Thumbnail URL">
-            <input
-              className={INPUT}
-              value={form.thumbnail ?? ""}
-              onChange={(e) => set("thumbnail", e.target.value)}
-              placeholder="https://..."
+          <Field label="Thumbnail" error={errors.thumbnail}>
+            {/* Preview */}
+            {form.thumbnail && (
+              <div className="relative mb-2 w-full overflow-hidden rounded-xl border border-white/10">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={form.thumbnail}
+                  alt="Thumbnail preview"
+                  className="h-40 w-full object-cover"
+                />
+                <button
+                  type="button"
+                  onClick={() => set("thumbnail", "")}
+                  className="absolute right-2 top-2 flex h-7 w-7 items-center justify-center rounded-full bg-black/60 text-white/70 backdrop-blur-sm transition hover:bg-red-500/80 hover:text-white"
+                  aria-label="Remove thumbnail"
+                >
+                  ✕
+                </button>
+              </div>
+            )}
+            <MediaUpload
+              label={form.thumbnail ? "Replace Thumbnail" : "Upload Thumbnail"}
+              accept="image/*"
+              type="image"
+              onUpload={(url) => set("thumbnail", url)}
             />
           </Field>
 
           {form.kind === "app" && (
             <div className="grid grid-cols-2 gap-4">
-              <Field label="Fallback BG class">
+              <Field label="Fallback BG class" error={errors.fallbackClassName}>
                 <input
                   className={INPUT}
                   value={form.fallbackClassName ?? ""}
@@ -245,7 +354,7 @@ function ProjectFormModal({
                   placeholder="bg-[#e53935]"
                 />
               </Field>
-              <Field label="Fallback letter">
+              <Field label="Fallback letter" error={errors.fallbackContent}>
                 <input
                   className={INPUT}
                   value={form.fallbackContent ?? ""}
@@ -262,14 +371,14 @@ function ProjectFormModal({
               Project Details
             </p>
             <div className="grid grid-cols-2 gap-4">
-              <Field label="Client">
+              <Field label="Client" error={errors["detail.client"]}>
                 <input
                   className={INPUT}
                   value={form.detail.client}
                   onChange={(e) => setDetail("client", e.target.value)}
                 />
               </Field>
-              <Field label="Year">
+              <Field label="Year" error={errors["detail.year"]}>
                 <input
                   className={INPUT}
                   value={form.detail.year}
@@ -278,7 +387,7 @@ function ProjectFormModal({
               </Field>
             </div>
             <div className="mt-4">
-              <Field label="Project Type">
+              <Field label="Project Type" error={errors["detail.projectType"]}>
                 <input
                   className={INPUT}
                   value={form.detail.projectType}
@@ -287,7 +396,7 @@ function ProjectFormModal({
               </Field>
             </div>
             <div className="mt-4">
-              <Field label="Description">
+              <Field label="Description" error={errors["detail.description"]}>
                 <textarea
                   className={`${INPUT} resize-none`}
                   rows={3}
@@ -297,7 +406,7 @@ function ProjectFormModal({
               </Field>
             </div>
             <div className="mt-4">
-              <Field label="Instagram URL">
+              <Field label="Instagram URL" error={errors["detail.instagramUrl"]}>
                 <input
                   className={INPUT}
                   value={form.detail.instagramUrl ?? ""}
@@ -330,33 +439,79 @@ function ProjectFormModal({
               {form.detail.gallery.map((img, idx) => (
                 <div
                   key={idx}
-                  className="flex items-start gap-3 rounded-xl border border-white/10 p-3"
+                  className="rounded-xl border border-white/10 p-3 space-y-2"
                 >
-                  <div className="flex-1 space-y-2">
-                    <input
-                      className={INPUT}
-                      value={img.src ?? ""}
-                      onChange={(e) => setGallery(idx, "src", e.target.value)}
-                      placeholder="Image URL"
-                    />
-                    <input
-                      className={INPUT}
-                      value={img.alt}
-                      onChange={(e) => setGallery(idx, "alt", e.target.value)}
-                      placeholder="Alt text"
-                    />
+                  {/* Image preview */}
+                  {img.src ? (
+                    <div className="relative w-full overflow-hidden rounded-lg border border-white/10">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={img.src}
+                        alt={img.alt || "Gallery image"}
+                        className="h-32 w-full object-cover"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setGallery(idx, "src", "")}
+                        className="absolute right-2 top-2 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white/70 backdrop-blur-sm transition hover:bg-red-500/80 hover:text-white text-xs"
+                        aria-label="Remove image"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="space-y-1">
+                      <MediaUpload
+                        label="Upload Gallery Image"
+                        accept="image/*"
+                        type="image"
+                        onUpload={(url) => setGallery(idx, "src", url)}
+                      />
+                      {errors[`detail.gallery[${idx}].src`] && (
+                        <p className="text-xs text-red-400 font-medium animate-in fade-in slide-in-from-top-1 duration-200">
+                          {errors[`detail.gallery[${idx}].src`]}
+                        </p>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Alt text + row controls */}
+                  <div className="flex flex-col gap-1">
+                    <div className="flex items-center gap-2">
+                      <input
+                        className={`${INPUT} flex-1`}
+                        value={img.alt}
+                        onChange={(e) => setGallery(idx, "alt", e.target.value)}
+                        placeholder="Alt text"
+                      />
+                      <button
+                        type="button"
+                        className="shrink-0 text-white/30 transition hover:text-red-400 px-1"
+                        onClick={() => {
+                          const g = form.detail.gallery.filter((_, i) => i !== idx);
+                          setDetail("gallery", g.length ? g : [{ src: "", alt: "" }]);
+                          // Clear gallery errors to prevent key index sync issues
+                          setErrors((prev) => {
+                            const copy = { ...prev };
+                            Object.keys(copy).forEach((key) => {
+                              if (key.startsWith("detail.gallery")) {
+                                delete copy[key];
+                              }
+                            });
+                            return copy;
+                          });
+                        }}
+                        aria-label="Remove gallery item"
+                      >
+                        ✕
+                      </button>
+                    </div>
+                    {errors[`detail.gallery[${idx}].alt`] && (
+                      <p className="text-xs text-red-400 font-medium animate-in fade-in slide-in-from-top-1 duration-200">
+                        {errors[`detail.gallery[${idx}].alt`]}
+                      </p>
+                    )}
                   </div>
-                  <button
-                    type="button"
-                    className="mt-1 shrink-0 text-white/30 transition hover:text-red-400"
-                    onClick={() => {
-                      const g = form.detail.gallery.filter((_, i) => i !== idx);
-                      setDetail("gallery", g.length ? g : [{ src: "", alt: "" }]);
-                    }}
-                    aria-label="Remove image"
-                  >
-                    ✕
-                  </button>
                 </div>
               ))}
             </div>
@@ -434,6 +589,7 @@ export default function AdminPage() {
   const [authed, setAuthed] = useState<boolean | null>(null);
   const [password, setPassword] = useState("");
   const [loginErr, setLoginErr] = useState("");
+  const [loginErrors, setLoginErrors] = useState<Record<string, string>>({});
   const [logging, setLogging] = useState(false);
 
   const [projects, setProjects] = useState<Project[]>([]);
@@ -474,15 +630,30 @@ export default function AdminPage() {
     e.preventDefault();
     setLogging(true);
     setLoginErr("");
-    const { ok } = await apiFetch("/api/admin/login", {
-      method: "POST",
-      body: JSON.stringify({ password }),
-    });
-    setLogging(false);
-    if (ok) {
-      setAuthed(true);
-    } else {
-      setLoginErr("Wrong password — try again.");
+    setLoginErrors({});
+    try {
+      await loginSchema.validate({ password }, { abortEarly: false });
+      const { ok } = await apiFetch("/api/admin/login", {
+        method: "POST",
+        body: JSON.stringify({ password }),
+      });
+      setLogging(false);
+      if (ok) {
+        setAuthed(true);
+      } else {
+        setLoginErr("Wrong password — try again.");
+      }
+    } catch (validationErr: unknown) {
+      setLogging(false);
+      if (validationErr instanceof yup.ValidationError) {
+        const newErrors: Record<string, string> = {};
+        validationErr.inner.forEach((err) => {
+          if (err.path) {
+            newErrors[err.path] = err.message;
+          }
+        });
+        setLoginErrors(newErrors);
+      }
     }
   }
 
@@ -558,12 +729,17 @@ export default function AdminPage() {
                 {loginErr}
               </p>
             )}
-            <Field label="Password">
+            <Field label="Password" error={loginErrors.password}>
               <input
                 type="password"
                 className={INPUT}
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  if (loginErrors.password) {
+                    setLoginErrors({});
+                  }
+                }}
                 placeholder="Enter admin password"
                 autoFocus
                 autoComplete="current-password"

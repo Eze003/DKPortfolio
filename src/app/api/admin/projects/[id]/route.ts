@@ -16,7 +16,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
   const { id } = await params;
   const body = await req.json();
   const db = await getDb();
-  const repo = db.getRepository(ProjectEntity);
+  const repo = db.getRepository<ProjectEntity>("ProjectEntity");
 
   const existing = await repo.findOneBy({ id });
   if (!existing) {
@@ -34,7 +34,7 @@ export async function DELETE(_req: NextRequest, { params }: Params) {
 
   const { id } = await params;
   const db = await getDb();
-  const repo = db.getRepository(ProjectEntity);
+  const repo = db.getRepository<ProjectEntity>("ProjectEntity");
 
   const existing = await repo.findOneBy({ id });
   if (!existing) {

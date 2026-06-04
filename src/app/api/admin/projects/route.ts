@@ -12,7 +12,7 @@ export async function GET() {
   if (!(await isAdminAuthenticated())) return unauthorized();
   const db = await getDb();
   const projects = await db
-    .getRepository(ProjectEntity)
+    .getRepository<ProjectEntity>("ProjectEntity")
     .find({ order: { sortOrder: "ASC" } });
   return NextResponse.json(projects);
 }
@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
 
   const body = await req.json();
   const db = await getDb();
-  const repo = db.getRepository(ProjectEntity);
+  const repo = db.getRepository<ProjectEntity>("ProjectEntity");
 
   // Auto-assign sortOrder at end of list
   const maxOrder = await repo.maximum("sortOrder");

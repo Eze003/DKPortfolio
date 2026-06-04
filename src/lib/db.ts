@@ -50,7 +50,7 @@ export async function getDb(): Promise<DataSource> {
   global.__dataSource = ds;
 
   // Seed the database from static data if empty
-  const repo = ds.getRepository(ProjectEntity);
+  const repo = ds.getRepository<ProjectEntity>("ProjectEntity");
   const count = await repo.count();
   if (count === 0) {
     const entities = staticProjects.map((p, idx) => {
