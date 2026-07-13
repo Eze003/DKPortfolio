@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -37,7 +38,7 @@ function InstagramIcon() {
       style={{ background: "radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%)" }}
     >
       <svg viewBox="0 0 24 24" className="h-5 w-5 fill-white" aria-hidden>
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
       </svg>
     </div>
   );
@@ -47,7 +48,7 @@ function WhatsappIcon() {
   return (
     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#25D366] shadow-sm">
       <svg viewBox="0 0 24 24" className="h-6 w-6 fill-white" aria-hidden>
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
       </svg>
     </div>
   );
@@ -57,7 +58,7 @@ function XTwitterIcon() {
   return (
     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-black border border-zinc-700 shadow-sm">
       <svg viewBox="0 0 24 24" className="h-5 w-5 fill-white" aria-hidden>
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
       </svg>
     </div>
   );
@@ -67,7 +68,7 @@ function PinterestIcon() {
   return (
     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#E60023] shadow-sm">
       <svg viewBox="0 0 24 24" className="h-6 w-6 fill-white" aria-hidden>
-        <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z"/>
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 01.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.632-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0z" />
       </svg>
     </div>
   );
@@ -77,28 +78,28 @@ function BehanceIcon() {
   return (
     <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#053eff] shadow-sm">
       <svg viewBox="0 0 24 24" className="h-5 w-5 fill-white" aria-hidden>
-        <path d="M6.938 4.503c.702 0 1.34.06 1.92.188.577.13 1.07.33 1.485.61.41.28.733.65.96 1.12.225.47.34 1.05.34 1.73 0 .74-.17 1.36-.507 1.86-.338.5-.837.9-1.502 1.22.906.26 1.576.72 2.022 1.37.448.66.665 1.45.665 2.36 0 .75-.14 1.39-.42 1.93-.28.55-.67 1.01-1.16 1.36-.49.36-1.06.62-1.7.78-.64.17-1.31.25-2.02.25H0V4.503h6.938zm-.54 5.88c.54 0 .98-.13 1.32-.4.34-.26.51-.67.51-1.22 0-.3-.06-.56-.16-.76-.11-.2-.26-.36-.45-.48-.19-.12-.41-.21-.65-.26-.25-.05-.51-.07-.78-.07H3.16v3.19h3.24zm.15 6.15c.29 0 .57-.03.83-.09.26-.06.49-.16.69-.3.2-.14.36-.33.48-.57.12-.24.18-.54.18-.9 0-.72-.2-1.23-.6-1.55-.4-.31-.93-.47-1.59-.47H3.16v3.88h3.39zm11.17-9.3c-1.35 0-2.47.36-3.38 1.09-.91.73-1.4 1.82-1.47 3.28h7.8c-.1-1.49-.55-2.58-1.39-3.28-.83-.69-1.82-1.09-1.56-.09zM24 13.15c0 .07-.01.17-.02.29h-7.23c.12.74.42 1.28.91 1.64.49.36 1.1.54 1.81.54.65 0 1.2-.14 1.65-.42.44-.28.71-.56.81-.84h2.79c-.38 1.15-1.02 2.03-1.93 2.66-.91.62-2 .94-3.27.94-1.77 0-3.19-.55-4.28-1.64-1.09-1.09-1.63-2.59-1.63-4.5 0-1.88.53-3.37 1.61-4.48 1.07-1.1 2.49-1.65 4.25-1.65 1.74 0 3.14.56 4.22 1.67C23.49 8.49 24 10.55 24 13.15zm-6.29-6.18h-4.84v1.46h4.84V6.97z"/>
+        <path d="M6.938 4.503c.702 0 1.34.06 1.92.188.577.13 1.07.33 1.485.61.41.28.733.65.96 1.12.225.47.34 1.05.34 1.73 0 .74-.17 1.36-.507 1.86-.338.5-.837.9-1.502 1.22.906.26 1.576.72 2.022 1.37.448.66.665 1.45.665 2.36 0 .75-.14 1.39-.42 1.93-.28.55-.67 1.01-1.16 1.36-.49.36-1.06.62-1.7.78-.64.17-1.31.25-2.02.25H0V4.503h6.938zm-.54 5.88c.54 0 .98-.13 1.32-.4.34-.26.51-.67.51-1.22 0-.3-.06-.56-.16-.76-.11-.2-.26-.36-.45-.48-.19-.12-.41-.21-.65-.26-.25-.05-.51-.07-.78-.07H3.16v3.19h3.24zm.15 6.15c.29 0 .57-.03.83-.09.26-.06.49-.16.69-.3.2-.14.36-.33.48-.57.12-.24.18-.54.18-.9 0-.72-.2-1.23-.6-1.55-.4-.31-.93-.47-1.59-.47H3.16v3.88h3.39zm11.17-9.3c-1.35 0-2.47.36-3.38 1.09-.91.73-1.4 1.82-1.47 3.28h7.8c-.1-1.49-.55-2.58-1.39-3.28-.83-.69-1.82-1.09-1.56-.09zM24 13.15c0 .07-.01.17-.02.29h-7.23c.12.74.42 1.28.91 1.64.49.36 1.1.54 1.81.54.65 0 1.2-.14 1.65-.42.44-.28.71-.56.81-.84h2.79c-.38 1.15-1.02 2.03-1.93 2.66-.91.62-2 .94-3.27.94-1.77 0-3.19-.55-4.28-1.64-1.09-1.09-1.63-2.59-1.63-4.5 0-1.88.53-3.37 1.61-4.48 1.07-1.1 2.49-1.65 4.25-1.65 1.74 0 3.14.56 4.22 1.67C23.49 8.49 24 10.55 24 13.15zm-6.29-6.18h-4.84v1.46h4.84V6.97z" />
       </svg>
     </div>
   );
 }
 
 export function LandingPage() {
+  const [orbitRadius, setOrbitRadius] = useState(380);
+
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      if (w < 480) setOrbitRadius(240);
+      else if (w < 768) setOrbitRadius(320);
+      else setOrbitRadius(420);
+    };
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
+  }, []);
+
   const tools = [
-    {
-      icon: (
-        <div className="flex items-center justify-center w-9 h-9 bg-zinc-900 text-sm font-black rounded-lg border border-amber-500/30 text-amber-400 select-none shadow-sm shrink-0">
-          Ai
-        </div>
-      ),
-    },
-    {
-      icon: (
-        <div className="flex items-center justify-center w-9 h-9 bg-zinc-900 text-sm font-black rounded-lg border border-blue-500/30 text-blue-400 select-none shadow-sm shrink-0">
-          Ps
-        </div>
-      ),
-    },
     {
       icon: (
         <span className="font-bold text-base tracking-tight bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400 bg-clip-text text-transparent select-none shrink-0">
@@ -109,8 +110,24 @@ export function LandingPage() {
     {
       icon: (
         <div className="flex items-center gap-1.5 shrink-0">
+          <SiFigma className="w-5 h-5 text-[#0acf83]" />
+          <span className="text-sm font-semibold text-zinc-300">Figma</span>
+        </div>
+      ),
+    },
+    {
+      icon: (
+        <div className="flex items-center gap-1.5 shrink-0">
           <SiAsana className="w-5 h-5 text-[#fc636b]" />
           <span className="text-sm font-semibold text-zinc-300">asana</span>
+        </div>
+      ),
+    },
+    {
+      icon: (
+        <div className="flex items-center gap-1.5 shrink-0">
+          <SiSlack className="w-5 h-5 text-[#3eb991]" />
+          <span className="text-sm font-semibold text-zinc-300">Slack</span>
         </div>
       ),
     },
@@ -132,9 +149,10 @@ export function LandingPage() {
     },
     {
       icon: (
-        <span className="text-sm font-black tracking-wider text-zinc-400 border border-zinc-700/60 rounded-lg px-2 py-1 bg-zinc-900/80 select-none shrink-0">
-          AI +
-        </span>
+        <div className="flex items-center gap-1.5 shrink-0">
+          <SiSpotify className="w-5 h-5 text-[#1ed760]" />
+          <span className="text-sm font-semibold text-zinc-300">Spotify</span>
+        </div>
       ),
     },
   ];
@@ -222,41 +240,82 @@ export function LandingPage() {
           </div>
         </section>
 
-        {/* ── Curved Arc Orbit ── */}
-        {/* Full-width breakout: items orbit on a large circle, only top arc visible */}
-        <div className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden mt-10" style={{ height: '230px' }}>
-          {/* Centering wrapper – center of circle sits 380px below container top */}
+        {/* ── Spinning Circle Arc ── */}
+        {/*
+          The circle center sits below the visible container.
+          Only the top arc is revealed through overflow-hidden.
+          The banner track and the tools rotate together as a single curved banner.
+          Each tool tilts to follow the curvature of the banner perfectly.
+        */}
+        <div
+          className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden mt-16"
+          style={{ height: `${Math.round(orbitRadius * 0.42)}px` }}
+        >
+          {/* Rotating elements container */}
           <div
             style={{
               position: 'absolute',
               left: '50%',
-              top: '380px',   /* center of orbit wheel */
+              top: `${Math.round(orbitRadius * 1.0)}px`,
+              width: 0,
+              height: 0,
               transform: 'translateX(-50%)',
-              width: '0px',
-              height: '0px',
             }}
           >
-            {/* Spinning wheel */}
-            <div className="animate-orbit-spin" style={{ position: 'relative', width: '0', height: '0' }}>
-              {[...tools, ...tools, ...tools, ...tools].map((tool, idx) => {
-                const total = tools.length * 4;
-                const angle = (idx / total) * 360; // evenly around circle
-                const radius = 440; // px – arc diameter
+            {/* The Spinning Wheel (Rotates as a single cohesive unit) */}
+            <div
+              className="animate-orbit-spin"
+              style={{
+                position: 'relative',
+                width: 0,
+                height: 0,
+              }}
+            >
+              {/* Rotating Curved Banner Track (Subtle dark glass ribbon) */}
+              <div
+                style={{
+                  position: 'absolute',
+                  left: '50%',
+                  top: '50%',
+                  width: `${orbitRadius * 2}px`,
+                  height: `${orbitRadius * 2}px`,
+                  transform: 'translate(-50%, -50%)',
+                  borderRadius: '50%',
+                  boxSizing: 'border-box',
+                  border: '52px solid rgba(18, 18, 22, 0.75)',
+                  borderColor: 'rgba(255, 255, 255, 0.03) rgba(18, 18, 22, 0.75) rgba(18, 18, 22, 0.75) rgba(18, 18, 22, 0.75)',
+                  boxShadow: 'inset 0 0 12px rgba(0, 0, 0, 0.8), 0 4px 15px rgba(0, 0, 0, 0.6)',
+                  pointerEvents: 'none',
+                }}
+              />
+
+              {/* 2 copies of tools — 14 items spread around the 360° circle */}
+              {[...tools, ...tools].map((tool, idx) => {
+                const total = tools.length * 2;
+                const angle = (idx / total) * 360;
                 return (
                   <div
-                    key={`arc-${idx}`}
+                    key={`orbit-${idx}`}
                     style={{
                       position: 'absolute',
-                      width: '60px',
-                      height: '60px',
-                      top: '0px',
-                      left: '0px',
-                      transform: `rotate(${angle}deg) translateY(-${radius}px) translateX(-50%)`,
+                      width: 0,
+                      height: 0,
+                      left: 0,
+                      top: 0,
+                      transform: `rotate(${angle}deg)`,
                     }}
                   >
-                    {/* Items tilt with the arc — no counter-rotation for organic feel */}
-                    <div style={{ opacity: 0.35, transform: 'scale(0.88)' }}>
-                      {tool.icon}
+                    {/* Arm: push item outward along the rotated axis to sit on the banner center */}
+                    <div
+                      style={{
+                        position: 'absolute',
+                        transform: `translateY(-${orbitRadius - 26}px) translateX(-50%)`,
+                      }}
+                    >
+                      {/* No counter-rotation — items tilt/curve along with the banner! */}
+                      <div className="flex items-center justify-center text-white px-2 select-none whitespace-nowrap">
+                        {tool.icon}
+                      </div>
                     </div>
                   </div>
                 );
@@ -265,23 +324,23 @@ export function LandingPage() {
           </div>
         </div>
 
-        {/* ── Divider ── */}
-        <div className="w-full h-[1px] bg-[#10b981]/20 my-14" />
-
         {/* ── Statement Section ── */}
-        <section className="w-full max-w-4xl">
+        <section className="w-full max-w-2xl mt-2 text-center sm:text-left mx-auto sm:mx-0">
           <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold tracking-tight text-white leading-snug">
             Crafting incredible, impactful, satisfactory designs, brand
             identities and many more...
           </h3>
-          <p className="mt-4 text-zinc-500 text-xs sm:text-sm leading-relaxed max-w-3xl">
+          <p className="mt-4 text-zinc-500 text-xs sm:text-sm leading-relaxed">
             Design is not just about pictures, words, logo, color and
-            typography, it is a way of telling a brand's story, communicating
+            typography, it is a way of telling a brand&apos;s story, communicating
             ideas, identifying real problems and providing solutions to those
             who needs it. Crafting and curating Memorable designs and branding
-            is what I do very well....
+            is what I do very well.... on mobile too
           </p>
         </section>
+
+        {/* ── Divider ── */}
+        <div className="w-full h-[1px] bg-[#10b981]/20 my-14" />
 
         {/* ── Client Brands ── */}
         <div className="mt-10 grid grid-cols-3 sm:grid-cols-6 gap-6 justify-items-center items-center opacity-20">

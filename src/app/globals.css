@@ -262,5 +262,6 @@ body {
 }
 
 .animate-orbit-spin {
-  animation: orbit-spin 40s linear infinite;
+  animation: orbit-spin 30s linear infinite;
+  will-change: transform;
 }
