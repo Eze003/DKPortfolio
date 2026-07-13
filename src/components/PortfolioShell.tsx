@@ -1,13 +1,14 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { type Project } from "@/data/projects";
-import { DesktopIconGrid } from "@/components/DesktopIconGrid";
 import { Dock } from "@/components/Dock";
 import { HelloIntro } from "@/components/HelloIntro";
 import { HeroLogo } from "@/components/HeroLogo";
 import { ProjectWindow } from "@/components/ProjectWindow";
+import { BookServiceButton } from "@/components/BookServiceButton";
 
 export function PortfolioShell() {
   const router = useRouter();
@@ -148,10 +149,47 @@ export function PortfolioShell() {
         }`}
         aria-hidden={!showDesktop || isDetailOpen}
       >
-        <div className="pointer-events-none flex min-h-[30vh] items-center justify-center pt-4 sm:min-h-[calc(100dvh-8rem)] sm:pb-32 sm:pt-8">
+        <div className="absolute right-3 top-3 z-20 flex flex-wrap items-center gap-2 sm:right-6 sm:top-6">
+          <Link
+            href="/portfolio"
+            className="rounded-full border border-[#fc3f1d]/30 bg-black/45 px-3 py-2 text-sm font-medium text-white backdrop-blur transition hover:border-[#fc3f1d] hover:bg-[#fc3f1d]/15"
+          >
+            See My Work
+          </Link>
+          <Link
+            href="/my-catalog"
+            className="rounded-full border border-[#fc3f1d]/30 bg-black/45 px-3 py-2 text-sm font-medium text-white backdrop-blur transition hover:border-[#fc3f1d] hover:bg-[#fc3f1d]/15"
+          >
+            My Catalog
+          </Link>
+          <BookServiceButton className="px-3 py-2 text-sm" />
+        </div>
+
+        <div className="pointer-events-none flex min-h-[30vh] items-center justify-center pt-4 sm:min-h-[calc(100dvh-8rem)] sm:pt-8">
           <HeroLogo />
         </div>
-        <DesktopIconGrid projects={dbProjects} onOpen={openProject} isLoading={isLoading} />
+
+        <div className="mx-auto flex max-w-4xl flex-col items-center px-6 pb-16 text-center sm:px-8">
+          <div className="rounded-full border border-[#fc3f1d]/20 bg-[#fc3f1d]/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.35em] text-[#fc3f1d]">
+            Creative direction • motion • branding
+          </div>
+          <h2 className="mt-5 max-w-3xl text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-5xl">
+            Crafted visuals for launches, identities, and digital stories.
+          </h2>
+          <p className="mt-4 max-w-2xl text-sm leading-8 text-zinc-400 sm:text-base">
+            A polished, modern portfolio experience built around your work, your
+            tone, and your next opportunity.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+            <Link
+              href="/portfolio"
+              className="rounded-full bg-[#fc3f1d] px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-[#ff5a2d]"
+            >
+              See my work
+            </Link>
+            <BookServiceButton className="px-5 py-2.5 text-sm" />
+          </div>
+        </div>
       </main>
 
       {activeProject && showDesktop && (
@@ -167,14 +205,18 @@ export function PortfolioShell() {
           <button
             type="button"
             className={`fixed inset-0 bg-black/25 backdrop-blur-md backdrop-saturate-150 transition-opacity duration-300 ${
-              isWindowOpen && !isMaximized ? "opacity-100" : "opacity-0 pointer-events-none"
+              isWindowOpen && !isMaximized
+                ? "opacity-100"
+                : "opacity-0 pointer-events-none"
             }`}
             onClick={handleClose}
             aria-label="Close project"
           />
           <div
             className={`relative z-10 w-full transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${
-              isWindowOpen ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-90 translate-y-12"
+              isWindowOpen
+                ? "opacity-100 scale-100 translate-y-0"
+                : "opacity-0 scale-90 translate-y-12"
             } ${isMaximized ? "h-full flex flex-col" : ""}`}
           >
             <ProjectWindow

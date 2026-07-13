@@ -1,10 +1,10 @@
 import { Suspense } from "react";
-import { PortfolioShell } from "@/components/PortfolioShell";
+import { LandingPage } from "@/components/LandingPage";
 
 export default function Home() {
   return (
     <Suspense fallback={<div className="min-h-dvh bg-black" />}>
-      <PortfolioShell />
+      <LandingPage />
     </Suspense>
   );
 }

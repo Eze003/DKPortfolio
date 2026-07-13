@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { Dancing_Script, Geist, Geist_Mono } from "next/font/google";
+import { Dancing_Script, Outfit, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { GlobalHeader } from "@/components/GlobalHeader";
 
 const helloScript = Dancing_Script({
   variable: "--font-hello",
@@ -8,8 +9,8 @@ const helloScript = Dancing_Script({
   weight: ["400", "700"],
 });
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const outfit = Outfit({
+  variable: "--font-outfit",
   subsets: ["latin"],
 });
 
@@ -31,9 +32,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${helloScript.variable} h-full antialiased`}
+      className={`${outfit.variable} ${geistMono.variable} ${helloScript.variable} h-full antialiased`}
     >
-      <body className="min-h-full bg-black font-sans">{children}</body>
+      <body className="min-h-full bg-black font-sans">
+        <GlobalHeader />
+        {children}
+      </body>
     </html>
   );
 }
+
