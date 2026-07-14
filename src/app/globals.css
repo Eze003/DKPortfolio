@@ -1,30 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 @config "../../tailwind.config.ts";
 
 :root {
   --background: #050505;
-  --foreground: #f5f5f5;
-
-  /* Desktop icon/cell dimensions — overridden for mobile below */
-  --desktop-icon-size: 72px;
+  --foreground: #f5ede8;
+  --primary: #0886fd;
   --desktop-cell-width: 88px;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-outfit);
+  --color-primary-50: #eef8ff;
+  --color-primary-100: #d6eeff;
+  --color-primary-200: #b3e0ff;
+  --color-primary-300: #7fd0ff;
+  --color-primary-400: #44b4ff;
+  --color-primary-500: #0886fd;
+  --color-primary-600: #066fce;
+  --color-primary-700: #0558a9;
+  --color-primary-800: #084783;
+  --color-primary-900: #0b315e;
+  --color-primary-950: #08233d;
+  --font-sans: "DM Sans", "DM Sans Placeholder", sans-serif;
   --font-mono: var(--font-geist-mono);
 }
 
 html {
   color-scheme: dark;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-outfit), system-ui, sans-serif;
+  font-family: "DM Sans", "DM Sans Placeholder", sans-serif;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 /* Diagonal light sweep from top-right toward bottom-left */
@@ -133,7 +147,10 @@ body {
 .desktop-grid {
   display: grid;
   grid-auto-flow: row;
-  grid-template-columns: repeat(auto-fill, minmax(var(--desktop-cell-width), 1fr));
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(var(--desktop-cell-width), 1fr)
+  );
   justify-items: center;
   gap: 1rem 0.75rem;
   overflow-y: auto;
@@ -205,9 +222,18 @@ body {
 
 /* ─── Minimized dock icon entrance ─────────────────────────────── */
 @keyframes dock-pop-in {
-  0%   { transform: scale(0.2); opacity: 0; }
-  65%  { transform: scale(1.15); opacity: 1; }
-  100% { transform: scale(1); opacity: 1; }
+  0% {
+    transform: scale(0.2);
+    opacity: 0;
+  }
+  65% {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 .dock-minimized-icon {
@@ -216,7 +242,14 @@ body {
 
 /* ─── Landing Page Utilities ─────────────────────────────────────── */
 .text-metallic {
-  background: linear-gradient(135deg, #ffffff 15%, #cbd5e1 45%, #ffffff 60%, #94a3b8 80%, #f8fafc 100%);
+  background: linear-gradient(
+    135deg,
+    #ffffff 15%,
+    #cbd5e1 45%,
+    #ffffff 60%,
+    #94a3b8 80%,
+    #f8fafc 100%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -224,15 +257,20 @@ body {
 }
 
 .green-glow-bg {
-  background: radial-gradient(circle at center, rgba(16, 185, 129, 0.15) 0%, rgba(6, 95, 70, 0.04) 45%, transparent 70%);
+  background: radial-gradient(
+    circle at center,
+    rgba(8, 134, 253, 0.15) 0%,
+    rgba(6, 73, 95, 0.04) 45%,
+    transparent 70%
+  );
 }
 
 .text-green-accent {
-  color: #10b981;
+  color: #0886FD;
 }
 
 .border-green-accent {
-  border-color: rgba(16, 185, 129, 0.2);
+  border-color: rgba(8, 134, 253, 0.2);
 }
 
 /* ─── Scrolling Marquee Animation ────────────────────────────────── */
@@ -242,6 +280,26 @@ body {
   }
   100% {
     transform: translateX(-50%);
+  }
+}
+
+@keyframes overlay-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
@@ -257,11 +315,26 @@ body {
 
 /* ─── Orbit Arc Animation ─────────────────────────────────────────── */
 @keyframes orbit-spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .animate-orbit-spin {
   animation: orbit-spin 30s linear infinite;
   will-change: transform;
+}
+
+/* ─── Radix Dialog Animations ─────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes dialogIn {
+  from { opacity: 0; transform: translate(-50%, -48%) scale(0.96); }
+  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }

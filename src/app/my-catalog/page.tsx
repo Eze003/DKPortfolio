@@ -18,7 +18,7 @@ const catalogItems = [
 
 export default function MyCatalogPage() {
   return (
-    <main className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(16,185,129,0.14),_transparent_50%),linear-gradient(135deg,_#060606,_#111111)] px-4 py-10 text-white sm:px-6 lg:px-10">
+    <main className="min-h-screen bg-[radial-gradient(circle_at_top,_rgba(77,134,255,0.14),_transparent_50%),linear-gradient(135deg,_#060606,_#111111)] px-4 py-10 text-white sm:px-6 lg:px-10">
       <div className="mx-auto flex max-w-6xl flex-col gap-8">
         <nav className="flex items-center justify-between">
           <Link
@@ -32,7 +32,7 @@ export default function MyCatalogPage() {
 
         <section className="grid gap-6 rounded-[32px] border border-white/10 bg-black/40 p-6 shadow-2xl shadow-black/30 backdrop-blur-xl sm:p-10">
           <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.35em] text-[#10b981]">
+            <p className="text-sm font-semibold uppercase tracking-[0.35em] text-[#0886FD]">
               My catalog
             </p>
             <h1 className="mt-4 text-4xl font-semibold sm:text-5xl">

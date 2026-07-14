@@ -34,7 +34,7 @@ function DockMotionsGaadIcon({ size }: { size: number }) {
   return (
     <span
       style={{ width: size, height: size, fontSize: size * 0.45 }}
-      className="flex shrink-0 items-center justify-center rounded-[9px] bg-[#fc3f1d] font-bold leading-none text-black"
+      className="flex shrink-0 items-center justify-center rounded-[9px] bg-[#0886FD] font-bold leading-none text-black"
       aria-hidden
     >
       M
@@ -102,7 +102,13 @@ function DockIcon({ item, size }: { item: DockItem; size: number }) {
   }
 }
 
-function MinimizedProjectDockIcon({ project, size }: { project: Project; size: number }) {
+function MinimizedProjectDockIcon({
+  project,
+  size,
+}: {
+  project: Project;
+  size: number;
+}) {
   const isFolder = project.kind === "folder";
   const TILE_CLASS =
     "relative shrink-0 overflow-hidden rounded-[9px] shadow-sm ring-1 ring-white/10 flex items-center justify-center";
@@ -221,9 +227,9 @@ export function Dock({
                 isMobile
                   ? undefined
                   : {
-                    transform: `translateY(${((scales[index] ?? 1) - 1) * -24}px) scale(${scales[index] ?? 1})`,
-                    transformOrigin: "bottom center",
-                  }
+                      transform: `translateY(${((scales[index] ?? 1) - 1) * -24}px) scale(${scales[index] ?? 1})`,
+                      transformOrigin: "bottom center",
+                    }
               }
               aria-label={item.label}
             >
@@ -245,7 +251,10 @@ export function Dock({
 
         {minimizedProjects.length > 0 && (
           <>
-            <div className="h-8 w-px bg-white/20 self-center mx-1" aria-hidden />
+            <div
+              className="h-8 w-px bg-white/20 self-center mx-1"
+              aria-hidden
+            />
             {minimizedProjects.map((project, idx) => {
               const globalIndex = dockItems.length + idx;
               const isHovered = hoveredId === project.id;
@@ -272,9 +281,9 @@ export function Dock({
                       isMobile
                         ? undefined
                         : {
-                          transform: `translateY(${((scales[globalIndex] ?? 1) - 1) * -24}px) scale(${scales[globalIndex] ?? 1})`,
-                          transformOrigin: "bottom center",
-                        }
+                            transform: `translateY(${((scales[globalIndex] ?? 1) - 1) * -24}px) scale(${scales[globalIndex] ?? 1})`,
+                            transformOrigin: "bottom center",
+                          }
                     }
                     aria-label={`Restore ${project.label}`}
                   >
@@ -289,7 +298,10 @@ export function Dock({
                         {project.label}
                       </span>
                     )}
-                    <MinimizedProjectDockIcon project={project} size={baseSize} />
+                    <MinimizedProjectDockIcon
+                      project={project}
+                      size={baseSize}
+                    />
                   </button>
                   <span className="absolute -bottom-1 h-1 w-1 rounded-full bg-white animate-pulse" />
                 </li>

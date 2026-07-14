@@ -1,7 +1,9 @@
-import type { Metadata } from "next";
+import AdminProviders from "@/components/admin/AdminProviders";
+import AdminLayoutContent from "@/components/admin/AdminLayoutContent";
 
-export const metadata: Metadata = {
-  title: "Admin — MotionsGaad",
+export const metadata = {
+  title: "MotionsGaad Admin Studio",
+  description: "Management dashboard for MotionsGaad Portfolio",
   robots: { index: false, follow: false },
 };
 
@@ -10,5 +12,11 @@ export default function AdminLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <AdminProviders>
+      <AdminLayoutContent>
+        {children}
+      </AdminLayoutContent>
+    </AdminProviders>
+  );
 }

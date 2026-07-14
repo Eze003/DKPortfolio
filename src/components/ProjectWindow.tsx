@@ -57,16 +57,27 @@ function GalleryImage({
   showInstagram?: boolean;
   instagramUrl?: string;
 }) {
+  const isVideo = image.src ? (/\.(mp4|mov|webm|ogg|avi)$/i.test(image.src) || image.src.includes("/video/")) : false;
+
   return (
     <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-zinc-100 sm:rounded-3xl">
       {image.src ? (
-        <Image
-          src={image.src}
-          alt={image.alt}
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, 50vw"
-        />
+        isVideo ? (
+          <video
+            src={image.src}
+            controls
+            playsInline
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <Image
+            src={image.src}
+            alt={image.alt}
+            fill
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 50vw"
+          />
+        )
       ) : (
         <div
           className={`h-full w-full ${image.placeholderClassName ?? "bg-zinc-200"}`}
@@ -79,7 +90,7 @@ function GalleryImage({
           href={instagramUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="glass-pill absolute bottom-3 right-3 rounded-full px-3 py-1 text-xs font-medium text-black transition hover:bg-white/95"
+          className="glass-pill absolute bottom-3 right-3 rounded-full px-3 py-1 text-xs font-medium text-black transition hover:bg-white/95 z-10"
         >
           Instagram
         </Link>
@@ -96,7 +107,6 @@ export function ProjectWindow({
   isMaximized,
 }: ProjectWindowProps) {
   const { detail } = project;
-  const [first, second] = detail.gallery;
 
   return (
     <div
@@ -151,16 +161,18 @@ export function ProjectWindow({
           </p>
         )}
 
-        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
-          {first && (
-            <GalleryImage
-              image={first}
-              showInstagram
-              instagramUrl={detail.instagramUrl}
-            />
-          )}
-          {second && <GalleryImage image={second} />}
-        </div>
+        {detail.gallery && detail.gallery.length > 0 && (
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5">
+            {detail.gallery.map((img, idx) => (
+              <GalleryImage
+                key={idx}
+                image={img}
+                showInstagram={idx === 0}
+                instagramUrl={detail.instagramUrl}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
