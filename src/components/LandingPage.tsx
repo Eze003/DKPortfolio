@@ -235,17 +235,16 @@ export function LandingPage() {
             <div className="absolute inset-[-20px] rounded-[40%_60%_55%_45%/50%_45%_55%_50%] bg-[radial-gradient(ellipse_at_center,rgba(8,134,253,0.22)_0%,rgba(8,134,253,0.08)_50%,transparent_70%)] blur-[30px] -z-10" />
 
             <Image
-              src="/ivan_avatar.png"
+              src="/avatar.png"
               alt="Dike Character Avatar"
               fill
               className="object-contain drop-shadow-[0_16px_32px_rgba(0,0,0,0.8)] select-none"
               priority
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
             {/* RENCE / DIKE overlay on chest */}
             <div className="absolute bottom-8 left-0 right-0 flex flex-col items-center pointer-events-none">
-              <span className="text-[#0886FD] tracking-[0.55em] text-[9px] font-black uppercase drop-shadow">
-                R E N C E
-              </span>
+
               <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tighter text-metallic -mt-1 select-none">
                 DIKE
               </h1>
