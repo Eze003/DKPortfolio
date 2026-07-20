@@ -95,19 +95,6 @@ function BehanceIcon() {
 
 export function LandingPage() {
   const [isPlayModalOpen, setIsPlayModalOpen] = useState(false);
-  const [orbitRadius, setOrbitRadius] = useState(380);
-
-  useEffect(() => {
-    const update = () => {
-      const w = window.innerWidth;
-      if (w < 480) setOrbitRadius(215);
-      else if (w < 768) setOrbitRadius(290);
-      else setOrbitRadius(385);
-    };
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
 
   const tools = [
     {
@@ -174,6 +161,9 @@ export function LandingPage() {
     { icon: <SiFigma className="w-7 h-7" />, name: "Figma" },
     { icon: <FaMicrosoft className="w-6 h-6" />, name: "Microsoft" },
     { icon: <SiGoogle className="w-6 h-6" />, name: "Google" },
+    { icon: <SiDropbox className="w-7 h-7" />, name: "Dropbox" },
+    { icon: <SiAirtable className="w-7 h-7" />, name: "Airtable" },
+    { icon: <SiAsana className="w-7 h-7" />, name: "Asana" },
   ];
 
   const coreServices = [
@@ -220,118 +210,62 @@ export function LandingPage() {
   ];
 
   return (
-    <div className="relative min-h-screen w-full bg-[#030303] text-white selection:bg-[#0886FD]/30 overflow-x-hidden font-sans pb-20">
+    <div className="relative w-full bg-[#030303] text-white selection:bg-[#0886FD]/30 overflow-hidden font-sans pb-20">
       {/* Background Radial Glow Blobs for Glassmorphism */}
-      <div className="pointer-events-none absolute left-1/2 top-[22%] -z-10 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0886FD]/15 blur-[100px] sm:h-[800px] sm:w-[800px]" />
-      <div className="pointer-events-none absolute left-[-10%] top-[45%] -z-10 h-[500px] w-[500px] rounded-full bg-[#0886FD]/10 blur-[100px]" />
-      <div className="pointer-events-none absolute right-[-10%] top-[70%] -z-10 h-[500px] w-[500px] rounded-full bg-violet-600/8 blur-[110px]" />
+      <div className="pointer-events-none absolute left-1/2 top-[22%] -z-10 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0886FD]/25 blur-[80px] sm:h-[800px] sm:w-[800px]" />
+      <div className="pointer-events-none absolute left-[-10%] top-[45%] -z-10 h-[500px] w-[500px] rounded-full bg-[#0886FD]/20 blur-[80px]" />
+      <div className="pointer-events-none absolute right-[-10%] top-[70%] -z-10 h-[500px] w-[500px] rounded-full bg-violet-600/15 blur-[80px]" />
+      <div className="pointer-events-none absolute left-[10%] top-[85%] -z-10 h-[400px] w-[400px] rounded-full bg-[#0886FD]/20 blur-[70px]" />
+      <div className="pointer-events-none absolute right-[5%] top-[35%] -z-10 h-[350px] w-[350px] rounded-full bg-[#0886FD]/15 blur-[60px]" />
+      <div className="pointer-events-none absolute left-1/2 bottom-[10%] -z-10 h-[450px] w-[450px] -translate-x-1/2 rounded-full bg-[#0886FD]/20 blur-[80px]" />
 
       {/* ── Main Content ── */}
       <main className="mx-auto max-w-4xl px-4 sm:px-6 pt-10 sm:pt-12">
+
         {/* ── Hero Section (Centered Avatar with Text Overlay) ── */}
-        <section className="flex flex-col items-center justify-center w-full py-4 text-center">
-          <div className="relative w-[240px] h-[260px] sm:w-[280px] sm:h-[300px] md:w-[320px] md:h-[340px]">
-            {/* Soft backdrop glow */}
-            <div className="absolute inset-[-20px] rounded-[40%_60%_55%_45%/50%_45%_55%_50%] bg-[radial-gradient(ellipse_at_center,rgba(8,134,253,0.22)_0%,rgba(8,134,253,0.08)_50%,transparent_70%)] blur-[30px] -z-10" />
+        <section className="relative z-0 flex flex-col items-center justify-center w-full text-center">
+          <div className="relative z-10 w-[300px] h-[340px] sm:w-[360px] sm:h-[400px] md:w-[400px] md:h-[440px]">
+            {/* Soft backdrop glow + primary color shadow */}
+            <div className="absolute inset-[-30px] rounded-[40%_60%_55%_45%/50%_45%_55%_50%] bg-[radial-gradient(ellipse_at_center,rgba(8,134,253,0.35)_0%,rgba(8,134,253,0.14)_50%,transparent_72%)] blur-[38px] -z-10" />
 
             <Image
               src="/avatar.png"
               alt="Dike Character Avatar"
               fill
-              className="object-contain drop-shadow-[0_16px_32px_rgba(0,0,0,0.8)] select-none"
+              className="object-contain drop-shadow-[0_20px_40px_rgba(8,134,253,0.35)] select-none"
               priority
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
             {/* RENCE / DIKE overlay on chest */}
-            <div className="absolute bottom-8 left-0 right-0 flex flex-col items-center pointer-events-none">
+            <div className="absolute bottom-6 left-0 right-0 flex flex-col items-center pointer-events-none">
 
-              <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tighter text-metallic -mt-1 select-none">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tighter text-metallic -mt-1 select-none">
                 DIKE
               </h1>
             </div>
           </div>
         </section>
 
-        {/* ── Spinning Circle Arc ── */}
+        {/* ── Tools Banner ── */}
         <div
-          className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden mt-2 mb-0 z-10"
-          style={{ height: `${Math.round(orbitRadius * 0.42)}px` }}
+          className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden z-50 -mt-6 bg-zinc-900/80 backdrop-blur-sm flex items-center"
+          style={{ height: '36px' }}
         >
-          {/* Rotating elements container */}
-          <div
-            style={{
-              position: "absolute",
-              left: "50%",
-              top: `${Math.round(orbitRadius * 1.0)}px`,
-              width: 0,
-              height: 0,
-              transform: "translateX(-50%)",
-            }}
-          >
-            {/* The Spinning Wheel (Rotates as a single cohesive unit) */}
-            <div
-              className="animate-orbit-spin"
-              style={{
-                position: "relative",
-                width: 0,
-                height: 0,
-              }}
-            >
-              {/* Rotating Curved Banner Track (Subtle dark glass ribbon) */}
+          <div className="animate-marquee flex items-center whitespace-nowrap" style={{ width: 'max-content' }}>
+            {[...tools, ...tools].map((tool, idx) => (
               <div
-                style={{
-                  position: 'absolute',
-                  left: '50%',
-                  top: '50%',
-                  width: `${orbitRadius * 2}px`,
-                  height: `${orbitRadius * 2}px`,
-                  transform: 'translate(-50%, -50%)',
-                  borderRadius: '50%',
-                  boxSizing: 'border-box',
-                  border: '36px solid rgba(255, 255, 255, 0.04)',
-                  borderColor: 'rgba(255, 255, 255, 0.01) rgba(255, 255, 255, 0.04) rgba(255, 255, 255, 0.04) rgba(255, 255, 255, 0.04)',
-                  boxShadow: 'inset 0 0 8px rgba(0, 0, 0, 0.8), 0 3px 10px rgba(0, 0, 0, 0.6)',
-                  pointerEvents: 'none',
-                }}
-              />
-
-              {/* 2 copies of tools — 14 items spread around the 360° circle */}
-              {[...tools, ...tools].map((tool, idx) => {
-                const total = tools.length * 2;
-                const angle = (idx / total) * 360;
-                return (
-                  <div
-                    key={`orbit-${idx}`}
-                    style={{
-                      position: "absolute",
-                      width: 0,
-                      height: 0,
-                      left: 0,
-                      top: 0,
-                      transform: `rotate(${angle}deg)`,
-                    }}
-                  >
-                    {/* Arm: push item outward along the rotated axis to sit on the banner center */}
-                    <div
-                      style={{
-                        position: "absolute",
-                        transform: `translateY(-${orbitRadius - 18}px) translateX(-50%)`,
-                      }}
-                    >
-                      {/* No counter-rotation — items tilt/curve along with the banner! */}
-                      <div className="flex items-center justify-center text-white px-2 select-none whitespace-nowrap">
-                        {tool.icon}
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+                key={idx}
+                className="flex items-center justify-center px-6 select-none"
+              >
+                {tool.icon}
+              </div>
+            ))}
           </div>
         </div>
 
         {/* ── Cinematic Widescreen Video Player ── */}
-        <section className="-mt-2 sm:-mt-8 w-full max-w-3xl mx-auto px-2 z-20 relative">
+        <section className="relative mt-6 sm:mt-4 mb-8 w-full max-w-3xl mx-auto px-2 z-99">
+          <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[200px] w-[200px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0886FD]/18 blur-[60px]" />
           <div
             onClick={() => setIsPlayModalOpen(true)}
             className="group relative aspect-video w-full rounded-[28px] overflow-hidden border border-white/15 bg-zinc-950 shadow-2xl cursor-pointer hover:border-[#0886FD]/40 transition-all duration-500 shadow-black/80 hover:shadow-[0_12px_40px_rgba(8,134,253,0.1)]"
@@ -362,18 +296,13 @@ export function LandingPage() {
               </div>
             </div>
 
-            {/* Bottom Left Reel Badge */}
-            <div className="absolute bottom-6 left-6 z-20 flex items-center gap-2 rounded-full border border-white/10 bg-black/60 backdrop-blur-md px-3.5 py-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#0886FD] animate-pulse" />
-              <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-300">
-                DIKE SHOWREEL
-              </span>
-            </div>
+
           </div>
         </section>
 
         {/* ── Statement & Brands Panel ── */}
-        <section className="mt-4 w-full max-w-3xl mx-auto text-center">
+        <section className="relative mt-2 w-full max-w-3xl mx-auto text-center">
+          <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[250px] w-[250px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0886FD]/18 blur-[70px]" />
           <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight max-w-2xl mx-auto">
             Crafting incredible, impactful designs & brand experiences
           </h3>
@@ -383,31 +312,30 @@ export function LandingPage() {
             memorable designs is what I do very well.
           </p>
 
-          {/* Glass enclosed panel for Brand logos */}
-          <div className="mt-3 rounded-[24px] border border-[#0886FD]/20 bg-gradient-to-br from-[#0886FD]/12 via-zinc-900/50 to-violet-900/10 backdrop-blur-lg px-6 py-4 shadow-[0_8px_30px_rgba(8,134,253,0.08)]">
-            <p className="text-zinc-500 text-[10px] font-bold uppercase tracking-[0.25em] mb-4">
-              Brands I worked with
-            </p>
-            <div className="grid grid-cols-3 sm:grid-cols-6 gap-6 items-center justify-items-center opacity-40 hover:opacity-60 transition-opacity duration-300">
-              {brandLogos.map((b, i) => (
-                <div
-                  key={i}
-                  className="text-zinc-400 hover:text-white transition-colors duration-200"
-                  title={b.name}
-                >
-                  {b.icon}
-                </div>
-              ))}
-            </div>
+          {/* Brand logos */}
+          <div className="mt-10 grid grid-cols-3 sm:grid-cols-9 gap-6 items-center justify-items-center opacity-40 hover:opacity-60 transition-opacity duration-300">
+            {brandLogos.map((b, i) => (
+              <div
+                key={i}
+                className="text-zinc-400 hover:text-white transition-colors duration-200"
+                title={b.name}
+              >
+                {b.icon}
+              </div>
+            ))}
           </div>
         </section>
 
         {/* ── "What I Do" Services Grid (2x2 Layout) ── */}
-        <section id="what-i-do" className="mt-8 w-full max-w-3xl mx-auto">
+        <section id="what-i-do" className="relative mt-12 w-full max-w-3xl px-4 mx-auto">
+          <div className="pointer-events-none absolute -left-20 top-1/2 -z-10 h-[200px] w-[200px] -translate-y-1/2 rounded-full bg-[#0886FD]/18 blur-[70px]" />
           <div className="flex justify-between items-end mb-4 px-2">
-            <h4 className="text-2xl font-bold text-white tracking-tight">
-              what I do
-            </h4>
+            <div>
+              <h4 className="text-2xl font-bold text-white tracking-tight">
+                what I do
+              </h4>
+              <div className="h-0.5 w-12 bg-gradient-to-r from-[#0886FD] to-transparent rounded-full mt-1" />
+            </div>
             <span className="text-xs text-[#0886FD] font-semibold tracking-widest uppercase">
               Services
             </span>
@@ -455,7 +383,8 @@ export function LandingPage() {
         </section>
 
         {/* ── Contact Me ── */}
-        <section className="mt-8 w-full text-center">
+        <section className="relative mt-8 w-full text-center">
+          <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0886FD]/18 blur-[80px]" />
           <h4 className="text-xl font-bold text-white mb-4">Contact me</h4>
 
           {/* Social icons in a single row premium glass pill */}
@@ -506,6 +435,8 @@ export function LandingPage() {
           </div>
         </div>
       )}
+      <div className="pointer-events-none absolute left-1/2 bottom-0 -z-10 h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-[#0886FD]/18 blur-[90px]" />
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-[#0886FD]/60 to-transparent" />
     </div>
   );
 }
