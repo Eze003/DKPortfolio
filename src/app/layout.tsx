@@ -30,11 +30,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${dmSans.variable} ${geistMono.variable} ${helloScript.variable} h-full antialiased`}
-    >
-      <body className="min-h-full bg-black font-sans">
+      <html
+        lang="en"
+        className={`${dmSans.variable} ${geistMono.variable} ${helloScript.variable} antialiased`}
+      >
+      <body className="min-h-screen bg-black font-sans">
         <GlobalHeader />
         {children}
       </body>

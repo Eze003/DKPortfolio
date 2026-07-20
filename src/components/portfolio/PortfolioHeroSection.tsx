@@ -26,12 +26,7 @@ export default function PortfolioHeroSection() {
           >
             Back home
           </Link>
-          <Link
-            href="/portfolio"
-            className="rounded-full bg-[#0886FD] px-4 py-2 text-sm font-semibold text-black transition hover:bg-[#066fce]"
-          >
-            See my work
-          </Link>
+
         </div>
       </div>
     </section>
