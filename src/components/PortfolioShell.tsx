@@ -152,7 +152,7 @@ export function PortfolioShell() {
         <div className="absolute right-3 top-3 z-20 flex flex-wrap items-center gap-2 sm:right-6 sm:top-6">
           <Link
             href="/portfolio"
-            className="rounded-full border border-[#0886FD]/30 bg-black/45 px-3 py-2 text-sm font-medium text-white backdrop-blur transition hover:border-[#0886FD] hover:bg-[#0886FD]/15"
+            className="rounded-full border border-[#0055FF]/30 bg-black/45 px-3 py-2 text-sm font-medium text-white backdrop-blur transition hover:border-[#0055FF] hover:bg-[#0055FF]/15"
           >
             See My Work
           </Link>
@@ -164,7 +164,7 @@ export function PortfolioShell() {
         </div>
 
         <div className="mx-auto flex max-w-4xl flex-col items-center px-6 pb-16 text-center sm:px-8">
-          <div className="rounded-full border border-[#0886FD]/20 bg-[#0886FD]/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.35em] text-[#0886FD]">
+          <div className="rounded-full border border-[#0055FF]/20 bg-[#0055FF]/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.35em] text-[#0055FF]">
             Creative direction • motion • branding
           </div>
           <h2 className="mt-5 max-w-3xl text-3xl font-semibold leading-tight text-white sm:text-4xl lg:text-5xl">
@@ -177,7 +177,7 @@ export function PortfolioShell() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Link
               href="/portfolio"
-              className="rounded-full bg-[#0886FD] px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-[#066fce]"
+              className="rounded-full bg-[#0055FF] px-5 py-2.5 text-sm font-semibold text-black transition hover:bg-[#0040CC]"
             >
               See my work
             </Link>

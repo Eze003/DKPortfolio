@@ -85,15 +85,15 @@ export function BookServiceButton({
         {variant === "green-pill" ? (
           <button
             type="button"
-            className={`flex items-center gap-2 rounded-full border border-[#0886FD]/30 bg-[#071221]/85 px-4 py-2 text-sm font-medium text-white backdrop-blur transition hover:border-[#0886FD]/60 hover:bg-[#0a1c39] hover:shadow-[0_0_12px_rgba(8,134,253,0.15)] ${className}`.trim()}
+            className={`flex items-center gap-2 rounded-full border border-[#0055FF]/30 bg-[#071221]/85 px-4 py-2 text-sm font-medium text-white backdrop-blur transition hover:border-[#0055FF]/60 hover:bg-[#0a1c39] hover:shadow-[0_0_12px_rgba(0,85,255,0.15)] ${className}`.trim()}
           >
-            <BiSolidBadgeCheck className="text-[#0886FD] text-lg" />
+            <BiSolidBadgeCheck className="text-[#0055FF] text-lg" />
             {label}
           </button>
         ) : (
           <button
             type="button"
-            className={`rounded-full border border-[#0886FD]/40 bg-[#0886FD] px-4 py-2 text-sm font-semibold text-black transition hover:bg-[#066fce] ${className}`.trim()}
+            className={`rounded-full border border-[#0055FF]/40 bg-[#0055FF] px-4 py-2 text-sm font-semibold text-black transition hover:bg-[#0040CC] ${className}`.trim()}
           >
             {label}
           </button>
@@ -105,12 +105,12 @@ export function BookServiceButton({
         <Dialog.Overlay className="fixed inset-0 z-[200] bg-black/75 backdrop-blur-sm data-[state=open]:animate-[fadeIn_150ms_ease]" />
 
         <Dialog.Content
-          className="fixed left-1/2 top-1/2 z-[201] w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-[24px] border border-white/10 bg-gradient-to-br from-[#0886FD]/10 via-zinc-950 to-violet-950/20 p-6 shadow-2xl shadow-black/60 backdrop-blur-lg focus:outline-none data-[state=open]:animate-[dialogIn_200ms_cubic-bezier(0.16,1,0.3,1)]"
+          className="fixed left-1/2 top-1/2 z-[201] w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-[24px] border border-white/10 bg-gradient-to-br from-[#0055FF]/10 via-zinc-950 to-violet-950/20 p-6 shadow-2xl shadow-black/60 backdrop-blur-lg focus:outline-none data-[state=open]:animate-[dialogIn_200ms_cubic-bezier(0.16,1,0.3,1)]"
         >
           {/* Header */}
           <div className="flex items-start justify-between mb-6">
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#0886FD] mb-1">
+              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#0055FF] mb-1">
                 Project inquiry
               </p>
               <Dialog.Title className="text-2xl font-bold text-white">
@@ -131,8 +131,8 @@ export function BookServiceButton({
           {submitted ? (
             /* ── Success ── */
             <div className="py-8 text-center">
-              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#0886FD]/15 border border-[#0886FD]/30">
-                <BiSolidBadgeCheck className="text-[#0886FD] text-3xl" />
+              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#0055FF]/15 border border-[#0055FF]/30">
+                <BiSolidBadgeCheck className="text-[#0055FF] text-3xl" />
               </div>
               <h3 className="text-lg font-bold text-white mb-2">Request received!</h3>
               <p className="text-sm text-zinc-400 leading-relaxed max-w-xs mx-auto">
@@ -141,7 +141,7 @@ export function BookServiceButton({
               <Dialog.Close asChild>
                 <button
                   type="button"
-                  className="mt-6 rounded-full bg-[#0886FD] px-6 py-2.5 text-sm font-semibold text-black hover:bg-[#066fce] transition"
+                  className="mt-6 rounded-full bg-[#0055FF] px-6 py-2.5 text-sm font-semibold text-black hover:bg-[#0040CC] transition"
                 >
                   Done
                 </button>
@@ -154,7 +154,7 @@ export function BookServiceButton({
                 {/* Name */}
                 <div>
                   <label className="block text-xs font-semibold text-zinc-400 mb-1.5">
-                    Name <span className="text-[#0886FD]">*</span>
+                    Name <span className="text-[#0055FF]">*</span>
                   </label>
                   <input
                     type="text"
@@ -162,7 +162,7 @@ export function BookServiceButton({
                     className={`w-full rounded-xl border px-4 py-2.5 text-sm text-white placeholder-zinc-600 bg-white/5 outline-none transition ${
                       errors.name && touched.name
                         ? "border-red-500/60 focus:border-red-500"
-                        : "border-white/10 focus:border-[#0886FD]/60"
+                        : "border-white/10 focus:border-[#0055FF]/60"
                     }`}
                     value={formData.name}
                     onChange={(e) => update("name", e.target.value)}
@@ -176,7 +176,7 @@ export function BookServiceButton({
                 {/* Email */}
                 <div>
                   <label className="block text-xs font-semibold text-zinc-400 mb-1.5">
-                    Email <span className="text-[#0886FD]">*</span>
+                    Email <span className="text-[#0055FF]">*</span>
                   </label>
                   <input
                     type="email"
@@ -184,7 +184,7 @@ export function BookServiceButton({
                     className={`w-full rounded-xl border px-4 py-2.5 text-sm text-white placeholder-zinc-600 bg-white/5 outline-none transition ${
                       errors.email && touched.email
                         ? "border-red-500/60 focus:border-red-500"
-                        : "border-white/10 focus:border-[#0886FD]/60"
+                        : "border-white/10 focus:border-[#0055FF]/60"
                     }`}
                     value={formData.email}
                     onChange={(e) => update("email", e.target.value)}
@@ -199,13 +199,13 @@ export function BookServiceButton({
               {/* Service */}
               <div>
                 <label className="block text-xs font-semibold text-zinc-400 mb-1.5">
-                  Service needed <span className="text-[#0886FD]">*</span>
+                  Service needed <span className="text-[#0055FF]">*</span>
                 </label>
                 <select
                   className={`w-full rounded-xl border px-4 py-2.5 text-sm text-white bg-zinc-900 outline-none transition appearance-none cursor-pointer ${
                     errors.service && touched.service
                       ? "border-red-500/60 focus:border-red-500"
-                      : "border-white/10 focus:border-[#0886FD]/60"
+                      : "border-white/10 focus:border-[#0055FF]/60"
                   }`}
                   value={formData.service}
                   onChange={(e) => update("service", e.target.value)}
@@ -235,7 +235,7 @@ export function BookServiceButton({
                   className={`w-full rounded-xl border px-4 py-2.5 text-sm text-white placeholder-zinc-600 bg-white/5 outline-none transition resize-none ${
                     errors.message && touched.message
                       ? "border-red-500/60 focus:border-red-500"
-                      : "border-white/10 focus:border-[#0886FD]/60"
+                      : "border-white/10 focus:border-[#0055FF]/60"
                   }`}
                   value={formData.message}
                   onChange={(e) => update("message", e.target.value)}
@@ -258,7 +258,7 @@ export function BookServiceButton({
                 </Dialog.Close>
                 <button
                   type="submit"
-                  className="rounded-full bg-[#0886FD] px-5 py-2.5 text-sm font-semibold text-black hover:bg-[#066fce] transition"
+                  className="rounded-full bg-[#0055FF] px-5 py-2.5 text-sm font-semibold text-black hover:bg-[#0040CC] transition"
                 >
                   Send request
                 </button>

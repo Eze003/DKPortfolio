@@ -25,7 +25,7 @@ export default function PortfolioFaqSection() {
     <section className="bg-[#050505] px-6 pb-24 pt-6 sm:px-8 lg:px-10">
       <div className="mx-auto max-w-6xl rounded-4xl border border-white/10 bg-zinc-950/70 p-6 shadow-[0_24px_80px_rgba(0,0,0,0.3)] sm:p-10">
         <div className="max-w-2xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.35em] text-[#0886FD]">
+          <p className="text-sm font-semibold uppercase tracking-[0.35em] text-[#0055FF]">
             Frequently asked
           </p>
           <h2 className="mt-3 text-3xl font-semibold text-white sm:text-4xl">
@@ -49,7 +49,7 @@ export default function PortfolioFaqSection() {
                   <span className="text-base font-medium text-white">
                     {item.question}
                   </span>
-                  <span className="text-xl text-[#0886FD]">
+                  <span className="text-xl text-[#0055FF]">
                     {isOpen ? "−" : "+"}
                   </span>
                 </button>

@@ -34,7 +34,7 @@ function DockMotionsGaadIcon({ size }: { size: number }) {
   return (
     <span
       style={{ width: size, height: size, fontSize: size * 0.45 }}
-      className="flex shrink-0 items-center justify-center rounded-[9px] bg-[#0886FD] font-bold leading-none text-black"
+      className="flex shrink-0 items-center justify-center rounded-[9px] bg-[#0055FF] font-bold leading-none text-black"
       aria-hidden
     >
       M

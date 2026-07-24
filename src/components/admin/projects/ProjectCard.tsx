@@ -43,7 +43,7 @@ export default function ProjectCard({ project, onEdit, onDelete }: ProjectCardPr
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ y: -4 }}
-      className="group relative rounded-2xl border border-white/[0.08] bg-white/[0.02] overflow-hidden transition-all duration-500 hover:border-primary-500/50 hover:shadow-[0_20px_50px_rgba(8,134,253,0.15)] backdrop-blur-md"
+      className="group relative rounded-2xl border border-white/[0.08] bg-white/[0.02] overflow-hidden transition-all duration-500 hover:border-primary-500/50 hover:shadow-[0_20px_50px_rgba(0,85,255,0.15)] backdrop-blur-md"
     >
       {/* Thumbnail */}
       <div className="aspect-[16/10] bg-black relative overflow-hidden">

@@ -32,7 +32,7 @@ export default function MyCatalogPage() {
 
         <section className="grid gap-6 rounded-[32px] border border-white/10 bg-black/40 p-6 shadow-2xl shadow-black/30 backdrop-blur-xl sm:p-10">
           <div className="max-w-3xl">
-            <p className="text-sm font-semibold uppercase tracking-[0.35em] text-[#0886FD]">
+            <p className="text-sm font-semibold uppercase tracking-[0.35em] text-[#0055FF]">
               My catalog
             </p>
             <h1 className="mt-4 text-4xl font-semibold sm:text-5xl">
