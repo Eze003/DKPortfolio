@@ -239,7 +239,7 @@ export function LandingPage() {
           className="h-full w-full object-cover opacity-75 transform-gpu"
           onEnded={(e) => {
             e.currentTarget.currentTime = 0;
-            e.currentTarget.play().catch(() => {});
+            e.currentTarget.play().catch(() => { });
           }}
         >
           <source src="/hero.webm" type="video/webm" />
@@ -303,9 +303,7 @@ export function LandingPage() {
 
               {/* Ambient Showreel Preview */}
               <video
-                src="https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c054f4d823f90463fe04d593c6e7c1eb&profile_id=139&oauth2_token_id=57447761"
-                autoPlay
-                loop
+                src="/video.mp4"
                 muted
                 playsInline
                 className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-[1.02] transition-transform duration-700"
@@ -458,10 +456,11 @@ export function LandingPage() {
 
           <div className="relative w-full max-w-5xl aspect-video rounded-2xl overflow-hidden border border-white/15 bg-black shadow-2xl">
             <video
-              src="https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c054f4d823f90463fe04d593c6e7c1eb&profile_id=139&oauth2_token_id=57447761"
+              src="/video.mp4"
               className="w-full h-full object-cover"
               controls
               autoPlay
+              muted
               playsInline
             />
           </div>
