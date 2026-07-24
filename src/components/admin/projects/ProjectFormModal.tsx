@@ -362,7 +362,7 @@ export default function ProjectFormModal({ editTarget, onClose, onSaved }: Proje
                   <button
                     type="submit"
                     disabled={saving}
-                    className="w-full py-4 rounded-md bg-gradient-to-b from-primary-500 to-primary-700 text-white font-bold text-sm border border-white/20 shadow-[0_0_24px_rgba(8,134,253,0.4)] hover:shadow-[0_0_40px_rgba(8,134,253,0.6)] transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed active:scale-[0.98]"
+                    className="w-full py-4 rounded-md bg-gradient-to-b from-primary-500 to-primary-700 text-white font-bold text-sm border border-white/20 shadow-[0_0_24px_rgba(0,85,255,0.4)] hover:shadow-[0_0_40px_rgba(0,85,255,0.6)] transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed active:scale-[0.98]"
                   >
                     {saving ? "Saving..." : isEdit ? "Commit Changes" : "Deploy Project"}
                   </button>

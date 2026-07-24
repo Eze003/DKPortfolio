@@ -22,13 +22,7 @@ export default function PortfolioGridSection() {
 
   return (
     <>
-      <section className="relative w-full bg-black pb-24 pt-6 overflow-hidden">
-        {/* Volumetric splashes */}
-        <div className="absolute inset-0 pointer-events-none z-0">
-          <div className="absolute top-[10%] left-[-10%] w-[50%] h-[40%] bg-primary-500/10 blur-[120px] rounded-full" />
-          <div className="absolute bottom-[20%] right-[-10%] w-[50%] h-[40%] bg-primary-500/10 blur-[120px] rounded-full" />
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-full bg-gradient-to-b from-primary-500/30 to-transparent blur-[60px]" />
-        </div>
+      <section className="relative w-full bg-transparent pb-24 pt-6 overflow-hidden">
 
         <div className="max-w-7xl mx-auto px-6 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
@@ -57,7 +51,7 @@ export default function PortfolioGridSection() {
                     transition={{ duration: 0.8, delay: index * 0.1 }}
                     className="relative w-full aspect-[4/3] p-[6px] md:p-2 rounded-md bg-black border border-white/[0.04] shadow-2xl transition-transform duration-500 group cursor-pointer hover:-translate-y-1"
                   >
-                    <div className="relative w-full h-full bg-black rounded-md border border-primary-500/30 shadow-[inset_0_0_40px_rgba(8,134,253,0.15),0_0_20px_rgba(8,134,253,0.1)] group-hover:border-primary-500/50 group-hover:shadow-[inset_0_0_60px_rgba(8,134,253,0.25),0_0_30px_rgba(8,134,253,0.2)] transition-all duration-500 overflow-hidden">
+                    <div className="relative w-full h-full bg-black rounded-md border border-primary-500/30 shadow-[inset_0_0_40px_rgba(0,85,255,0.15),0_0_20px_rgba(0,85,255,0.1)] group-hover:border-primary-500/50 group-hover:shadow-[inset_0_0_60px_rgba(0,85,255,0.25),0_0_30px_rgba(0,85,255,0.2)] transition-all duration-500 overflow-hidden">
                       {/* Card Ambient Glow */}
                       <div className="absolute -inset-px bg-gradient-to-br from-primary-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10" />
 

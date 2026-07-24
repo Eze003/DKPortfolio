@@ -62,7 +62,7 @@ export default function AdminSidebar({
         {/* Logo & Close Button */}
         <div className="p-6 border-b border-white/[0.06] flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center text-white font-bold text-sm shadow-[0_0_16px_rgba(8,134,253,0.5)]">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center text-white font-bold text-sm shadow-[0_0_16px_rgba(0,85,255,0.5)]">
               M
             </div>
             <div>

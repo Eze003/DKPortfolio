@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -95,6 +95,20 @@ function BehanceIcon() {
 
 export function LandingPage() {
   const [isPlayModalOpen, setIsPlayModalOpen] = useState(false);
+  const bgVideoRef = useRef<HTMLVideoElement | null>(null);
+  const cardVideoRef = useRef<HTMLVideoElement | null>(null);
+
+  useEffect(() => {
+    const playVideo = (v: HTMLVideoElement | null) => {
+      if (v) {
+        v.muted = true;
+        v.loop = true;
+        v.play().catch(() => {});
+      }
+    };
+    playVideo(bgVideoRef.current);
+    playVideo(cardVideoRef.current);
+  }, []);
 
   const tools = [
     {
@@ -210,29 +224,43 @@ export function LandingPage() {
   ];
 
   return (
-    <div className="relative w-full bg-[#030303] text-white selection:bg-[#0886FD]/30 overflow-hidden font-sans pb-20">
-      {/* Background Radial Glow Blobs for Glassmorphism */}
-      <div className="pointer-events-none absolute left-1/2 top-[22%] -z-10 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0886FD]/25 blur-[80px] sm:h-[800px] sm:w-[800px]" />
-      <div className="pointer-events-none absolute left-[-10%] top-[45%] -z-10 h-[500px] w-[500px] rounded-full bg-[#0886FD]/20 blur-[80px]" />
-      <div className="pointer-events-none absolute right-[-10%] top-[70%] -z-10 h-[500px] w-[500px] rounded-full bg-violet-600/15 blur-[80px]" />
-      <div className="pointer-events-none absolute left-[10%] top-[85%] -z-10 h-[400px] w-[400px] rounded-full bg-[#0886FD]/20 blur-[70px]" />
-      <div className="pointer-events-none absolute right-[5%] top-[35%] -z-10 h-[350px] w-[350px] rounded-full bg-[#0886FD]/15 blur-[60px]" />
-      <div className="pointer-events-none absolute left-1/2 bottom-[10%] -z-10 h-[450px] w-[450px] -translate-x-1/2 rounded-full bg-[#0886FD]/20 blur-[80px]" />
+    <div className="relative w-full bg-[#030303] text-white selection:bg-[#0055FF]/30 overflow-hidden font-sans pb-20">
+      {/* ── Main Landing Page Background Video ── */}
+      <div className="pointer-events-none fixed inset-0 overflow-hidden z-0">
+        <video
+          ref={bgVideoRef}
+          src="/hero.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          poster="/hero-poster.webp"
+          preload="auto"
+          className="h-full w-full object-cover opacity-75 transform-gpu"
+          onEnded={(e) => {
+            e.currentTarget.currentTime = 0;
+            e.currentTarget.play().catch(() => {});
+          }}
+        >
+          <source src="/hero.webm" type="video/webm" />
+          <source src="/hero.mp4" type="video/mp4" />
+        </video>
+        {/* Soft Vignette Overlay for Text Readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#030303]/40 via-transparent to-[#030303]/80" />
+      </div>
 
       {/* ── Main Content ── */}
-      <main className="mx-auto max-w-4xl px-4 sm:px-6 pt-10 sm:pt-12">
+      <main className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 pt-10 sm:pt-12">
 
         {/* ── Hero Section (Centered Avatar with Text Overlay) ── */}
         <section className="relative z-0 flex flex-col items-center justify-center w-full text-center">
           <div className="relative z-10 w-[300px] h-[340px] sm:w-[360px] sm:h-[400px] md:w-[400px] md:h-[440px]">
-            {/* Soft backdrop glow + primary color shadow */}
-            <div className="absolute inset-[-30px] rounded-[40%_60%_55%_45%/50%_45%_55%_50%] bg-[radial-gradient(ellipse_at_center,rgba(8,134,253,0.35)_0%,rgba(8,134,253,0.14)_50%,transparent_72%)] blur-[38px] -z-10" />
 
             <Image
               src="/avatar.png"
               alt="Dike Character Avatar"
               fill
-              className="object-contain drop-shadow-[0_20px_40px_rgba(8,134,253,0.35)] select-none"
+              className="object-contain select-none"
               priority
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
@@ -265,44 +293,50 @@ export function LandingPage() {
 
         {/* ── Cinematic Widescreen Video Player ── */}
         <section className="relative mt-6 sm:mt-4 mb-8 w-full max-w-3xl mx-auto px-2 z-99">
-          <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[200px] w-[200px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0886FD]/18 blur-[60px]" />
+          {/* Device frame — dark bezel surround */}
           <div
             onClick={() => setIsPlayModalOpen(true)}
-            className="group relative aspect-video w-full rounded-[28px] overflow-hidden border border-white/15 bg-zinc-950 shadow-2xl cursor-pointer hover:border-[#0886FD]/40 transition-all duration-500 shadow-black/80 hover:shadow-[0_12px_40px_rgba(8,134,253,0.1)]"
+            className="group cursor-pointer rounded-[10px] bg-[#080d1a] p-1.5 shadow-[0_32px_80px_rgba(0,0,0,0.9),0_0_0_1px_rgba(255,255,255,0.06)] transition-all duration-500 hover:shadow-[0_40px_100px_rgba(0,0,0,0.95),0_0_0_1px_rgba(255,255,255,0.10)]"
           >
-            {/* Ambient Background Video Loop */}
-            <video
-              src="https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c054f4d823f90463fe04d593c6e7c1eb&profile_id=139&oauth2_token_id=57447761"
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-[1.02] transition-transform duration-700"
-            />
+            {/* Screen inner */}
+            <div className="relative rounded-[6px] overflow-hidden border border-white/[0.10] aspect-video bg-black">
 
-            {/* Glass Vignette/Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/40 z-10" />
+              {/* Ambient Showreel Preview */}
+              <video
+                src="https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c054f4d823f90463fe04d593c6e7c1eb&profile_id=139&oauth2_token_id=57447761"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-[1.02] transition-transform duration-700"
+              />
 
-            {/* Play Button Overlay */}
-            <div className="absolute inset-0 flex items-center justify-center z-20">
-              <div className="flex h-16 w-16 sm:h-20 sm:w-20 items-center justify-center rounded-full bg-white/10 border border-white/20 text-white backdrop-blur-md transition-all duration-300 group-hover:bg-[#0886FD] group-hover:border-[#0886FD] group-hover:text-black group-hover:scale-110 shadow-lg group-hover:shadow-[0_0_30px_rgba(8,134,253,0.4)]">
-                <svg
-                  viewBox="0 0 24 24"
-                  className="h-6 w-6 sm:h-8 sm:w-8 fill-current ml-1"
-                  aria-hidden="true"
-                >
-                  <path d="M8 5v14l11-7z" />
-                </svg>
+              {/* Subtle vignette */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-10 pointer-events-none" />
+
+              {/* Glass Play Button */}
+              <div className="absolute inset-0 flex items-center justify-center z-20">
+                <div className="relative flex h-[80px] w-[80px] sm:h-[100px] sm:w-[100px] items-center justify-center rounded-full transition-all duration-300 group-hover:scale-105">
+                  {/* Transparent glass ring */}
+                  <div className="absolute inset-0 rounded-full backdrop-blur-md bg-white/[0.08] group-hover:bg-white/[0.12] transition-all duration-300" />
+                  {/* Play icon — big */}
+                  <svg
+                    viewBox="0 0 24 24"
+                    className="relative z-10 h-9 w-9 sm:h-11 sm:w-11 fill-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] ml-1"
+                    aria-hidden="true"
+                  >
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
               </div>
             </div>
-
-
           </div>
         </section>
 
+
+
         {/* ── Statement & Brands Panel ── */}
         <section className="relative mt-2 w-full max-w-3xl mx-auto text-center">
-          <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[250px] w-[250px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0886FD]/18 blur-[70px]" />
           <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight max-w-2xl mx-auto">
             Crafting incredible, impactful designs & brand experiences
           </h3>
@@ -328,15 +362,14 @@ export function LandingPage() {
 
         {/* ── "What I Do" Services Grid (2x2 Layout) ── */}
         <section id="what-i-do" className="relative mt-12 w-full max-w-3xl px-4 mx-auto">
-          <div className="pointer-events-none absolute -left-20 top-1/2 -z-10 h-[200px] w-[200px] -translate-y-1/2 rounded-full bg-[#0886FD]/18 blur-[70px]" />
           <div className="flex justify-between items-end mb-4 px-2">
             <div>
               <h4 className="text-2xl font-bold text-white tracking-tight">
                 what I do
               </h4>
-              <div className="h-0.5 w-12 bg-gradient-to-r from-[#0886FD] to-transparent rounded-full mt-1" />
+              <div className="h-0.5 w-12 bg-gradient-to-r from-[#0055FF] to-transparent rounded-full mt-1" />
             </div>
-            <span className="text-xs text-[#0886FD] font-semibold tracking-widest uppercase">
+            <span className="text-xs text-[#0055FF] font-semibold tracking-widest uppercase">
               Services
             </span>
           </div>
@@ -346,7 +379,7 @@ export function LandingPage() {
               <Link
                 key={idx}
                 href="/portfolio"
-                className="group flex flex-col justify-between p-5 bg-gradient-to-br from-[#0886FD]/12 via-zinc-900/50 to-purple-950/20 border border-white/15 hover:border-[#0886FD]/40 rounded-2xl transition-all duration-300 backdrop-blur-lg hover:shadow-[0_12px_40px_rgba(8,134,253,0.1)] hover:-translate-y-0.5"
+                className="group flex flex-col justify-between p-5 bg-zinc-900/40 border border-white/15 hover:border-[#0055FF]/40 rounded-2xl transition-all duration-300 backdrop-blur-lg hover:shadow-[0_12px_40px_rgba(0,85,255,0.1)] hover:-translate-y-0.5"
               >
                 <div className="flex gap-4">
                   {/* Small visual thumbnail */}
@@ -370,10 +403,10 @@ export function LandingPage() {
                 </div>
 
                 <div className="mt-4 flex items-center justify-end">
-                  <span className="text-[10px] tracking-wider text-zinc-500 group-hover:text-[#0886FD] font-bold uppercase transition-colors mr-2">
+                  <span className="text-[10px] tracking-wider text-zinc-500 group-hover:text-[#0055FF] font-bold uppercase transition-colors mr-2">
                     View projects
                   </span>
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#0886FD]/15 text-[#0886FD] group-hover:bg-[#0886FD] group-hover:text-black transition-all duration-300 text-xs font-bold shadow-sm">
+                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#0055FF]/15 text-[#0055FF] group-hover:bg-[#0055FF] group-hover:text-black transition-all duration-300 text-xs font-bold shadow-sm">
                     ➔
                   </div>
                 </div>
@@ -384,11 +417,10 @@ export function LandingPage() {
 
         {/* ── Contact Me ── */}
         <section className="relative mt-8 w-full text-center">
-          <div className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#0886FD]/18 blur-[80px]" />
           <h4 className="text-xl font-bold text-white mb-4">Contact me</h4>
 
           {/* Social icons in a single row premium glass pill */}
-          <div className="mx-auto w-fit rounded-full border border-white/15 bg-gradient-to-br from-[#0886FD]/10 via-zinc-950/60 to-purple-950/10 backdrop-blur-lg px-6 py-3.5 shadow-[0_12px_40px_rgba(0,0,0,0.8)] hover:border-[#0886FD]/40 transition-colors duration-300">
+          <div className="mx-auto w-fit rounded-full border border-white/15 bg-zinc-950/60 backdrop-blur-lg px-6 py-3.5 shadow-[0_12px_40px_rgba(0,0,0,0.8)] hover:border-[#0055FF]/40 transition-colors duration-300">
             <div className="flex items-center gap-5">
               {socials.map((s, i) => (
                 <a
@@ -418,7 +450,7 @@ export function LandingPage() {
           {/* Backdrop close button */}
           <button
             onClick={() => setIsPlayModalOpen(false)}
-            className="absolute top-4 right-6 text-white text-5xl font-light hover:text-[#0886FD] transition duration-200 z-[120] p-2"
+            className="absolute top-4 right-6 text-white text-5xl font-light hover:text-[#0055FF] transition duration-200 z-[120] p-2"
             aria-label="Close video showreel"
           >
             &times;
@@ -435,8 +467,8 @@ export function LandingPage() {
           </div>
         </div>
       )}
-      <div className="pointer-events-none absolute left-1/2 bottom-0 -z-10 h-[300px] w-[300px] -translate-x-1/2 rounded-full bg-[#0886FD]/18 blur-[90px]" />
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-[#0886FD]/60 to-transparent" />
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-[#0055FF]/60 to-transparent" />
+      <div className="h-px w-full bg-gradient-to-r from-transparent via-[#0055FF]/60 to-transparent" />
     </div>
   );
 }
