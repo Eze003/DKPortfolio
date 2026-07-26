@@ -113,7 +113,7 @@ export function LandingPage() {
   const tools = [
     {
       icon: (
-        <span className="font-bold text-base tracking-tight bg-gradient-to-r from-purple-400 via-pink-400 to-indigo-400 bg-clip-text text-transparent select-none shrink-0">
+        <span className="font-bold text-xl tracking-tight text-zinc-400 select-none shrink-0">
           Canva
         </span>
       ),
@@ -121,63 +121,63 @@ export function LandingPage() {
     {
       icon: (
         <div className="flex items-center gap-1.5 shrink-0">
-          <SiFigma className="w-5 h-5 text-[#0acf83]" />
-          <span className="text-sm font-semibold text-zinc-300">Figma</span>
+          <SiFigma className="w-7 h-7 text-zinc-400" />
+          <span className="text-base font-semibold text-zinc-400">Figma</span>
         </div>
       ),
     },
     {
       icon: (
         <div className="flex items-center gap-1.5 shrink-0">
-          <SiAsana className="w-5 h-5 text-[#fc636b]" />
-          <span className="text-sm font-semibold text-zinc-300">asana</span>
+          <SiAsana className="w-7 h-7 text-zinc-400" />
+          <span className="text-base font-semibold text-zinc-400">Asana</span>
         </div>
       ),
     },
     {
       icon: (
         <div className="flex items-center gap-1.5 shrink-0">
-          <SiSlack className="w-5 h-5 text-[#3eb991]" />
-          <span className="text-sm font-semibold text-zinc-300">Slack</span>
+          <SiSlack className="w-7 h-7 text-zinc-400" />
+          <span className="text-base font-semibold text-zinc-400">Slack</span>
         </div>
       ),
     },
     {
       icon: (
         <div className="flex items-center gap-1.5 shrink-0">
-          <SiDropbox className="w-5 h-5 text-[#0061ff]" />
-          <span className="text-sm font-semibold text-zinc-300">Dropbox</span>
+          <SiDropbox className="w-7 h-7 text-zinc-400" />
+          <span className="text-base font-semibold text-zinc-400">Dropbox</span>
         </div>
       ),
     },
     {
       icon: (
         <div className="flex items-center gap-1.5 shrink-0">
-          <SiAirtable className="w-5 h-5 text-[#f82b60]" />
-          <span className="text-sm font-semibold text-zinc-300">Airtable</span>
+          <SiAirtable className="w-7 h-7 text-zinc-400" />
+          <span className="text-base font-semibold text-zinc-400">Airtable</span>
         </div>
       ),
     },
     {
       icon: (
         <div className="flex items-center gap-1.5 shrink-0">
-          <SiSpotify className="w-5 h-5 text-[#1ed760]" />
-          <span className="text-sm font-semibold text-zinc-300">Spotify</span>
+          <SiSpotify className="w-7 h-7 text-zinc-400" />
+          <span className="text-base font-semibold text-zinc-400">Spotify</span>
         </div>
       ),
     },
   ];
 
   const brandLogos = [
-    { icon: <SiSpotify className="w-7 h-7" />, name: "Spotify" },
-    { icon: <SiNetflix className="w-7 h-7" />, name: "Netflix" },
-    { icon: <SiSlack className="w-7 h-7" />, name: "Slack" },
-    { icon: <SiFigma className="w-7 h-7" />, name: "Figma" },
-    { icon: <FaMicrosoft className="w-6 h-6" />, name: "Microsoft" },
-    { icon: <SiGoogle className="w-6 h-6" />, name: "Google" },
-    { icon: <SiDropbox className="w-7 h-7" />, name: "Dropbox" },
-    { icon: <SiAirtable className="w-7 h-7" />, name: "Airtable" },
-    { icon: <SiAsana className="w-7 h-7" />, name: "Asana" },
+    { icon: <SiSpotify className="w-7 h-7 text-zinc-400" />, name: "Spotify" },
+    { icon: <SiNetflix className="w-7 h-7 text-zinc-400" />, name: "Netflix" },
+    { icon: <SiSlack className="w-7 h-7 text-zinc-400" />, name: "Slack" },
+    { icon: <SiFigma className="w-7 h-7 text-zinc-400" />, name: "Figma" },
+    { icon: <FaMicrosoft className="w-6 h-6 text-zinc-400" />, name: "Microsoft" },
+    { icon: <SiGoogle className="w-6 h-6 text-zinc-400" />, name: "Google" },
+    { icon: <SiDropbox className="w-7 h-7 text-zinc-400" />, name: "Dropbox" },
+    { icon: <SiAirtable className="w-7 h-7 text-zinc-400" />, name: "Airtable" },
+    { icon: <SiAsana className="w-7 h-7 text-zinc-400" />, name: "Asana" },
   ];
 
   const coreServices = [
@@ -345,11 +345,11 @@ export function LandingPage() {
           </p>
 
           {/* Brand logos */}
-          <div className="mt-10 grid grid-cols-3 sm:grid-cols-9 gap-6 items-center justify-items-center opacity-40 hover:opacity-60 transition-opacity duration-300">
+          <div className="mt-10 grid grid-cols-3 sm:grid-cols-9 gap-6 items-center justify-items-center opacity-50 hover:opacity-80 transition-opacity duration-300">
             {brandLogos.map((b, i) => (
               <div
                 key={i}
-                className="text-zinc-400 hover:text-white transition-colors duration-200"
+                className="transition-transform duration-200 hover:scale-110"
                 title={b.name}
               >
                 {b.icon}
