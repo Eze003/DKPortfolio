@@ -102,7 +102,7 @@ export function LandingPage() {
       if (v) {
         v.muted = true;
         v.loop = true;
-        v.play().catch(() => {});
+        v.play().catch(() => { });
       }
     };
     playVideo(bgVideoRef.current);
@@ -275,7 +275,7 @@ export function LandingPage() {
 
       {/* ── Main Landing Page Background Video (Layer 10 - in front of Hero Avatar) ── */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden z-10">
-        <video
+        {/* <video
           ref={bgVideoRef}
           src="/hero.mp4"
           autoPlay
@@ -292,7 +292,7 @@ export function LandingPage() {
         >
           <source src="/hero.webm" type="video/webm" />
           <source src="/hero.mp4" type="video/mp4" />
-        </video>
+        </video> */}
         {/* Soft Vignette Overlay for Text Readability */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#030303]/40 via-transparent to-[#030303]/80" />
       </div>

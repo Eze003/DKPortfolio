@@ -1,1 +1,31 @@
-<svg height="512" viewBox="0 0 176 176" width="512" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><linearGradient id="linear-gradient" gradientUnits="userSpaceOnUse" x1="13.1" x2="160" y1="162.9" y2="16"><stop offset="0" stop-color="#e09b3d"/><stop offset=".3" stop-color="#c74c4d"/><stop offset=".6" stop-color="#c21975"/><stop offset="1" stop-color="#7024c4"/></linearGradient><g id="Layer_2" data-name="Layer 2"><g id="_07.instagram" data-name="07.instagram"><path id="background" d="m144.52 173a532.59 532.59 0 0 1 -113 0 32.07 32.07 0 0 1 -28.52-28.48 532.59 532.59 0 0 1 0-113 32.07 32.07 0 0 1 28.48-28.52 532.59 532.59 0 0 1 113 0 32.07 32.07 0 0 1 28.52 28.48 532.59 532.59 0 0 1 0 113 32.07 32.07 0 0 1 -28.48 28.52z" fill="url(#linear-gradient)"/><g id="icon"><g id="icon-2" fill="#fff" data-name="icon"><path d="m110.23 33h-44.46a32.81 32.81 0 0 0 -32.77 32.77v44.46a32.81 32.81 0 0 0 32.77 32.77h44.46a32.81 32.81 0 0 0 32.77-32.77v-44.46a32.81 32.81 0 0 0 -32.77-32.77zm21.7 77.23a21.69 21.69 0 0 1 -21.7 21.7h-44.46a21.69 21.69 0 0 1 -21.7-21.7v-44.46a21.7 21.7 0 0 1 21.7-21.7h44.46a21.7 21.7 0 0 1 21.7 21.7z"/><path d="m88 59.55a28.45 28.45 0 1 0 28.45 28.45 28.49 28.49 0 0 0 -28.45-28.45zm0 45.84a17.39 17.39 0 1 1 17.39-17.39 17.4 17.4 0 0 1 -17.39 17.39z"/><circle cx="116.61" cy="59.55" r="7.03"/></g></g></g></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 512 512">
+  <!-- Generator: Adobe Illustrator 29.1.0, SVG Export Plug-In . SVG Version: 2.1.0 Build 142)  -->
+  <defs>
+    <style>
+      .st0 {
+        fill: url(#linear-gradient);
+      }
+
+      .st1 {
+        fill: #fff;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="-1003.2" y1="1049.9" x2="-1003.2" y2="888.5" gradientTransform="translate(3174.8 3066.5) scale(2.9 -2.9)" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0d87ff"/>
+      <stop offset="1" stop-color="#0b63bd"/>
+    </linearGradient>
+  </defs>
+  <g id="Layer_2">
+    <g id="_07.instagram">
+      <rect id="background" class="st0" x=".5" y=".5" width="512" height="512" rx="47.5" ry="47.5"/>
+      <g id="icon">
+        <g id="icon-2">
+          <path class="st1" d="M320.7,96h-129.3c-52.6,0-95.3,42.7-95.3,95.3v129.3c0,52.6,42.7,95.3,95.3,95.3h129.3c52.6,0,95.3-42.7,95.3-95.3v-129.3c0-52.6-42.7-95.3-95.3-95.3h0ZM383.8,320.7c0,34.8-28.2,63.1-63.1,63.1h-129.4c-34.8,0-63.1-28.2-63.1-63.1,0,0,0,0,0,0v-129.3c0-34.9,28.3-63.1,63.1-63.1h129.3c34.9,0,63.1,28.3,63.1,63.1v129.3Z"/>
+          <path class="st1" d="M256,173.2c-45.7,0-82.8,37.1-82.8,82.8s37.1,82.8,82.8,82.8,82.8-37.1,82.8-82.8h0c0-45.7-37.1-82.7-82.8-82.8ZM256,306.6c-27.9,0-50.6-22.6-50.6-50.6s22.6-50.6,50.6-50.6,50.6,22.6,50.6,50.6h0c0,27.9-22.7,50.6-50.6,50.6Z"/>
+          <circle class="st1" cx="339.2" cy="173.2" r="20.5"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
