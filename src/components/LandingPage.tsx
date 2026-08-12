@@ -97,7 +97,6 @@ export function LandingPage() {
   const [isPlayModalOpen, setIsPlayModalOpen] = useState(false);
   const bgVideoRef = useRef<HTMLVideoElement | null>(null);
   const cardVideoRef = useRef<HTMLVideoElement | null>(null);
-
   useEffect(() => {
     const playVideo = (v: HTMLVideoElement | null) => {
       if (v) {
@@ -205,28 +204,77 @@ export function LandingPage() {
 
   const socials = [
     {
-      icon: <GmailIcon />,
-      label: "Gmail",
-      href: "mailto:hello@motionsgaad.com",
+      icon: (
+        <Image
+          src="/whatsapp.svg"
+          alt="WhatsApp"
+          width={40}
+          height={40}
+          className="h-10 w-10 rounded-xl shadow-sm"
+        />
+      ),
+      label: "WhatsApp",
+      href: "https://wa.me/5551234567",
     },
     {
-      icon: <InstagramIcon />,
+      icon: (
+        <Image
+          src="/instagram.svg"
+          alt="Instagram"
+          width={40}
+          height={40}
+          className="h-10 w-10 rounded-xl shadow-sm"
+        />
+      ),
       label: "Instagram",
       href: "https://www.instagram.com/yernazar.design/",
     },
     {
-      icon: <WhatsappIcon />,
-      label: "Whatsapp",
-      href: "https://wa.me/5551234567",
+      icon: (
+        <Image
+          src="/mail.svg"
+          alt="Mail"
+          width={40}
+          height={40}
+          className="h-10 w-10 rounded-xl shadow-sm"
+        />
+      ),
+      label: "Mail",
+      href: "mailto:hello@motionsgaad.com",
     },
-    { icon: <LinkedinIcon />, label: "LinkedIn", href: "https://linkedin.com" },
-    { icon: <BehanceIcon />, label: "Behance", href: "https://behance.net" },
+    {
+      icon: (
+        <Image
+          src="/linkedin.svg"
+          alt="LinkedIn"
+          width={40}
+          height={40}
+          className="h-10 w-10 rounded-xl shadow-sm"
+        />
+      ),
+      label: "LinkedIn",
+      href: "https://linkedin.com",
+    },
   ];
 
   return (
     <div className="relative w-full bg-[#030303] text-white selection:bg-[#0055FF]/30 overflow-hidden font-sans pb-20">
-      {/* ── Main Landing Page Background Video ── */}
-      <div className="pointer-events-none fixed inset-0 overflow-hidden z-0">
+      {/* ── Hero Avatar GIF (Layer 0 - behind background video) ── */}
+      <div className="absolute top-10 sm:top-12 left-0 right-0 z-0 flex justify-center pointer-events-none">
+        <div className="relative w-[300px] h-[340px] sm:w-[360px] sm:h-[400px] md:w-[500px] md:h-[560px] lg:w-[560px] lg:h-[620px]">
+          <Image
+            src="/hero-avatar.gif"
+            alt="Hero Avatar"
+            fill
+            unoptimized
+            priority
+            className="object-contain select-none pointer-events-none mix-blend-screen brightness-125 contrast-105 opacity-100 [mask-image:radial-gradient(ellipse_at_center,black_85%,transparent_100%)]"
+          />
+        </div>
+      </div>
+
+      {/* ── Main Landing Page Background Video (Layer 10 - in front of Hero Avatar) ── */}
+      <div className="pointer-events-none fixed inset-0 overflow-hidden z-10">
         <video
           ref={bgVideoRef}
           src="/hero.mp4"
@@ -249,25 +297,15 @@ export function LandingPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#030303]/40 via-transparent to-[#030303]/80" />
       </div>
 
-      {/* ── Main Content ── */}
-      <main className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 pt-10 sm:pt-12">
+      {/* ── Main Content (Layer 20 - in front of Background Video) ── */}
+      <main className="relative z-20 mx-auto max-w-4xl px-4 sm:px-6 pt-10 sm:pt-12">
 
-        {/* ── Hero Section (Centered Avatar with Text Overlay) ── */}
+        {/* ── Hero Section (Text Overlay) ── */}
         <section className="relative z-0 flex flex-col items-center justify-center w-full text-center">
-          <div className="relative z-10 w-[300px] h-[340px] sm:w-[360px] sm:h-[400px] md:w-[400px] md:h-[440px]">
-
-            <Image
-              src="/avatar.png"
-              alt="Dike Character Avatar"
-              fill
-              className="object-contain select-none"
-              priority
-              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            />
+          <div className="relative z-10 w-[300px] h-[340px] sm:w-[360px] sm:h-[400px] md:w-[500px] md:h-[560px] lg:w-[560px] lg:h-[620px]">
             {/* RENCE / DIKE overlay on chest */}
-            <div className="absolute bottom-6 left-0 right-0 flex flex-col items-center pointer-events-none">
-
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tighter text-metallic -mt-1 select-none">
+            <div className="absolute bottom-6 md:bottom-8 left-0 right-0 flex flex-col items-center pointer-events-none">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tighter text-metallic -mt-1 select-none">
                 DIKE
               </h1>
             </div>
@@ -276,7 +314,7 @@ export function LandingPage() {
 
         {/* ── Tools Banner ── */}
         <div
-          className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden z-50 -mt-6 bg-zinc-900/80 backdrop-blur-sm flex items-center"
+          className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden z-50 -mt-6 bg-transparent flex items-center"
           style={{ height: '36px' }}
         >
           <div className="animate-marquee flex items-center whitespace-nowrap" style={{ width: 'max-content' }}>
