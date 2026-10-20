@@ -149,15 +149,7 @@ export function PortfolioShell() {
         }`}
         aria-hidden={!showDesktop || isDetailOpen}
       >
-        <div className="absolute right-3 top-3 z-20 flex flex-wrap items-center gap-2 sm:right-6 sm:top-6">
-          <Link
-            href="/portfolio"
-            className="rounded-full border border-[#0055FF]/30 bg-black/45 px-3 py-2 text-sm font-medium text-white backdrop-blur transition hover:border-[#0055FF] hover:bg-[#0055FF]/15"
-          >
-            See My Work
-          </Link>
-          <BookServiceButton className="px-3 py-2 text-sm" />
-        </div>
+
 
         <div className="pointer-events-none flex min-h-[30vh] items-center justify-center pt-4 sm:min-h-[calc(100dvh-8rem)] sm:pt-8">
           <HeroLogo />

@@ -1,15 +1,17 @@
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap");
 @import "tailwindcss";
 @config "../../tailwind.config.ts";
 
 :root {
   --background: #050505;
-  --foreground: #f5ede8;
+  --foreground: #fffc;
+  --white: #fffc;
   --primary: #0055FF;
   --desktop-cell-width: 88px;
 }
 
 @theme inline {
+  --color-white: #fffc;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-primary-50: #eef1ff;
@@ -23,7 +25,7 @@
   --color-primary-800: #002266;
   --color-primary-900: #001133;
   --color-primary-950: #00091a;
-  --font-sans: "DM Sans", "DM Sans Placeholder", sans-serif;
+  --font-sans: "Manrope", var(--font-manrope), sans-serif;
   --font-mono: var(--font-geist-mono);
 }
 
@@ -36,7 +38,7 @@ html {
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: "DM Sans", "DM Sans Placeholder", sans-serif;
+  font-family: "Manrope", var(--font-manrope), sans-serif;
   overflow-x: hidden;
   max-width: 100%;
 }
@@ -337,4 +339,15 @@ body {
 @keyframes dialogIn {
   from { opacity: 0; transform: translate(-50%, -48%) scale(0.96); }
   to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+
+/* ─── Landing Page Hero Animations ─────────────────────────────────── */
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.8); }
+}
+
+@keyframes marqueeSpin {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }

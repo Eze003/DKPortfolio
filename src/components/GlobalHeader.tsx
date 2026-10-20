@@ -1,47 +1,78 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import { BookServiceButton } from "@/components/BookServiceButton";
-import { IoIosArrowDroprightCircle } from "react-icons/io";
+import { useEffect, useState, useRef } from "react";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 export function GlobalHeader() {
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Always visible when near the very top of the page
+      if (currentScrollY < 40) {
+        setVisible(true);
+      } else if (currentScrollY > lastScrollY.current + 4) {
+        // Scrolling DOWN -> immediately fade out
+        setVisible(false);
+      } else if (currentScrollY < lastScrollY.current - 4) {
+        // Scrolling UP -> immediately fade in
+        setVisible(true);
+      }
+
+      lastScrollY.current = currentScrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Hide the global header on admin studio pages
+  // Hide on admin pages
   if (pathname?.startsWith("/admin")) {
     return null;
   }
 
+  const navItems = [
+    { label: "Home", href: "/" },
+    { label: "Projects", href: "/projects" },
+    { label: "Services", href: "/services" },
+    { label: "Blogs", href: "/blogs" },
+  ];
+
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-[100] w-full pointer-events-none transition-all duration-500 border-b ${scrolled
-          ? "pt-2 pb-2 bg-black/80 backdrop-blur-xl border-zinc-900/80 shadow-[0_4px_30px_rgba(0,0,0,0.8)]"
-          : "pt-4 pb-3 bg-transparent border-transparent"
-        }`}
+      className={`fixed top-0 left-0 right-0 z-50 w-full pt-3.5 sm:pt-4 pointer-events-none transition-all duration-150 ease-out ${
+        visible ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"
+      }`}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-8 w-full flex items-center justify-between">
-        <Link
-          href="/portfolio"
-          className="pointer-events-auto flex items-center gap-1.5 sm:gap-2 rounded-full border border-[#0055FF]/25 bg-[#071221]/80 px-3 sm:px-4 py-2 text-[11px] sm:text-xs font-semibold text-zinc-200 backdrop-blur-lg transition hover:border-[#0055FF]/60 hover:bg-[#0a1c39] hover:text-white whitespace-nowrap shadow-[0_2px_12px_rgba(0,0,0,0.5)]"
-        >
-          <IoIosArrowDroprightCircle className="text-[#0055FF] text-lg" />
-          <span>my works</span>
-        </Link>
+      <div className="max-w-7xl mx-auto px-8 sm:px-12 lg:px-14 w-full flex items-center justify-end">
+        <nav className="pointer-events-auto flex items-center gap-0.5 rounded-full border border-white/[0.08] bg-black/95 px-2.5 py-1 backdrop-blur-xl shadow-2xl">
+          {navItems.map((item) => {
+            const isActive =
+              (item.label === "Home" && (pathname === "/" || pathname === "")) ||
+              (item.label === "Projects" && (pathname === "/projects" || pathname?.startsWith("/portfolio"))) ||
+              (item.label === "Services" && pathname === "/services") ||
+              (item.label === "Blogs" && (pathname === "/blogs" || pathname?.startsWith("/blogs") || pathname?.startsWith("/blog")));
 
-        <BookServiceButton
-          label="Book a service"
-          variant="green-pill"
-          className="pointer-events-auto text-[11px] sm:text-xs px-3 sm:px-4 py-2 whitespace-nowrap shadow-[0_2px_12px_rgba(0,0,0,0.5)]"
-        />
+            return (
+              <Link
+                key={item.label}
+                href={item.href}
+                className={`text-[14px] font-normal px-3.5 py-1.5 rounded-full transition-colors duration-200 no-underline text-[#ffffff] ${
+                  isActive
+                    ? "bg-white/10"
+                    : "hover:bg-white/[0.08]"
+                }`}
+              >
+                {item.label}
+              </Link>
+            );
+          })}
+        </nav>
       </div>
     </header>
   );
