@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Dancing_Script, DM_Sans, Geist_Mono } from "next/font/google";
+import { Dancing_Script, Manrope, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { GlobalHeader } from "@/components/GlobalHeader";
 
@@ -9,9 +9,10 @@ const helloScript = Dancing_Script({
   weight: ["400", "700"],
 });
 
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 const geistMono = Geist_Mono({
@@ -30,10 +31,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-      <html
-        lang="en"
-        className={`${dmSans.variable} ${geistMono.variable} ${helloScript.variable} antialiased`}
-      >
+    <html
+      lang="en"
+      className={`${manrope.variable} ${geistMono.variable} ${helloScript.variable} antialiased`}
+    >
       <body className="min-h-screen bg-black font-sans">
         <GlobalHeader />
         {children}

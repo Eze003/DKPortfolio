@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -12,500 +12,593 @@ import {
   SiAsana,
   SiDropbox,
   SiAirtable,
+  SiNotion,
+  SiFramer,
 } from "react-icons/si";
 import { FaMicrosoft } from "react-icons/fa";
-import { BookServiceButton } from "@/components/BookServiceButton";
+import { projects } from "@/data/projects";
+import { Footer } from "@/components/Footer";
 
-/* ─── Inline brand-colored social icon squares ─── */
-function GmailIcon() {
-  return (
-    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-white shadow-sm transition hover:scale-105">
-      <svg viewBox="0 0 48 48" className="h-6 w-6" aria-hidden="true">
-        <path fill="#EA4335" d="M24 24.7 4 12.8V38h40V12.8z" />
-        <path fill="#FBBC05" d="M4 12.8l20 11.9 20-11.9V10H4z" />
-        <path fill="#34A853" d="M44 12.8V38h4V14l-4-1.2z" />
-        <path fill="#4285F4" d="M0 14v24h4V12.8L0 14z" />
-        <path fill="#C5221F" d="M24 24.7 4 12.8 0 14l24 14 24-14-4-1.2z" />
-      </svg>
-    </div>
-  );
-}
+/* ─── Brand logos for marquee ─── */
+const brandLogos = [
+  { icon: <SiSpotify />, name: "Spotify" },
+  { icon: <SiNetflix />, name: "Netflix" },
+  { icon: <SiSlack />, name: "Slack" },
+  { icon: <SiFigma />, name: "Figma" },
+  { icon: <FaMicrosoft />, name: "Microsoft" },
+  { icon: <SiGoogle />, name: "Google" },
+  { icon: <SiDropbox />, name: "Dropbox" },
+  { icon: <SiAirtable />, name: "Airtable" },
+  { icon: <SiAsana />, name: "Asana" },
+  { icon: <SiNotion />, name: "Notion" },
+  { icon: <SiFramer />, name: "Framer" },
+];
 
-function InstagramIcon() {
-  return (
-    <div
-      className="flex h-10 w-10 items-center justify-center rounded-xl shadow-sm transition hover:scale-105"
-      style={{
-        background:
-          "radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%)",
-      }}
-    >
-      <svg
-        viewBox="0 0 24 24"
-        className="h-5 w-5 fill-white"
-        aria-hidden="true"
-      >
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-      </svg>
-    </div>
-  );
-}
-
-function WhatsappIcon() {
-  return (
-    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#25D366] shadow-sm transition hover:scale-105">
-      <svg
-        viewBox="0 0 24 24"
-        className="h-6 w-6 fill-white"
-        aria-hidden="true"
-      >
-        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-      </svg>
-    </div>
-  );
-}
-
-function LinkedinIcon() {
-  return (
-    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#0077b5] shadow-sm transition hover:scale-105">
-      <svg
-        viewBox="0 0 24 24"
-        className="h-5 w-5 fill-white"
-        aria-hidden="true"
-      >
-        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-      </svg>
-    </div>
-  );
-}
-
-function BehanceIcon() {
-  return (
-    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#053eff] shadow-sm transition hover:scale-105">
-      <svg
-        viewBox="0 0 24 24"
-        className="h-5 w-5 fill-white"
-        aria-hidden="true"
-      >
-        <path d="M6.938 4.503c.702 0 1.34.06 1.92.188.577.13 1.07.33 1.485.61.41.28.733.65.96 1.12.225.47.34 1.05.34 1.73 0 .74-.17 1.36-.507 1.86-.338.5-.837.9-1.502 1.22.906.26 1.576.72 2.022 1.37.448.66.665 1.45.665 2.36 0 .75-.14 1.39-.42 1.93-.28.55-.67 1.01-1.16 1.36-.49.36-1.06.62-1.7.78-.64.17-1.31.25-2.02.25H0V4.503h6.938zm-.54 5.88c.54 0 .98-.13 1.32-.4.34-.26.51-.67.51-1.22 0-.3-.06-.56-.16-.76-.11-.2-.26-.36-.45-.48-.19-.12-.41-.21-.65-.26-.25-.05-.51-.07-.78-.07H3.16v3.19h3.24zm.15 6.15c.29 0 .57-.03.83-.09.26-.06.49-.16.69-.3.2-.14.36-.33.48-.57.12-.24.18-.54.18-.9 0-.72-.2-1.23-.6-1.55-.4-.31-.93-.47-1.59-.47H3.16v3.88h3.39zm11.17-9.3c-1.35 0-2.47.36-3.38 1.09-.91.73-1.4 1.82-1.47 3.28h7.8c-.1-1.49-.55-2.58-1.39-3.28-.83-.69-1.82-1.09-1.56-.09zM24 13.15c0 .07-.01.17-.02.29h-7.23c.12.74.42 1.28.91 1.64.49.36 1.1.54 1.81.54.65 0 1.2-.14 1.65-.42.44-.28.71-.56.81-.84h2.79c-.38 1.15-1.02 2.03-1.93 2.66-.91.62-2 .94-3.27.94-1.77 0-3.19-.55-4.28-1.64-1.09-1.09-1.63-2.59-1.63-4.5 0-1.88.53-3.37 1.61-4.48 1.07-1.1 2.49-1.65 4.25-1.65 1.74 0 3.14.56 4.22 1.67C23.49 8.49 24 10.55 24 13.15zm-6.29-6.18h-4.84v1.46h4.84V6.97z" />
-      </svg>
-    </div>
-  );
-}
+/* ─── Experience data ─── */
+const experiences = [
+  {
+    role: "Senior Motion Designer",
+    period: "2024 – Present",
+    company: "MotionsGaad Studio",
+    desc: "3D animation, motion graphics & brand films",
+    abbr: "MG",
+    color: "#1a1a2e",
+  },
+  {
+    role: "Motion Graphics Artist",
+    period: "2022 – 2024",
+    company: "DFC Creative",
+    desc: "Event visuals, fighter promos & broadcast packages",
+    abbr: "DC",
+    color: "#1a1a1a",
+  },
+  {
+    role: "Video Editor",
+    period: "2021 – 2022",
+    company: "Skin.Club",
+    desc: "Product reels, neon-lit social loops & renders",
+    abbr: "SC",
+    color: "#1a1a1a",
+  },
+  {
+    role: "Junior Designer",
+    period: "2020 – 2021",
+    company: "Freelance",
+    desc: "Brand identity, social content & packaging",
+    abbr: "FL",
+    color: "#1a1a1a",
+  },
+];
 
 export function LandingPage() {
-  const [isPlayModalOpen, setIsPlayModalOpen] = useState(false);
-  const bgVideoRef = useRef<HTMLVideoElement | null>(null);
-  const cardVideoRef = useRef<HTMLVideoElement | null>(null);
-  useEffect(() => {
-    const playVideo = (v: HTMLVideoElement | null) => {
-      if (v) {
-        v.muted = true;
-        v.loop = true;
-        v.play().catch(() => { });
-      }
-    };
-    playVideo(bgVideoRef.current);
-    playVideo(cardVideoRef.current);
-  }, []);
-
-  const tools = [
-    {
-      icon: (
-        <span className="font-bold text-xl tracking-tight text-zinc-400 select-none shrink-0">
-          Canva
-        </span>
-      ),
-    },
-    {
-      icon: (
-        <div className="flex items-center gap-1.5 shrink-0">
-          <SiFigma className="w-7 h-7 text-zinc-400" />
-          <span className="text-base font-semibold text-zinc-400">Figma</span>
-        </div>
-      ),
-    },
-    {
-      icon: (
-        <div className="flex items-center gap-1.5 shrink-0">
-          <SiAsana className="w-7 h-7 text-zinc-400" />
-          <span className="text-base font-semibold text-zinc-400">Asana</span>
-        </div>
-      ),
-    },
-    {
-      icon: (
-        <div className="flex items-center gap-1.5 shrink-0">
-          <SiSlack className="w-7 h-7 text-zinc-400" />
-          <span className="text-base font-semibold text-zinc-400">Slack</span>
-        </div>
-      ),
-    },
-    {
-      icon: (
-        <div className="flex items-center gap-1.5 shrink-0">
-          <SiDropbox className="w-7 h-7 text-zinc-400" />
-          <span className="text-base font-semibold text-zinc-400">Dropbox</span>
-        </div>
-      ),
-    },
-    {
-      icon: (
-        <div className="flex items-center gap-1.5 shrink-0">
-          <SiAirtable className="w-7 h-7 text-zinc-400" />
-          <span className="text-base font-semibold text-zinc-400">Airtable</span>
-        </div>
-      ),
-    },
-    {
-      icon: (
-        <div className="flex items-center gap-1.5 shrink-0">
-          <SiSpotify className="w-7 h-7 text-zinc-400" />
-          <span className="text-base font-semibold text-zinc-400">Spotify</span>
-        </div>
-      ),
-    },
-  ];
-
-  const brandLogos = [
-    { icon: <SiSpotify className="w-7 h-7 text-zinc-400" />, name: "Spotify" },
-    { icon: <SiNetflix className="w-7 h-7 text-zinc-400" />, name: "Netflix" },
-    { icon: <SiSlack className="w-7 h-7 text-zinc-400" />, name: "Slack" },
-    { icon: <SiFigma className="w-7 h-7 text-zinc-400" />, name: "Figma" },
-    { icon: <FaMicrosoft className="w-6 h-6 text-zinc-400" />, name: "Microsoft" },
-    { icon: <SiGoogle className="w-6 h-6 text-zinc-400" />, name: "Google" },
-    { icon: <SiDropbox className="w-7 h-7 text-zinc-400" />, name: "Dropbox" },
-    { icon: <SiAirtable className="w-7 h-7 text-zinc-400" />, name: "Airtable" },
-    { icon: <SiAsana className="w-7 h-7 text-zinc-400" />, name: "Asana" },
-  ];
-
-  const coreServices = [
-    {
-      title: "Motion graphics",
-      desc: "Dynamic visual animations, kinetic typography, and custom high-impact promos.",
-      seed: "motion",
-    },
-    {
-      title: "Video editing",
-      desc: "Paced storytelling edits, professional color grading, and immersive sound design.",
-      seed: "video",
-    },
-    {
-      title: "Social media content",
-      desc: "Scroll-stopping vertical video ads, custom Instagram Reels, and viral layouts.",
-      seed: "social",
-    },
-    {
-      title: "3d Ai video",
-      desc: "Futuristic generative AI video layouts and abstract 3D visual loop rendering.",
-      seed: "3dai",
-    },
-  ];
-
-  const socials = [
-    {
-      icon: (
-        <Image
-          src="/whatsapp.svg"
-          alt="WhatsApp"
-          width={40}
-          height={40}
-          className="h-10 w-10 rounded-xl shadow-sm"
-        />
-      ),
-      label: "WhatsApp",
-      href: "https://wa.me/5551234567",
-    },
-    {
-      icon: (
-        <Image
-          src="/instagram.svg"
-          alt="Instagram"
-          width={40}
-          height={40}
-          className="h-10 w-10 rounded-xl shadow-sm"
-        />
-      ),
-      label: "Instagram",
-      href: "https://www.instagram.com/yernazar.design/",
-    },
-    {
-      icon: (
-        <Image
-          src="/mail.svg"
-          alt="Mail"
-          width={40}
-          height={40}
-          className="h-10 w-10 rounded-xl shadow-sm"
-        />
-      ),
-      label: "Mail",
-      href: "mailto:hello@motionsgaad.com",
-    },
-    {
-      icon: (
-        <Image
-          src="/linkedin.svg"
-          alt="LinkedIn"
-          width={40}
-          height={40}
-          className="h-10 w-10 rounded-xl shadow-sm"
-        />
-      ),
-      label: "LinkedIn",
-      href: "https://linkedin.com",
-    },
-  ];
+  /* take up to 4 projects for the homepage grid */
+  const featuredProjects = projects.slice(0, 4);
 
   return (
-    <div className="relative w-full bg-[#030303] text-white selection:bg-[#0055FF]/30 overflow-hidden font-sans pb-20">
-      {/* ── Hero Avatar GIF (Layer 0 - behind background video) ── */}
-      <div className="absolute top-10 sm:top-12 left-0 right-0 z-0 flex justify-center pointer-events-none">
-        <div className="relative w-[300px] h-[340px] sm:w-[360px] sm:h-[400px] md:w-[500px] md:h-[560px] lg:w-[560px] lg:h-[620px]">
-          <Image
-            src="/hero-avatar.gif"
-            alt="Hero Avatar"
-            fill
-            unoptimized
-            priority
-            className="object-contain select-none pointer-events-none mix-blend-screen brightness-125 contrast-105 opacity-100 [mask-image:radial-gradient(ellipse_at_center,black_85%,transparent_100%)]"
-          />
-        </div>
-      </div>
+    <div
+      style={{
+        background: "#080808",
+        color: "#fffc",
+        fontFamily: "'Manrope', sans-serif",
+        minHeight: "100vh",
+        overflowX: "hidden",
+      }}
+    >
 
-      {/* ── Main Landing Page Background Video (Layer 10 - in front of Hero Avatar) ── */}
-      <div className="pointer-events-none fixed inset-0 overflow-hidden z-10">
-        {/* <video
-          ref={bgVideoRef}
-          src="/hero.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          poster="/hero-poster.webp"
-          preload="auto"
-          className="h-full w-full object-cover opacity-75 transform-gpu"
-          onEnded={(e) => {
-            e.currentTarget.currentTime = 0;
-            e.currentTarget.play().catch(() => { });
+      {/* ═══════════════════════════════════════════
+          HERO SECTION
+      ═══════════════════════════════════════════ */}
+      <section
+        id="home"
+        style={{
+          position: "relative",
+          width: "100%",
+          height: "100vh",
+          background: "#000",
+          overflow: "hidden",
+        }}
+      >
+        {/* ── Portrait photo — centered, not full-bleed ── */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 1,
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "flex-start",
           }}
         >
-          <source src="/hero.webm" type="video/webm" />
-          <source src="/hero.mp4" type="video/mp4" />
-        </video> */}
-        {/* Soft Vignette Overlay for Text Readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#030303]/40 via-transparent to-[#030303]/80" />
-      </div>
-
-      {/* ── Main Content (Layer 20 - in front of Background Video) ── */}
-      <main className="relative z-20 mx-auto max-w-4xl px-4 sm:px-6 pt-10 sm:pt-12">
-
-        {/* ── Hero Section (Text Overlay) ── */}
-        <section className="relative z-0 flex flex-col items-center justify-center w-full text-center">
-          <div className="relative z-10 w-[300px] h-[340px] sm:w-[360px] sm:h-[400px] md:w-[500px] md:h-[560px] lg:w-[560px] lg:h-[620px]">
-            {/* RENCE / DIKE overlay on chest */}
-            <div className="absolute bottom-6 md:bottom-8 left-0 right-0 flex flex-col items-center pointer-events-none">
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tighter text-metallic -mt-1 select-none">
-                DIKE
-              </h1>
-            </div>
-          </div>
-        </section>
-
-        {/* ── Tools Banner ── */}
-        <div
-          className="relative w-screen left-1/2 -translate-x-1/2 overflow-hidden z-50 -mt-6 bg-transparent flex items-center"
-          style={{ height: '36px' }}
-        >
-          <div className="animate-marquee flex items-center whitespace-nowrap" style={{ width: 'max-content' }}>
-            {[...tools, ...tools].map((tool, idx) => (
-              <div
-                key={idx}
-                className="flex items-center justify-center px-6 select-none"
-              >
-                {tool.icon}
-              </div>
-            ))}
+          <div
+            style={{
+              position: "relative",
+              width: "min(52vw, 620px)",
+              height: "100%",
+              flexShrink: 0,
+            }}
+          >
+            <Image
+              src="/avatar.png"
+              alt="DIKE"
+              fill
+              priority
+              sizes="620px"
+              style={{
+                objectFit: "cover",
+                objectPosition: "center top",
+                maskImage: "linear-gradient(to bottom, black 55%, rgba(0,0,0,0.5) 78%, transparent 100%)",
+                WebkitMaskImage: "linear-gradient(to bottom, black 55%, rgba(0,0,0,0.5) 78%, transparent 100%)",
+              }}
+            />
           </div>
         </div>
 
-        {/* ── Cinematic Widescreen Video Player ── */}
-        <section className="relative mt-6 sm:mt-4 mb-8 w-full max-w-3xl mx-auto px-2 z-99">
-          {/* Device frame — dark bezel surround */}
-          <div
-            onClick={() => setIsPlayModalOpen(true)}
-            className="group cursor-pointer rounded-[10px] bg-[#080d1a] p-1.5 shadow-[0_32px_80px_rgba(0,0,0,0.9),0_0_0_1px_rgba(255,255,255,0.06)] transition-all duration-500 hover:shadow-[0_40px_100px_rgba(0,0,0,0.95),0_0_0_1px_rgba(255,255,255,0.10)]"
-          >
-            {/* Screen inner */}
-            <div className="relative rounded-[6px] overflow-hidden border border-white/[0.10] aspect-video bg-black">
+        {/* ── Vignette: left + right dark edges + bottom fade ── */}
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 2,
+            pointerEvents: "none",
+            background: [
+              "linear-gradient(to right, #000 0%, rgba(0,0,0,0.6) 20%, transparent 40%)",
+              "linear-gradient(to left,  #000 0%, rgba(0,0,0,0.6) 20%, transparent 40%)",
+              "linear-gradient(to top, #000 0%, rgba(0,0,0,0.7) 20%, transparent 45%)",
+            ].join(", "),
+          }}
+        />
 
-              {/* Ambient Showreel Preview */}
-              <video
-                src="/video.mp4"
-                muted
-                playsInline
-                className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-[1.02] transition-transform duration-700"
-              />
+        {/* ── Hero bottom overlay: availability + subtitle (left) and description + CV (right) ── */}
+        <div className="absolute bottom-36 left-0 right-0 z-10 pointer-events-none">
+          <div className="max-w-7xl mx-auto px-8 sm:px-12 lg:px-14 w-full flex items-end justify-between">
+            {/* Bottom-left: availability + subtitle */}
+            <div className="pointer-events-auto">
+              {/* Badge */}
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/[0.1] bg-[#121212]/90 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white/75 backdrop-blur-md">
+                <span
+                  className="inline-block h-2 w-2 rounded-full bg-[#22c55e]"
+                  style={{ boxShadow: "0 0 8px #22c55e", animation: "pulseDot 2s ease-in-out infinite" }}
+                />
+                Available to work
+              </div>
+              {/* Subtitle */}
+              <p className="m-0 max-w-[280px] text-[22px] font-semibold leading-snug text-white/90">
+                Motion Designer &amp; Visual<br />Storyteller based in UK
+              </p>
+            </div>
 
-              {/* Subtle vignette */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-10 pointer-events-none" />
-
-              {/* Glass Play Button */}
-              <div className="absolute inset-0 flex items-center justify-center z-20">
-                <div className="relative flex h-[80px] w-[80px] sm:h-[100px] sm:w-[100px] items-center justify-center rounded-full transition-all duration-300 group-hover:scale-105">
-                  {/* Transparent glass ring */}
-                  <div className="absolute inset-0 rounded-full backdrop-blur-md bg-white/[0.08] group-hover:bg-white/[0.12] transition-all duration-300" />
-                  {/* Play icon — big */}
+            {/* Bottom-right: description + CV button */}
+            <div className="pointer-events-auto max-w-[360px] text-right flex flex-col items-end">
+              <p className="mb-6 text-[15px] sm:text-[16px] leading-relaxed text-white/70">
+                As a motion designer, I specialize in creating magical visual identities for brands.
+                Great design starts with open communication and respect for your audience.
+              </p>
+              <a
+                href="/cv.pdf"
+                download
+                className="group inline-flex items-center gap-3.5 rounded-full bg-white pl-6 pr-2 py-2 text-sm sm:text-base font-semibold text-black shadow-xl transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
+              >
+                <span>Download CV</span>
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-black text-white transition-transform duration-200 group-hover:translate-y-0.5">
                   <svg
+                    width="16"
+                    height="16"
                     viewBox="0 0 24 24"
-                    className="relative z-10 h-9 w-9 sm:h-11 sm:w-11 fill-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)] ml-1"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                     aria-hidden="true"
                   >
-                    <path d="M8 5v14l11-7z" />
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
                   </svg>
-                </div>
-              </div>
+                </span>
+              </a>
             </div>
           </div>
-        </section>
+        </div>
+
+        {/* ── HUGE name at the very bottom ── */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: -20,
+            left: 0,
+            right: 0,
+            zIndex: 5,
+            textAlign: "center",
+            fontSize: "clamp(90px, 18vw, 220px)",
+            fontWeight: 900,
+            letterSpacing: "-0.03em",
+            lineHeight: 0.85,
+            color: "#fffc",
+            userSelect: "none",
+            pointerEvents: "none",
+            whiteSpace: "nowrap",
+          }}
+        >
+          DIKE
+        </div>
 
 
+      </section>
 
-        {/* ── Statement & Brands Panel ── */}
-        <section className="relative mt-2 w-full max-w-3xl mx-auto text-center">
-          <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white leading-tight max-w-2xl mx-auto">
-            Crafting incredible, impactful designs & brand experiences
-          </h3>
-          <p className="mt-4 text-zinc-400 text-sm leading-relaxed max-w-xl mx-auto">
-            Design is a way of telling a brand&apos;s story, communicating
-            ideas, identifying real problems, and providing solutions. Crafting
-            memorable designs is what I do very well.
-          </p>
-
-          {/* Brand logos */}
-          <div className="mt-10 grid grid-cols-3 sm:grid-cols-9 gap-6 items-center justify-items-center opacity-50 hover:opacity-80 transition-opacity duration-300">
-            {brandLogos.map((b, i) => (
-              <div
-                key={i}
-                className="transition-transform duration-200 hover:scale-110"
-                title={b.name}
-              >
-                {b.icon}
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ── "What I Do" Services Grid (2x2 Layout) ── */}
-        <section id="what-i-do" className="relative mt-12 w-full max-w-3xl px-4 mx-auto">
-          <div className="flex justify-between items-end mb-4 px-2">
-            <div>
-              <h4 className="text-2xl font-bold text-white tracking-tight">
-                what I do
-              </h4>
-              <div className="h-0.5 w-12 bg-gradient-to-r from-[#0055FF] to-transparent rounded-full mt-1" />
+      {/* ═══════════════════════════════════════════
+          BRAND LOGOS MARQUEE (MY EXPERT AREA)
+      ═══════════════════════════════════════════ */}
+      <section className="bg-[#080808] pt-5 sm:pt-7 pb-14 sm:pb-16 border-t border-white/[0.05] overflow-hidden">
+        <div className="max-w-7xl mx-auto px-8 sm:px-12 lg:px-14 w-full">
+          {/* Label */}
+          <div className="mb-5 flex justify-center">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-[#141414] px-4 py-1.5 text-[11px] font-semibold tracking-wider text-zinc-400 uppercase">
+              <span className="h-1.5 w-1.5 rounded-full bg-zinc-300" />
+              MY EXPERT AREA
             </div>
-            <span className="text-xs text-[#0055FF] font-semibold tracking-widest uppercase">
-              Services
-            </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {coreServices.map((s, idx) => (
-              <Link
-                key={idx}
-                href="/portfolio"
-                className="group flex flex-col justify-between p-5 bg-zinc-900/40 border border-white/15 hover:border-[#0055FF]/40 rounded-2xl transition-all duration-300 backdrop-blur-lg hover:shadow-[0_12px_40px_rgba(0,85,255,0.1)] hover:-translate-y-0.5"
-              >
-                <div className="flex gap-4">
-                  {/* Small visual thumbnail */}
-                  <div className="relative w-16 h-16 rounded-xl overflow-hidden border border-white/10 shrink-0 bg-zinc-950">
-                    <Image
-                      src={`https://picsum.photos/seed/${s.seed}/120/120`}
-                      alt={s.title}
-                      fill
-                      className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      sizes="64px"
-                    />
-                  </div>
-                  <div>
-                    <h5 className="text-sm font-bold text-zinc-200 group-hover:text-white uppercase tracking-wider">
-                      {s.title}
-                    </h5>
-                    <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
-                      {s.desc}
-                    </p>
-                  </div>
-                </div>
-
-                <div className="mt-4 flex items-center justify-end">
-                  <span className="text-[10px] tracking-wider text-zinc-500 group-hover:text-[#0055FF] font-bold uppercase transition-colors mr-2">
-                    View projects
+          {/* Scrolling large cards aligned within the page px */}
+          <div className="relative w-full overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_4%,black_96%,transparent)]">
+            <div
+              className="flex gap-4 w-max hover:[animation-play-state:paused]"
+              style={{
+                animation: "marqueeSpin 95s linear infinite",
+              }}
+            >
+              {[...brandLogos, ...brandLogos, ...brandLogos].map((b, i) => (
+                <div
+                  key={i}
+                  className="flex items-center justify-center gap-3.5 w-[210px] sm:w-[240px] h-[135px] sm:h-[155px] shrink-0 rounded-2xl bg-[#141414] border border-white/[0.08] text-zinc-300 transition-all duration-200 hover:border-white/20 hover:bg-[#181818]"
+                >
+                  <span className="text-2xl sm:text-3xl text-zinc-300 flex items-center">
+                    {b.icon}
                   </span>
-                  <div className="flex h-6 w-6 items-center justify-center rounded-full bg-[#0055FF]/15 text-[#0055FF] group-hover:bg-[#0055FF] group-hover:text-black transition-all duration-300 text-xs font-bold shadow-sm">
-                    ➔
+                  <span className="text-base sm:text-lg font-bold tracking-tight text-white/90">
+                    {b.name}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          PROJECTS SECTION
+      ═══════════════════════════════════════════ */}
+      <section
+        id="projects"
+        className="bg-[#080808] py-20 border-t border-white/[0.05]"
+      >
+        <div className="max-w-7xl mx-auto px-8 sm:px-12 lg:px-14 w-full">
+          {/* Section heading */}
+          <h2
+            style={{
+              fontSize: "clamp(28px, 4vw, 42px)",
+              fontWeight: 800,
+              color: "#fffc",
+              letterSpacing: "-0.02em",
+              marginBottom: 32,
+            }}
+          >
+            Projects
+          </h2>
+
+          {/* 2-col grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-7 sm:gap-9">
+            {featuredProjects.map((p) => (
+              <Link
+                key={p.id}
+                href={`/portfolio/${p.id}`}
+                className="group relative flex flex-col rounded-[30px] sm:rounded-[34px] border border-white/[0.08] bg-[#0c0c0c] p-5 sm:p-6 transition-all duration-300 hover:border-white/20 hover:bg-[#0f0f0f] no-underline"
+              >
+                {/* Balanced thumbnail height */}
+                <div className="relative w-full aspect-[16/10.5] sm:aspect-[16/10] min-h-[250px] sm:min-h-[300px] md:min-h-[340px] overflow-hidden rounded-[22px] sm:rounded-[24px] bg-[#161616]">
+                  <Image
+                    src={
+                      p.thumbnail ||
+                      `https://picsum.photos/seed/${p.id}/800/500`
+                    }
+                    alt={p.label}
+                    fill
+                    sizes="(max-width:768px) 100vw, 650px"
+                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                  />
+                </div>
+
+                {/* Card footer: Name and description */}
+                <div className="mt-5 px-1">
+                  <h3 className="text-xl sm:text-2xl md:text-[25px] font-bold text-white tracking-tight leading-snug mb-1.5 transition-colors duration-200 group-hover:text-white">
+                    {p.label}
+                  </h3>
+                  <p className="text-sm sm:text-base text-zinc-400 font-medium m-0">
+                    {p.detail.projectType}
+                  </p>
+                </div>
+
+                {/* Button placed close below description */}
+                <div className="mt-4 px-1 flex items-center justify-end">
+                  <div className="inline-flex items-center gap-3 rounded-full bg-[#181818] border border-white/[0.08] pl-5 sm:pl-6 pr-2 sm:pr-2.5 py-2.5 text-sm sm:text-base font-semibold text-white/95 shrink-0 transition-colors duration-200 group-hover:bg-[#222222] group-hover:border-white/15">
+                    <span>View Project</span>
+                    <span className="relative flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-white text-black shrink-0 overflow-hidden">
+                      {/* Straight right arrow (rotates CLOCKWISE +45° and fades out) */}
+                      <svg
+                        width="15"
+                        height="15"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="absolute transition-all duration-300 ease-out opacity-100 rotate-0 scale-100 group-hover:opacity-0 group-hover:rotate-45 group-hover:scale-50"
+                        aria-hidden="true"
+                      >
+                        <path d="M5 12h14M12 5l7 7-7 7" />
+                      </svg>
+                      {/* Right diagonal arrow (starts at -45° and rotates CLOCKWISE to 0°) */}
+                      <svg
+                        width="15"
+                        height="15"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="absolute transition-all duration-300 ease-out opacity-0 -rotate-45 scale-50 group-hover:opacity-100 group-hover:rotate-0 group-hover:scale-100"
+                        aria-hidden="true"
+                      >
+                        <path d="M7 17L17 7M7 7h10v10" />
+                      </svg>
+                    </span>
                   </div>
                 </div>
               </Link>
             ))}
           </div>
-        </section>
 
-        {/* ── Contact Me ── */}
-        <section className="relative mt-8 w-full text-center">
-          <h4 className="text-xl font-bold text-white mb-4">Contact me</h4>
-
-          {/* Social icons in a single row premium glass pill */}
-          <div className="mx-auto w-fit rounded-full border border-white/15 bg-zinc-950/60 backdrop-blur-lg px-6 py-3.5 shadow-[0_12px_40px_rgba(0,0,0,0.8)] hover:border-[#0055FF]/40 transition-colors duration-300">
-            <div className="flex items-center gap-5">
-              {socials.map((s, i) => (
-                <a
-                  key={i}
-                  href={s.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex flex-col items-center gap-1 group"
-                  title={s.label}
+          <div style={{ marginTop: 52, display: "flex", justifyContent: "center" }}>
+            <Link
+              href="/portfolio"
+              className="group inline-flex items-center gap-3.5 rounded-full border border-white/12 bg-[#121212] pl-6 pr-2.5 py-2.5 text-sm sm:text-base font-semibold text-white/80 transition-all duration-200 hover:border-white/30 hover:text-white hover:bg-[#181818]"
+            >
+              <span>View all projects</span>
+              <span className="relative flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-white/10 text-white transition-all duration-300 group-hover:bg-white group-hover:text-black">
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="absolute transition-all duration-300 ease-out opacity-100 rotate-0 scale-100 group-hover:opacity-0 group-hover:rotate-45 group-hover:scale-50"
                 >
-                  <div className="transition-transform duration-200 group-hover:-translate-y-1 group-hover:scale-110">
-                    {s.icon}
-                  </div>
-                  <span className="text-[9px] text-zinc-500 font-semibold tracking-wide group-hover:text-zinc-300 transition-colors hidden sm:block">
-                    {s.label}
-                  </span>
-                </a>
-              ))}
-            </div>
-          </div>
-        </section>
-      </main>
-
-      {/* ── Lightbox Full-screen Video Modal ── */}
-      {isPlayModalOpen && (
-        <div className="fixed inset-0 z-[110] flex items-center justify-center bg-black/95 p-4 sm:p-8 backdrop-blur-md">
-          {/* Backdrop close button */}
-          <button
-            onClick={() => setIsPlayModalOpen(false)}
-            className="absolute top-4 right-6 text-white text-5xl font-light hover:text-[#0055FF] transition duration-200 z-[120] p-2"
-            aria-label="Close video showreel"
-          >
-            &times;
-          </button>
-
-          <div className="relative w-full max-w-5xl aspect-video rounded-2xl overflow-hidden border border-white/15 bg-black shadow-2xl">
-            <video
-              src="/video.mp4"
-              className="w-full h-full object-cover"
-              controls
-              autoPlay
-              muted
-              playsInline
-            />
+                  <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="absolute transition-all duration-300 ease-out opacity-0 -rotate-45 scale-50 group-hover:opacity-100 group-hover:rotate-0 group-hover:scale-100"
+                >
+                  <path d="M7 17L17 7M7 7h10v10" />
+                </svg>
+              </span>
+            </Link>
           </div>
         </div>
-      )}
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-[#0055FF]/60 to-transparent" />
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-[#0055FF]/60 to-transparent" />
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          EXPERIENCE SECTION
+      ═══════════════════════════════════════════ */}
+      <section
+        id="experience"
+        className="bg-[#080808] py-20 border-t border-white/[0.05]"
+      >
+        <div className="max-w-7xl mx-auto px-8 sm:px-12 lg:px-14 w-full">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-10">
+            Experience
+          </h2>
+
+          {/* 2×2 grid matching Image 1 */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
+            {[
+              {
+                role: "Senior Frontend Engineer",
+                period: "2024 – Present",
+                desc: "Product Designer NovaTech",
+                icon: (
+                  <svg width="40" height="40" viewBox="0 0 48 48" fill="none" className="text-zinc-300">
+                    <circle cx="24" cy="24" r="19" stroke="currentColor" strokeWidth="6" />
+                    <circle cx="24" cy="24" r="8" fill="currentColor" />
+                  </svg>
+                ),
+              },
+              {
+                role: "Frontend Developer",
+                period: "2022 – 2024",
+                desc: "Developed responsive websites",
+                icon: (
+                  <svg width="40" height="40" viewBox="0 0 48 48" fill="none" className="text-zinc-300">
+                    <path
+                      d="M14 26c0-6.6 5.4-12 12-12s12 4.5 12 10-3.5 8-8.5 8c-7 0-14.5-5.5-14.5-15 0-7.5 6.5-13 14.5-13s14.5 5.5 14.5 14.5"
+                      stroke="currentColor"
+                      strokeWidth="5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                ),
+              },
+              {
+                role: "Frontend Engineer — BrightLabs",
+                period: "2021 – 2022",
+                desc: "Created reusable component libraries",
+                icon: (
+                  <svg width="40" height="40" viewBox="0 0 48 48" fill="none" className="text-zinc-300">
+                    <path
+                      d="M24 7L11 14.5v19L24 41l13-7.5v-19L24 7z"
+                      stroke="currentColor"
+                      strokeWidth="5"
+                      strokeLinejoin="round"
+                    />
+                    <path d="M11 14.5l13 7.5 13-7.5M24 22v19" stroke="currentColor" strokeWidth="5" />
+                  </svg>
+                ),
+              },
+              {
+                role: "Junior Frontend Developer",
+                period: "2020 – 2021",
+                desc: "Junior Designer CodeWorks",
+                icon: (
+                  <svg width="40" height="40" viewBox="0 0 48 48" fill="none" className="text-zinc-300">
+                    <path
+                      d="M13 33c7 0 17-5 17-17 0-5.5-3.5-9-9-9s-9 3.5-9 9"
+                      stroke="currentColor"
+                      strokeWidth="5.5"
+                      strokeLinecap="round"
+                    />
+                    <path
+                      d="M35 15c-7 0-17 5-17 17 0 5.5 3.5 9 9 9s9-3.5 9-9"
+                      stroke="currentColor"
+                      strokeWidth="5.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                ),
+              },
+            ].map((e, i) => (
+              <div
+                key={i}
+                className="rounded-[28px] border border-white/[0.08] bg-[#0c0c0c] p-6 sm:p-7 flex items-center gap-5 sm:gap-6 transition-all duration-300 hover:border-white/20 hover:bg-[#0f0f0f]"
+              >
+                {/* Rounded Icon */}
+                <div className="w-[74px] h-[74px] sm:w-[82px] sm:h-[82px] rounded-[22px] bg-[#1c1c1c] border border-white/[0.06] flex items-center justify-center shrink-0 p-3.5">
+                  {e.icon}
+                </div>
+                <div>
+                  <h3 className="text-xl sm:text-[22px] font-semibold text-white tracking-tight leading-snug mb-1">
+                    {e.role}
+                  </h3>
+                  <div className="text-sm sm:text-base text-zinc-400 font-normal mb-1.5">
+                    {e.period}
+                  </div>
+                  <div className="text-xs sm:text-sm text-zinc-500 font-normal">
+                    {e.desc}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Centered Download CV button */}
+          <div className="mt-12 sm:mt-14 flex justify-center">
+            <a
+              href="/cv.pdf"
+              download
+              className="group inline-flex items-center gap-3.5 rounded-full bg-white pl-6 pr-2 py-2 text-sm sm:text-base font-semibold text-black shadow-xl transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
+            >
+              <span>Download CV</span>
+              <span className="flex h-9 w-9 items-center justify-center rounded-full bg-black text-white transition-transform duration-200 group-hover:translate-y-0.5">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+              </span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          TESTIMONIALS SECTION (Image 2)
+      ═══════════════════════════════════════════ */}
+      <section
+        id="testimonials"
+        className="bg-[#080808] pt-16 sm:pt-20 pb-12 sm:pb-14 border-t border-white/[0.05]"
+      >
+        <div className="max-w-7xl mx-auto px-8 sm:px-12 lg:px-14 w-full">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-10">
+            Testimonials
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-7">
+            {/* Card 1: Emily Carter */}
+            <div className="rounded-[32px] sm:rounded-[36px] border border-white/[0.08] bg-[#0c0c0c] p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 hover:border-white/20">
+              <div>
+                <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-[22px] overflow-hidden mb-6 border border-white/[0.08] bg-zinc-800 shrink-0">
+                  <Image
+                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80"
+                    alt="Emily Carter"
+                    fill
+                    sizes="80px"
+                    className="object-cover"
+                  />
+                </div>
+                <h3 className="text-xl sm:text-2xl font-semibold text-white tracking-tight mb-1">
+                  Emily Carter
+                </h3>
+                <p className="text-sm sm:text-base text-zinc-400 font-normal mb-6">
+                  Founder &amp; CEO, NovaTech
+                </p>
+                <p className="text-sm sm:text-base text-zinc-300 leading-relaxed font-normal m-0">
+                  &ldquo;Working with this team completely transformed our online presence. The design is clean, intuitive, and perfectly reflects our brand. We’ve received incredible feedback from both customers and partners.&rdquo;
+                </p>
+              </div>
+            </div>
+
+            {/* Card 2: Michael Johnson */}
+            <div className="rounded-[32px] sm:rounded-[36px] border border-white/[0.08] bg-[#0c0c0c] p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 hover:border-white/20">
+              <div>
+                <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-[22px] overflow-hidden mb-6 border border-white/[0.08] bg-zinc-800 shrink-0">
+                  <Image
+                    src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&auto=format&fit=crop&q=80"
+                    alt="Michael Johnson"
+                    fill
+                    sizes="80px"
+                    className="object-cover"
+                  />
+                </div>
+                <h3 className="text-xl sm:text-2xl font-semibold text-white tracking-tight mb-1">
+                  Michael Johnson
+                </h3>
+                <p className="text-sm sm:text-base text-zinc-400 font-normal mb-6">
+                  Marketing Director, BrightEdge
+                </p>
+                <p className="text-sm sm:text-base text-zinc-300 leading-relaxed font-normal m-0">
+                  &ldquo;From concept to launch, every detail was handled with professionalism. The final product exceeded our expectations, and the user experience has significantly improved customer engagement.&rdquo;
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          FOOTER SECTION
+      ═══════════════════════════════════════════ */}
+      <Footer />
     </div>
   );
 }

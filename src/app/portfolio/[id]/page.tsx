@@ -67,7 +67,7 @@ export default function PortfolioDetailPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-[#030303]/50 via-[#030303]/30 to-[#030303]" />
       </div>
 
-      <div className="w-full max-w-7xl mx-auto px-6 md:px-8 relative z-10">
+      <div className="w-full max-w-7xl mx-auto px-8 sm:px-12 lg:px-14 relative z-10">
         <motion.div
           initial={{ y: 40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}

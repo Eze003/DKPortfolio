@@ -11,6 +11,10 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        white: "#fffc",
+      },
+      fontFamily: {
+        sans: ["Manrope", "var(--font-manrope)", "sans-serif"],
       },
     },
   },
