@@ -93,18 +93,18 @@ export function LandingPage() {
         style={{
           position: "relative",
           width: "100%",
-          height: "100vh",
+          minHeight: "100vh",
           background: "#000",
           overflow: "hidden",
         }}
       >
-        {/* ── Portrait photo — centered, not full-bleed ── */}
+        {/* ── DESKTOP: Portrait photo centered, not full-bleed ── */}
         <div
+          className="hidden sm:flex"
           style={{
             position: "absolute",
             inset: 0,
             zIndex: 1,
-            display: "flex",
             justifyContent: "center",
             alignItems: "flex-start",
           }}
@@ -133,8 +133,34 @@ export function LandingPage() {
           </div>
         </div>
 
-        {/* ── Vignette: left + right dark edges + bottom fade ── */}
+        {/* ── MOBILE: Full-bleed portrait photo top half ── */}
         <div
+          className="sm:hidden"
+          style={{
+            position: "relative",
+            width: "100%",
+            height: "62vh",
+            zIndex: 1,
+          }}
+        >
+          <Image
+            src="/avatar.png"
+            alt="DIKE"
+            fill
+            priority
+            sizes="100vw"
+            style={{
+              objectFit: "cover",
+              objectPosition: "center top",
+              maskImage: "linear-gradient(to bottom, black 60%, rgba(0,0,0,0.4) 85%, transparent 100%)",
+              WebkitMaskImage: "linear-gradient(to bottom, black 60%, rgba(0,0,0,0.4) 85%, transparent 100%)",
+            }}
+          />
+        </div>
+
+        {/* ── Desktop vignette ── */}
+        <div
+          className="hidden sm:block"
           style={{
             position: "absolute",
             inset: 0,
@@ -148,12 +174,10 @@ export function LandingPage() {
           }}
         />
 
-        {/* ── Hero bottom overlay: availability + subtitle (left) and description + CV (right) ── */}
-        <div className="absolute bottom-36 left-0 right-0 z-10 pointer-events-none">
+        {/* ── DESKTOP: bottom overlay (left title + right description/CV) ── */}
+        <div className="hidden sm:block absolute bottom-36 left-0 right-0 z-10 pointer-events-none">
           <div className="max-w-7xl mx-auto px-8 sm:px-12 lg:px-14 w-full flex items-end justify-between">
-            {/* Bottom-left: availability + subtitle */}
             <div className="pointer-events-auto">
-              {/* Badge */}
               <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/[0.1] bg-[#121212]/90 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white/75 backdrop-blur-md">
                 <span
                   className="inline-block h-2 w-2 rounded-full bg-[#22c55e]"
@@ -161,13 +185,10 @@ export function LandingPage() {
                 />
                 Available to work
               </div>
-              {/* Subtitle */}
               <p className="m-0 max-w-[280px] text-[22px] font-semibold leading-snug text-white/90">
                 Motion Designer &amp; Visual<br />Storyteller based in UK
               </p>
             </div>
-
-            {/* Bottom-right: description + CV button */}
             <div className="pointer-events-auto max-w-[360px] text-right flex flex-col items-end">
               <p className="mb-6 text-[15px] sm:text-[16px] leading-relaxed text-white/70">
                 As a motion designer, I specialize in creating magical visual identities for brands.
@@ -176,21 +197,11 @@ export function LandingPage() {
               <a
                 href="/cv.pdf"
                 download
-                className="group inline-flex items-center gap-3.5 rounded-full bg-white pl-6 pr-2 py-2 text-sm sm:text-base font-semibold text-black shadow-xl transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
+                className="group inline-flex items-center gap-3.5 rounded-full bg-white pl-6 pr-2 py-2 text-sm font-semibold text-black shadow-xl transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
               >
                 <span>Download CV</span>
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-black text-white transition-transform duration-200 group-hover:translate-y-0.5">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                  >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                     <polyline points="7 10 12 15 17 10" />
                     <line x1="12" y1="15" x2="12" y2="3" />
@@ -201,8 +212,62 @@ export function LandingPage() {
           </div>
         </div>
 
-        {/* ── HUGE name at the very bottom ── */}
+        {/* ── MOBILE: stacked text content below photo ── */}
+        <div className="sm:hidden relative z-10 px-5 pt-5 pb-10">
+          {/* Availability badge */}
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/[0.1] bg-[#121212]/90 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white/75 backdrop-blur-md">
+            <span
+              className="inline-block h-2 w-2 rounded-full bg-[#22c55e]"
+              style={{ boxShadow: "0 0 8px #22c55e", animation: "pulseDot 2s ease-in-out infinite" }}
+            />
+            Available to work
+          </div>
+          {/* Title */}
+          <h1 className="text-[28px] font-semibold leading-tight text-white mb-4">
+            Motion Designer &amp; Visual<br />Storyteller based in UK
+          </h1>
+          {/* Description */}
+          <p className="text-[15px] leading-relaxed text-white/60 mb-6">
+            As a motion designer, I specialize in creating magical visual identities for brands.
+            Great design starts with open communication and respect for your audience.
+          </p>
+          {/* Download CV button */}
+          <a
+            href="/cv.pdf"
+            download
+            className="group inline-flex items-center gap-3 rounded-full bg-white pl-5 pr-2 py-2 text-sm font-semibold text-black shadow-xl transition-all duration-200 active:scale-[0.98]"
+          >
+            <span>Download CV</span>
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-black text-white">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+            </span>
+          </a>
+
+          {/* DIKE name — mobile */}
+          <div
+            style={{
+              marginTop: 24,
+              textAlign: "left",
+              fontSize: "clamp(72px, 22vw, 120px)",
+              fontWeight: 900,
+              letterSpacing: "-0.03em",
+              lineHeight: 0.88,
+              color: "#fffc",
+              userSelect: "none",
+              pointerEvents: "none",
+            }}
+          >
+            DIKE
+          </div>
+        </div>
+
+        {/* ── DESKTOP: HUGE name at the very bottom ── */}
         <div
+          className="hidden sm:block"
           style={{
             position: "absolute",
             bottom: -20,
@@ -222,8 +287,6 @@ export function LandingPage() {
         >
           DIKE
         </div>
-
-
       </section>
 
       {/* ═══════════════════════════════════════════
@@ -291,11 +354,11 @@ export function LandingPage() {
             {featuredProjects.map((p) => (
               <Link
                 key={p.id}
-                href={`/portfolio/${p.id}`}
+                href={`/project/${p.id}`}
                 className="group relative flex flex-col rounded-[30px] sm:rounded-[34px] border border-white/[0.08] bg-[#0c0c0c] p-5 sm:p-6 transition-all duration-300 hover:border-white/20 hover:bg-[#0f0f0f] no-underline"
               >
                 {/* Balanced thumbnail height */}
-                <div className="relative w-full aspect-[16/10.5] sm:aspect-[16/10] min-h-[250px] sm:min-h-[300px] md:min-h-[340px] overflow-hidden rounded-[22px] sm:rounded-[24px] bg-[#161616]">
+                <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] min-h-[285px] sm:min-h-[300px] md:min-h-[340px] overflow-hidden rounded-[22px] sm:rounded-[24px] bg-[#161616]">
                   <Image
                     src={
                       p.thumbnail ||
@@ -480,10 +543,10 @@ export function LandingPage() {
             ].map((e, i) => (
               <div
                 key={i}
-                className="rounded-[28px] border border-white/[0.08] bg-[#0c0c0c] p-6 sm:p-7 flex items-center gap-5 sm:gap-6 transition-all duration-300 hover:border-white/20 hover:bg-[#0f0f0f]"
+                className="rounded-[28px] border border-white/[0.08] bg-[#0c0c0c] p-6 sm:p-7 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 transition-all duration-300 hover:border-white/20 hover:bg-[#0f0f0f]"
               >
                 {/* Rounded Icon */}
-                <div className="w-[74px] h-[74px] sm:w-[82px] sm:h-[82px] rounded-[22px] bg-[#1c1c1c] border border-white/[0.06] flex items-center justify-center shrink-0 p-3.5">
+                <div className="w-[62px] h-[62px] sm:w-[82px] sm:h-[82px] rounded-[20px] sm:rounded-[22px] bg-[#1c1c1c] border border-white/[0.06] flex items-center justify-center shrink-0 p-3">
                   {e.icon}
                 </div>
                 <div>
@@ -532,9 +595,9 @@ export function LandingPage() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          TESTIMONIALS SECTION (Image 2)
+          TESTIMONIALS SECTION (Image 2) - COMMENTED OUT
       ═══════════════════════════════════════════ */}
-      <section
+      {/* <section
         id="testimonials"
         className="bg-[#080808] pt-16 sm:pt-20 pb-12 sm:pb-14 border-t border-white/[0.05]"
       >
@@ -544,7 +607,6 @@ export function LandingPage() {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-7">
-            {/* Card 1: Emily Carter */}
             <div className="rounded-[32px] sm:rounded-[36px] border border-white/[0.08] bg-[#0c0c0c] p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 hover:border-white/20">
               <div>
                 <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-[22px] overflow-hidden mb-6 border border-white/[0.08] bg-zinc-800 shrink-0">
@@ -568,7 +630,6 @@ export function LandingPage() {
               </div>
             </div>
 
-            {/* Card 2: Michael Johnson */}
             <div className="rounded-[32px] sm:rounded-[36px] border border-white/[0.08] bg-[#0c0c0c] p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 hover:border-white/20">
               <div>
                 <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-[22px] overflow-hidden mb-6 border border-white/[0.08] bg-zinc-800 shrink-0">
@@ -593,7 +654,7 @@ export function LandingPage() {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ═══════════════════════════════════════════
           FOOTER SECTION

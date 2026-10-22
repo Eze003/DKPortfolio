@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Footer } from "@/components/Footer";
+import { getDb } from "@/lib/db";
+import { BlogEntity } from "@/lib/entities/Blog";
 
 interface BlogPost {
   id: string;
@@ -100,14 +102,40 @@ const slugAliases: Record<string, string> = {
   "what-user-research-actually-looks-like": "user-research",
 };
 
+async function getBlogPost(rawSlug: string): Promise<BlogPost | null> {
+  const canonicalId = slugAliases[rawSlug] || rawSlug;
+
+  try {
+    const db = await getDb();
+    const blog = await db
+      .getRepository(BlogEntity)
+      .findOne({ where: [{ slug: canonicalId }, { id: canonicalId }] });
+    if (blog) {
+      return {
+        id: blog.id,
+        slug: blog.slug,
+        tag: blog.tag,
+        title: blog.title,
+        subtitle: blog.subtitle || "",
+        date: blog.date,
+        image: blog.image,
+        paragraphs: blog.paragraphs,
+      };
+    }
+  } catch (err) {
+    console.error("[getBlogPost] DB lookup failed, falling back:", err);
+  }
+
+  return blogsDatabase[canonicalId] || null;
+}
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const canonicalId = slugAliases[slug] || slug;
-  const post = blogsDatabase[canonicalId];
+  const post = await getBlogPost(slug);
 
   if (!post) return { title: "Blog Not Found | DIKE Portfolio" };
   return {
@@ -122,8 +150,7 @@ export default async function BlogPostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const canonicalId = slugAliases[slug] || slug;
-  const post = blogsDatabase[canonicalId];
+  const post = await getBlogPost(slug);
 
   if (!post) {
     notFound();
