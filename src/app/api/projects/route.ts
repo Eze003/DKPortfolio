@@ -6,7 +6,7 @@ export async function GET() {
   try {
     const db = await getDb();
     const projects = await db
-      .getRepository<ProjectEntity>("ProjectEntity")
+      .getRepository(ProjectEntity)
       .find({ order: { sortOrder: "ASC" } });
     return NextResponse.json(projects);
   } catch (err) {

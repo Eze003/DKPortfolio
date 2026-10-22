@@ -11,7 +11,7 @@ const projectsList = [
     category: "Brand Identity",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&auto=format&fit=crop&q=80",
-    href: "/portfolio/brandify",
+    href: "/project/brandify",
   },
   {
     id: "visamie",
@@ -19,7 +19,7 @@ const projectsList = [
     category: "Brand Identity",
     image:
       "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1600&auto=format&fit=crop&q=80",
-    href: "/portfolio/visamie",
+    href: "/project/visamie",
   },
   {
     id: "dodo-pizza",
@@ -27,7 +27,7 @@ const projectsList = [
     category: "Motion Design",
     image:
       "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=1600&auto=format&fit=crop&q=80",
-    href: "/portfolio/dodo-pizza",
+    href: "/project/dodo-pizza",
   },
   {
     id: "dfc",
@@ -35,7 +35,7 @@ const projectsList = [
     category: "Event Visuals",
     image:
       "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?w=1600&auto=format&fit=crop&q=80",
-    href: "/portfolio/dfc",
+    href: "/project/dfc",
   },
   {
     id: "skin-club",
@@ -43,7 +43,7 @@ const projectsList = [
     category: "3D & Motion",
     image:
       "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1600&auto=format&fit=crop&q=80",
-    href: "/portfolio/skin-club",
+    href: "/project/skin-club",
   },
   {
     id: "dala-camp",
@@ -51,7 +51,7 @@ const projectsList = [
     category: "Campaign Film",
     image:
       "https://images.unsplash.com/photo-1534447677768-be436bb09401?w=1600&auto=format&fit=crop&q=80",
-    href: "/portfolio/dala-camp",
+    href: "/project/dala-camp",
   },
   {
     id: "megacampus",
@@ -59,7 +59,7 @@ const projectsList = [
     category: "Corporate Video",
     image:
       "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&auto=format&fit=crop&q=80",
-    href: "/portfolio/megacampus",
+    href: "/project/megacampus",
   },
   {
     id: "geely-major",
@@ -67,7 +67,7 @@ const projectsList = [
     category: "Automotive Launch",
     image:
       "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1600&auto=format&fit=crop&q=80",
-    href: "/portfolio/geely-major",
+    href: "/project/geely-major",
   },
 ];
 
@@ -91,11 +91,11 @@ export default function ProjectsPage() {
           {projectsList.map((project) => (
             <Link
               key={project.id}
-              href={project.href}
+              href={project.href || `/project/${project.id}`}
               className="group relative flex flex-col rounded-[30px] sm:rounded-[34px] border border-white/[0.08] bg-[#0c0c0c] p-5 sm:p-6.5 transition-all duration-300 hover:border-white/20 hover:bg-[#0f0f0f] no-underline"
             >
               {/* Thumbnail Container */}
-              <div className="relative w-full aspect-[16/10] min-h-[240px] sm:min-h-[330px] md:min-h-[400px] overflow-hidden rounded-[22px] sm:rounded-[26px] bg-[#161616]">
+              <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] min-h-[285px] sm:min-h-[330px] md:min-h-[400px] overflow-hidden rounded-[22px] sm:rounded-[26px] bg-[#161616]">
                 <Image
                   src={project.image}
                   alt={project.title}

@@ -41,7 +41,7 @@ export default function PortfolioGridSection() {
               projects.map((project, index) => (
                 <Link
                   key={project.id}
-                  href={`/portfolio/${project.id}`}
+                  href={`/project/${project.id}`}
                   className="block"
                 >
                   <motion.div

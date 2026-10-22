@@ -88,6 +88,35 @@ const app = (
  * Order = desktop fill order (top → bottom, right column first).
  */
 export const projects: Project[] = [
+  {
+    id: "brandify",
+    label: "Brandify",
+    kind: "file",
+    variant: "wide",
+    thumbnail:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&auto=format&fit=crop&q=80",
+    detail: {
+      client: "Brandify Studio",
+      year: "2025",
+      projectType: "Brand Identity",
+      description:
+        "Comprehensive agency identity system, dynamic motion branding, bespoke typography guidelines, and digital launch collateral.",
+      gallery: [
+        {
+          src: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&auto=format&fit=crop&q=80",
+          alt: "Brandify Hero Showcase",
+        },
+        {
+          src: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=1200&auto=format&fit=crop&q=80",
+          alt: "Visual Identity System",
+        },
+        {
+          src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&auto=format&fit=crop&q=80",
+          alt: "Digital Branding Collateral",
+        },
+      ],
+    },
+  },
   app("visamie", "Visamie", "visamie", "bg-[#e53935]", "V", {
     client: "Visamie Inc.",
     year: "2025",

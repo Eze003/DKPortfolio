@@ -39,7 +39,6 @@ export function GlobalHeader() {
   const navItems = [
     { label: "Home", href: "/" },
     { label: "Projects", href: "/projects" },
-    { label: "Services", href: "/services" },
     { label: "Blogs", href: "/blogs" },
   ];
 
@@ -49,13 +48,16 @@ export function GlobalHeader() {
         visible ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-8 sm:px-12 lg:px-14 w-full flex items-center justify-end">
+      <div className="max-w-7xl mx-auto px-4 sm:px-12 lg:px-14 w-full flex items-center justify-center sm:justify-end">
         <nav className="pointer-events-auto flex items-center gap-0.5 rounded-full border border-white/[0.08] bg-black/95 px-2.5 py-1 backdrop-blur-xl shadow-2xl">
           {navItems.map((item) => {
             const isActive =
               (item.label === "Home" && (pathname === "/" || pathname === "")) ||
-              (item.label === "Projects" && (pathname === "/projects" || pathname?.startsWith("/portfolio"))) ||
-              (item.label === "Services" && pathname === "/services") ||
+              (item.label === "Projects" &&
+                (pathname === "/projects" ||
+                  pathname?.startsWith("/projects") ||
+                  pathname?.startsWith("/project") ||
+                  pathname?.startsWith("/portfolio"))) ||
               (item.label === "Blogs" && (pathname === "/blogs" || pathname?.startsWith("/blogs") || pathname?.startsWith("/blog")));
 
             return (
