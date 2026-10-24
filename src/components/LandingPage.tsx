@@ -16,6 +16,7 @@ import {
 } from "react-icons/si";
 import { FaMicrosoft } from "react-icons/fa";
 import { Footer } from "@/components/Footer";
+import { PROJECT_CARD_ASPECT_CLASSES } from "@/data/projects";
 import { usePublicProjects } from "@/hooks/usePublicProjects";
 import { usePublicExperiences } from "@/hooks/usePublicExperiences";
 
@@ -353,14 +354,14 @@ export function LandingPage() {
                 className="group relative flex flex-col rounded-[30px] sm:rounded-[34px] border border-white/[0.08] bg-[#0c0c0c] p-5 sm:p-6 transition-all duration-300 hover:border-white/20 hover:bg-[#0f0f0f] no-underline"
               >
                 {/* Balanced thumbnail height */}
-                <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] min-h-[285px] sm:min-h-[300px] md:min-h-[340px] overflow-hidden rounded-[22px] sm:rounded-[24px] bg-[#161616]">
+                <div className={`relative w-full overflow-hidden rounded-[22px] sm:rounded-[24px] bg-[#161616] ${PROJECT_CARD_ASPECT_CLASSES[p.variant]}`}>
                   {p.thumbnail ? (
                     <Image
                       src={p.thumbnail}
                       alt={p.label}
                       fill
                       sizes="(max-width:768px) 100vw, 650px"
-                      className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                      className="object-cover transition-transform duration-500 ease-out sm:group-hover:scale-105"
                     />
                   ) : (
                     <div className="flex h-full items-center justify-center bg-gradient-to-br from-white/5 to-transparent">

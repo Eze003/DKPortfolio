@@ -161,3 +161,8 @@ export async function getDb(): Promise<DataSource> {
 
   return ds;
 }
+
+export function getProjectRepository(dataSource: DataSource) {
+  // Next.js hot reload can retain a DataSource whose entity class is an older constructor.
+  return dataSource.getRepository<ProjectEntity>(ProjectEntity.name);
+}

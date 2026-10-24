@@ -17,7 +17,9 @@ function isProject(value: unknown): value is Project {
     typeof project.id === "string" &&
     typeof project.label === "string" &&
     typeof project.kind === "string" &&
-    typeof project.variant === "string" &&
+    (project.variant === "square" ||
+      project.variant === "wide" ||
+      project.variant === "tall") &&
     typeof project.sortOrder === "number" &&
     typeof project.detail === "object" &&
     project.detail !== null &&

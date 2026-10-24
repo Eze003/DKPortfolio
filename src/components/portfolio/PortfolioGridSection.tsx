@@ -61,7 +61,7 @@ export default function PortfolioGridSection() {
                           src={project.thumbnail}
                           alt={project.label}
                           fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                          className="object-cover md:group-hover:scale-105 transition-transform duration-700 ease-out"
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
                       ) : (
