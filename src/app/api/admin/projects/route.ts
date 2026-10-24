@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getDb } from "@/lib/db";
-import { ProjectEntity } from "@/lib/entities/Project";
+import { getDb, getProjectRepository } from "@/lib/db";
 import { isAdminAuthenticated } from "@/lib/session";
 
 function unauthorized() {
@@ -11,9 +10,9 @@ function unauthorized() {
 export async function GET() {
   if (!(await isAdminAuthenticated())) return unauthorized();
   const db = await getDb();
-  const projects = await db
-    .getRepository(ProjectEntity)
-    .find({ order: { sortOrder: "ASC" } });
+  const projects = await getProjectRepository(db).find({
+    order: { sortOrder: "ASC" },
+  });
   return NextResponse.json(projects);
 }
 
@@ -23,7 +22,7 @@ export async function POST(req: NextRequest) {
 
   const body = await req.json();
   const db = await getDb();
-  const repo = db.getRepository(ProjectEntity);
+  const repo = getProjectRepository(db);
 
   // Auto-assign sortOrder at end of list
   const maxOrder = await repo.maximum("sortOrder");

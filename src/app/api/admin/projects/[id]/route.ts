@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getDb } from "@/lib/db";
-import { ProjectEntity } from "@/lib/entities/Project";
+import { getDb, getProjectRepository } from "@/lib/db";
 import { isAdminAuthenticated } from "@/lib/session";
 
 function unauthorized() {
@@ -16,7 +15,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
   const { id } = await params;
   const body = await req.json();
   const db = await getDb();
-  const repo = db.getRepository(ProjectEntity);
+  const repo = getProjectRepository(db);
 
   const existing = await repo.findOneBy({ id });
   if (!existing) {
@@ -34,7 +33,7 @@ export async function DELETE(_req: NextRequest, { params }: Params) {
 
   const { id } = await params;
   const db = await getDb();
-  const repo = db.getRepository(ProjectEntity);
+  const repo = getProjectRepository(db);
 
   const existing = await repo.findOneBy({ id });
   if (!existing) {

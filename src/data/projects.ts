@@ -1,6 +1,12 @@
 export type ProjectIconVariant = "square" | "wide" | "tall";
 export type ProjectKind = "app" | "file" | "folder";
 
+export const PROJECT_CARD_ASPECT_CLASSES: Record<ProjectIconVariant, string> = {
+  square: "aspect-square",
+  wide: "aspect-video",
+  tall: "aspect-[3/4]",
+};
+
 export type ProjectGalleryImage = {
   src?: string;
   alt: string;
