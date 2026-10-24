@@ -5,7 +5,6 @@ import { BlogEntity } from "@/lib/entities/Blog";
 import { ExperienceEntity } from "@/lib/entities/Experience";
 import { SocialEntity } from "@/lib/entities/Social";
 import { CvEntity } from "@/lib/entities/Cv";
-import { projects as staticProjects } from "@/data/projects";
 import { initialBlogs } from "@/data/blogs";
 import { initialExperiences } from "@/data/experience";
 import { initialSocials } from "@/data/socials";
@@ -65,33 +64,7 @@ export async function getDb(): Promise<DataSource> {
   await ds.initialize();
   global.__dataSource = ds;
 
-  // 1. Seed Projects if empty
-  try {
-    const projectRepo = ds.getRepository(ProjectEntity);
-    const pCount = await projectRepo.count();
-    if (pCount === 0) {
-      const entities = staticProjects.map((p, idx) => {
-        const e = new ProjectEntity();
-        e.id = p.id;
-        e.label = p.label;
-        e.kind = p.kind;
-        e.variant = p.variant;
-        e.thumbnail = p.thumbnail ?? null;
-        e.folderPreviews = p.folderPreviews ?? null;
-        e.fallbackClassName = p.fallbackClassName ?? null;
-        e.fallbackContent = p.fallbackContent ?? null;
-        e.detail = p.detail;
-        e.sortOrder = idx;
-        return e;
-      });
-      await projectRepo.save(entities);
-      console.log(`[db] Seeded ${entities.length} projects.`);
-    }
-  } catch (err) {
-    console.error("[db] Project seeding error:", err);
-  }
-
-  // 2. Seed Blogs if empty
+  // 1. Seed Blogs if empty
   try {
     const blogRepo = ds.getRepository(BlogEntity);
     const bCount = await blogRepo.count();
@@ -116,7 +89,7 @@ export async function getDb(): Promise<DataSource> {
     console.error("[db] Blog seeding error:", err);
   }
 
-  // 3. Seed Experiences if empty
+  // 2. Seed Experiences if empty
   try {
     const expRepo = ds.getRepository(ExperienceEntity);
     const eCount = await expRepo.count();
@@ -140,7 +113,7 @@ export async function getDb(): Promise<DataSource> {
     console.error("[db] Experience seeding error:", err);
   }
 
-  // 4. Seed Socials if empty
+  // 3. Seed Socials if empty
   try {
     const socialRepo = ds.getRepository(SocialEntity);
     const sCount = await socialRepo.count();
@@ -163,7 +136,7 @@ export async function getDb(): Promise<DataSource> {
     console.error("[db] Socials seeding error:", err);
   }
 
-  // 5. Seed CV if empty
+  // 4. Seed CV if empty
   try {
     const cvRepo = ds.getRepository(CvEntity);
     const cvCount = await cvRepo.count();

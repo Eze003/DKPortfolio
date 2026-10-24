@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import {
@@ -16,8 +15,9 @@ import {
   SiFramer,
 } from "react-icons/si";
 import { FaMicrosoft } from "react-icons/fa";
-import { projects } from "@/data/projects";
 import { Footer } from "@/components/Footer";
+import { usePublicProjects } from "@/hooks/usePublicProjects";
+import { usePublicExperiences } from "@/hooks/usePublicExperiences";
 
 /* ─── Brand logos for marquee ─── */
 const brandLogos = [
@@ -34,44 +34,14 @@ const brandLogos = [
   { icon: <SiFramer />, name: "Framer" },
 ];
 
-/* ─── Experience data ─── */
-const experiences = [
-  {
-    role: "Senior Motion Designer",
-    period: "2024 – Present",
-    company: "MotionsGaad Studio",
-    desc: "3D animation, motion graphics & brand films",
-    abbr: "MG",
-    color: "#1a1a2e",
-  },
-  {
-    role: "Motion Graphics Artist",
-    period: "2022 – 2024",
-    company: "DFC Creative",
-    desc: "Event visuals, fighter promos & broadcast packages",
-    abbr: "DC",
-    color: "#1a1a1a",
-  },
-  {
-    role: "Video Editor",
-    period: "2021 – 2022",
-    company: "Skin.Club",
-    desc: "Product reels, neon-lit social loops & renders",
-    abbr: "SC",
-    color: "#1a1a1a",
-  },
-  {
-    role: "Junior Designer",
-    period: "2020 – 2021",
-    company: "Freelance",
-    desc: "Brand identity, social content & packaging",
-    abbr: "FL",
-    color: "#1a1a1a",
-  },
-];
-
 export function LandingPage() {
-  /* take up to 4 projects for the homepage grid */
+  const { projects, isLoading: projectsLoading, error: projectsError } =
+    usePublicProjects();
+  const {
+    experiences,
+    isLoading: experiencesLoading,
+    error: experiencesError,
+  } = usePublicExperiences();
   const featuredProjects = projects.slice(0, 4);
 
   return (
@@ -351,7 +321,32 @@ export function LandingPage() {
 
           {/* 2-col grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-7 sm:gap-9">
-            {featuredProjects.map((p) => (
+            {projectsLoading &&
+              Array.from({ length: 4 }, (_, index) => (
+                <div
+                  key={index}
+                  aria-hidden="true"
+                  className="rounded-[30px] sm:rounded-[34px] border border-white/[0.08] bg-[#0c0c0c] p-5 sm:p-6"
+                >
+                  <div className="aspect-[4/3] sm:aspect-[16/10] min-h-[285px] sm:min-h-[300px] md:min-h-[340px] rounded-[22px] sm:rounded-[24px] bg-white/[0.06] animate-pulse" />
+                  <div className="mt-5 space-y-3 px-1">
+                    <div className="h-6 w-2/3 rounded bg-white/[0.08] animate-pulse" />
+                    <div className="h-4 w-1/3 rounded bg-white/[0.05] animate-pulse" />
+                  </div>
+                  <div className="mt-4 flex justify-end px-1">
+                    <div className="h-11 w-36 rounded-full bg-white/[0.06] animate-pulse" />
+                  </div>
+                </div>
+              ))}
+            {projectsError && (
+              <p className="col-span-full text-sm text-red-300">{projectsError}</p>
+            )}
+            {!projectsLoading && !projectsError && featuredProjects.length === 0 && (
+              <p className="col-span-full text-sm text-zinc-400">
+                No projects published yet.
+              </p>
+            )}
+            {!projectsLoading && featuredProjects.map((p) => (
               <Link
                 key={p.id}
                 href={`/project/${p.id}`}
@@ -359,16 +354,21 @@ export function LandingPage() {
               >
                 {/* Balanced thumbnail height */}
                 <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] min-h-[285px] sm:min-h-[300px] md:min-h-[340px] overflow-hidden rounded-[22px] sm:rounded-[24px] bg-[#161616]">
-                  <Image
-                    src={
-                      p.thumbnail ||
-                      `https://picsum.photos/seed/${p.id}/800/500`
-                    }
-                    alt={p.label}
-                    fill
-                    sizes="(max-width:768px) 100vw, 650px"
-                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                  />
+                  {p.thumbnail ? (
+                    <Image
+                      src={p.thumbnail}
+                      alt={p.label}
+                      fill
+                      sizes="(max-width:768px) 100vw, 650px"
+                      className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="flex h-full items-center justify-center bg-gradient-to-br from-white/5 to-transparent">
+                      <span className="text-5xl font-semibold text-white/50">
+                        {p.label.slice(0, 2)}
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 {/* Card footer: Name and description */}
@@ -476,89 +476,57 @@ export function LandingPage() {
 
           {/* 2×2 grid matching Image 1 */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6">
-            {[
-              {
-                role: "Senior Frontend Engineer",
-                period: "2024 – Present",
-                desc: "Product Designer NovaTech",
-                icon: (
-                  <svg width="40" height="40" viewBox="0 0 48 48" fill="none" className="text-zinc-300">
-                    <circle cx="24" cy="24" r="19" stroke="currentColor" strokeWidth="6" />
-                    <circle cx="24" cy="24" r="8" fill="currentColor" />
-                  </svg>
-                ),
-              },
-              {
-                role: "Frontend Developer",
-                period: "2022 – 2024",
-                desc: "Developed responsive websites",
-                icon: (
-                  <svg width="40" height="40" viewBox="0 0 48 48" fill="none" className="text-zinc-300">
-                    <path
-                      d="M14 26c0-6.6 5.4-12 12-12s12 4.5 12 10-3.5 8-8.5 8c-7 0-14.5-5.5-14.5-15 0-7.5 6.5-13 14.5-13s14.5 5.5 14.5 14.5"
-                      stroke="currentColor"
-                      strokeWidth="5"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                ),
-              },
-              {
-                role: "Frontend Engineer — BrightLabs",
-                period: "2021 – 2022",
-                desc: "Created reusable component libraries",
-                icon: (
-                  <svg width="40" height="40" viewBox="0 0 48 48" fill="none" className="text-zinc-300">
-                    <path
-                      d="M24 7L11 14.5v19L24 41l13-7.5v-19L24 7z"
-                      stroke="currentColor"
-                      strokeWidth="5"
-                      strokeLinejoin="round"
-                    />
-                    <path d="M11 14.5l13 7.5 13-7.5M24 22v19" stroke="currentColor" strokeWidth="5" />
-                  </svg>
-                ),
-              },
-              {
-                role: "Junior Frontend Developer",
-                period: "2020 – 2021",
-                desc: "Junior Designer CodeWorks",
-                icon: (
-                  <svg width="40" height="40" viewBox="0 0 48 48" fill="none" className="text-zinc-300">
-                    <path
-                      d="M13 33c7 0 17-5 17-17 0-5.5-3.5-9-9-9s-9 3.5-9 9"
-                      stroke="currentColor"
-                      strokeWidth="5.5"
-                      strokeLinecap="round"
-                    />
-                    <path
-                      d="M35 15c-7 0-17 5-17 17 0 5.5 3.5 9 9 9s9-3.5 9-9"
-                      stroke="currentColor"
-                      strokeWidth="5.5"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                ),
-              },
-            ].map((e, i) => (
+            {experiencesLoading &&
+              Array.from({ length: 4 }, (_, index) => (
+                <div
+                  key={index}
+                  aria-hidden="true"
+                  className="rounded-[28px] border border-white/[0.08] bg-[#0c0c0c] p-6 sm:p-7 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6"
+                >
+                  <div className="w-[62px] h-[62px] sm:w-[82px] sm:h-[82px] rounded-[20px] sm:rounded-[22px] bg-white/[0.06] animate-pulse shrink-0" />
+                  <div className="flex-1 space-y-3">
+                    <div className="h-6 w-3/4 rounded bg-white/[0.08] animate-pulse" />
+                    <div className="h-4 w-1/3 rounded bg-white/[0.05] animate-pulse" />
+                    <div className="h-4 w-full rounded bg-white/[0.05] animate-pulse" />
+                  </div>
+                </div>
+              ))}
+            {experiencesError && (
+              <p className="col-span-full text-sm text-red-300">
+                {experiencesError}
+              </p>
+            )}
+            {!experiencesLoading && !experiencesError && experiences.length === 0 && (
+              <p className="col-span-full text-sm text-zinc-400">
+                No experience published yet.
+              </p>
+            )}
+            {!experiencesLoading && experiences.map((experience) => (
               <div
-                key={i}
+                key={experience.id}
                 className="rounded-[28px] border border-white/[0.08] bg-[#0c0c0c] p-6 sm:p-7 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 transition-all duration-300 hover:border-white/20 hover:bg-[#0f0f0f]"
               >
-                {/* Rounded Icon */}
                 <div className="w-[62px] h-[62px] sm:w-[82px] sm:h-[82px] rounded-[20px] sm:rounded-[22px] bg-[#1c1c1c] border border-white/[0.06] flex items-center justify-center shrink-0 p-3">
-                  {e.icon}
+                  <span className="text-xl font-semibold text-zinc-300">
+                    {experience.company.slice(0, 2).toUpperCase()}
+                  </span>
                 </div>
                 <div>
                   <h3 className="text-xl sm:text-[22px] font-semibold text-white tracking-tight leading-snug mb-1">
-                    {e.role}
+                    {experience.role}
                   </h3>
                   <div className="text-sm sm:text-base text-zinc-400 font-normal mb-1.5">
-                    {e.period}
+                    {experience.period}
                   </div>
                   <div className="text-xs sm:text-sm text-zinc-500 font-normal">
-                    {e.desc}
+                    {experience.company}
+                    {experience.location ? ` · ${experience.location}` : ""}
                   </div>
+                  {experience.description && (
+                    <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+                      {experience.description}
+                    </p>
+                  )}
                 </div>
               </div>
             ))}
