@@ -43,6 +43,12 @@ body {
   max-width: 100%;
 }
 
+@media (max-width: 767px) {
+  .project-detail-gallery > * {
+    grid-column: span 1 !important;
+  }
+}
+
 /* Diagonal light sweep from top-right toward bottom-left */
 .home-screen__glow {
   background: linear-gradient(

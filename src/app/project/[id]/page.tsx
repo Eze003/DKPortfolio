@@ -142,7 +142,7 @@ export default function ProjectDetailPage() {
         {/* Project Collage / Media Reel */}
         {gallery.length > 0 && (
           <div className="w-full relative mb-24">
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4 w-full">
+            <div className="project-detail-gallery grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-4 w-full">
               {gallery.map((media, i) => {
                 const span = media.span || 12;
                 return (
