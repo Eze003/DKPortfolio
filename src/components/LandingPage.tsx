@@ -83,7 +83,7 @@ export function LandingPage() {
           <div
             style={{
               position: "relative",
-              width: "min(90vw, 760px)",
+              width: "min(52vw, 620px)",
               height: "100%",
               flexShrink: 0,
             }}
@@ -96,7 +96,7 @@ export function LandingPage() {
               unoptimized
               sizes="620px"
               style={{
-                objectFit: "contain",
+                objectFit: "cover",
                 objectPosition: "center top",
                 maskImage: "linear-gradient(to bottom, black 55%, rgba(0,0,0,0.5) 78%, transparent 100%)",
                 WebkitMaskImage: "linear-gradient(to bottom, black 55%, rgba(0,0,0,0.5) 78%, transparent 100%)",
@@ -123,7 +123,7 @@ export function LandingPage() {
             unoptimized
             sizes="100vw"
             style={{
-              objectFit: "contain",
+              objectFit: "cover",
               objectPosition: "center top",
               maskImage: "linear-gradient(to bottom, black 60%, rgba(0,0,0,0.4) 85%, transparent 100%)",
               WebkitMaskImage: "linear-gradient(to bottom, black 60%, rgba(0,0,0,0.4) 85%, transparent 100%)",
