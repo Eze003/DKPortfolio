@@ -81,9 +81,10 @@ export function LandingPage() {
           }}
         >
           <div
+            className="home-hero__portrait"
             style={{
               position: "relative",
-              width: "min(90vw, 760px)",
+              width: "min(52vw, 620px)",
               height: "100%",
               flexShrink: 0,
             }}
@@ -95,8 +96,9 @@ export function LandingPage() {
               priority
               unoptimized
               sizes="620px"
+              className="home-hero__portrait-image"
               style={{
-                objectFit: "contain",
+                objectFit: "cover",
                 objectPosition: "center top",
                 maskImage: "linear-gradient(to bottom, black 55%, rgba(0,0,0,0.5) 78%, transparent 100%)",
                 WebkitMaskImage: "linear-gradient(to bottom, black 55%, rgba(0,0,0,0.5) 78%, transparent 100%)",
@@ -123,7 +125,7 @@ export function LandingPage() {
             unoptimized
             sizes="100vw"
             style={{
-              objectFit: "contain",
+              objectFit: "cover",
               objectPosition: "center top",
               maskImage: "linear-gradient(to bottom, black 60%, rgba(0,0,0,0.4) 85%, transparent 100%)",
               WebkitMaskImage: "linear-gradient(to bottom, black 60%, rgba(0,0,0,0.4) 85%, transparent 100%)",
@@ -133,7 +135,7 @@ export function LandingPage() {
 
         {/* ── Desktop vignette ── */}
         <div
-          className="hidden sm:block"
+          className="home-hero__vignette hidden sm:block"
           style={{
             position: "absolute",
             inset: 0,
@@ -148,7 +150,7 @@ export function LandingPage() {
         />
 
         {/* ── DESKTOP: bottom overlay (left title + right description/CV) ── */}
-        <div className="hidden sm:block absolute bottom-36 left-0 right-0 z-10 pointer-events-none">
+        <div className="hidden lg:block absolute bottom-36 left-0 right-0 z-10 pointer-events-none">
           <div className="max-w-7xl mx-auto px-8 sm:px-12 lg:px-14 w-full flex items-end justify-between">
             <div className="pointer-events-auto">
               <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/[0.1] bg-[#121212]/90 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white/75 backdrop-blur-md">
@@ -182,6 +184,42 @@ export function LandingPage() {
                 </span>
               </a>
             </div>
+          </div>
+        </div>
+
+        {/* ── TABLET: compact bottom overlay ── */}
+        <div className="hidden sm:grid lg:hidden absolute inset-x-0 bottom-[clamp(104px,18vh,150px)] z-10 grid-cols-2 items-end gap-6 px-6 md:px-10 pointer-events-none">
+          <div className="pointer-events-auto">
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/[0.1] bg-[#121212]/90 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-white/75 backdrop-blur-md">
+              <span
+                className="inline-block h-2 w-2 rounded-full bg-[#22c55e]"
+                style={{ boxShadow: "0 0 8px #22c55e", animation: "pulseDot 2s ease-in-out infinite" }}
+              />
+              Available to work
+            </div>
+            <p className="m-0 max-w-[280px] text-lg font-semibold leading-snug text-white/90">
+              Motion Designer &amp; Visual Storyteller based in UK
+            </p>
+          </div>
+          <div className="pointer-events-auto ml-auto flex max-w-[320px] flex-col items-end text-right">
+            <p className="mb-3 text-sm leading-relaxed text-white/70">
+              As a motion designer, I specialize in creating magical visual identities for brands.
+              Great design starts with open communication and respect for your audience.
+            </p>
+            <a
+              href="/cv.pdf"
+              download
+              className="group inline-flex items-center gap-3 rounded-full bg-white pl-5 pr-2 py-1.5 text-sm font-semibold text-black shadow-xl transition-all duration-200 hover:scale-[1.03] active:scale-[0.98]"
+            >
+              <span>Download CV</span>
+              <span className="flex h-8 w-8 items-center justify-center rounded-full bg-black text-white transition-transform duration-200 group-hover:translate-y-0.5">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
+                </svg>
+              </span>
+            </a>
           </div>
         </div>
 
@@ -240,7 +278,7 @@ export function LandingPage() {
 
         {/* ── DESKTOP: HUGE name at the very bottom ── */}
         <div
-          className="hidden sm:block"
+          className="home-hero__name hidden sm:block max-lg:!bottom-2.5 max-lg:!text-[clamp(84px,13vw,132px)]"
           style={{
             position: "absolute",
             bottom: -20,

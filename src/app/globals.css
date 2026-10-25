@@ -49,6 +49,26 @@ body {
   }
 }
 
+@media (min-width: 640px) and (max-width: 1023px) {
+  .home-hero__portrait {
+    width: min(calc(100vw - 32px), 91.6vh) !important;
+  }
+
+  .home-hero__portrait-image {
+    object-fit: contain !important;
+    transform: translateY(12px);
+  }
+
+  .home-hero__vignette {
+    background: linear-gradient(
+      to top,
+      #000 0%,
+      rgba(0, 0, 0, 0.7) 20%,
+      transparent 45%
+    ) !important;
+  }
+}
+
 /* Diagonal light sweep from top-right toward bottom-left */
 .home-screen__glow {
   background: linear-gradient(
