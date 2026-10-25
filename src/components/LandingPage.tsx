@@ -89,10 +89,11 @@ export function LandingPage() {
             }}
           >
             <Image
-              src="/avatar.png"
+              src="/hero.gif"
               alt="DIKE"
               fill
               priority
+              unoptimized
               sizes="620px"
               style={{
                 objectFit: "cover",
@@ -115,10 +116,11 @@ export function LandingPage() {
           }}
         >
           <Image
-            src="/avatar.png"
+            src="/hero.gif"
             alt="DIKE"
             fill
             priority
+            unoptimized
             sizes="100vw"
             style={{
               objectFit: "cover",
