@@ -49,6 +49,12 @@ body {
   }
 }
 
+@media (max-width: 639px) {
+  .home-hero__mobile-image {
+    transform: translateY(20px);
+  }
+}
+
 @media (min-width: 640px) and (max-width: 1023px) {
   .home-hero__portrait {
     width: min(calc(100vw - 32px), 91.6vh) !important;
