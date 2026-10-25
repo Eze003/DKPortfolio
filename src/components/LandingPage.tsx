@@ -36,8 +36,11 @@ const brandLogos = [
 ];
 
 export function LandingPage() {
-  const { projects, isLoading: projectsLoading, error: projectsError } =
-    usePublicProjects();
+  const {
+    projects,
+    isLoading: projectsLoading,
+    error: projectsError,
+  } = usePublicProjects();
   const {
     experiences,
     isLoading: experiencesLoading,
@@ -55,7 +58,6 @@ export function LandingPage() {
         overflowX: "hidden",
       }}
     >
-
       {/* ═══════════════════════════════════════════
           HERO SECTION
       ═══════════════════════════════════════════ */}
@@ -100,8 +102,10 @@ export function LandingPage() {
               style={{
                 objectFit: "cover",
                 objectPosition: "center top",
-                maskImage: "linear-gradient(to bottom, black 55%, rgba(0,0,0,0.5) 78%, transparent 100%)",
-                WebkitMaskImage: "linear-gradient(to bottom, black 55%, rgba(0,0,0,0.5) 78%, transparent 100%)",
+                maskImage:
+                  "linear-gradient(to bottom, black 55%, rgba(0,0,0,0.5) 78%, transparent 100%)",
+                WebkitMaskImage:
+                  "linear-gradient(to bottom, black 55%, rgba(0,0,0,0.5) 78%, transparent 100%)",
               }}
             />
           </div>
@@ -124,11 +128,14 @@ export function LandingPage() {
             priority
             unoptimized
             sizes="100vw"
+            className="home-hero__mobile-image"
             style={{
               objectFit: "cover",
               objectPosition: "center top",
-              maskImage: "linear-gradient(to bottom, black 60%, rgba(0,0,0,0.4) 85%, transparent 100%)",
-              WebkitMaskImage: "linear-gradient(to bottom, black 60%, rgba(0,0,0,0.4) 85%, transparent 100%)",
+              maskImage:
+                "linear-gradient(to bottom, black 60%, rgba(0,0,0,0.4) 85%, transparent 100%)",
+              WebkitMaskImage:
+                "linear-gradient(to bottom, black 60%, rgba(0,0,0,0.4) 85%, transparent 100%)",
             }}
           />
         </div>
@@ -156,18 +163,24 @@ export function LandingPage() {
               <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/[0.1] bg-[#121212]/90 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white/75 backdrop-blur-md">
                 <span
                   className="inline-block h-2 w-2 rounded-full bg-[#22c55e]"
-                  style={{ boxShadow: "0 0 8px #22c55e", animation: "pulseDot 2s ease-in-out infinite" }}
+                  style={{
+                    boxShadow: "0 0 8px #22c55e",
+                    animation: "pulseDot 2s ease-in-out infinite",
+                  }}
                 />
                 Available to work
               </div>
               <p className="m-0 max-w-[280px] text-[22px] font-semibold leading-snug text-white/90">
-                Motion Designer &amp; Visual<br />Storyteller based in UK
+                Motion Designer &amp; Visual
+                <br />
+                Storyteller based in UK
               </p>
             </div>
             <div className="pointer-events-auto max-w-[360px] text-right flex flex-col items-end">
               <p className="mb-6 text-[15px] sm:text-[16px] leading-relaxed text-white/70">
-                As a motion designer, I specialize in creating magical visual identities for brands.
-                Great design starts with open communication and respect for your audience.
+                As a motion designer, I specialize in creating magical visual
+                identities for brands. Great design starts with open
+                communication and respect for your audience.
               </p>
               <a
                 href="/cv.pdf"
@@ -176,7 +189,17 @@ export function LandingPage() {
               >
                 <span>Download CV</span>
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-black text-white transition-transform duration-200 group-hover:translate-y-0.5">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                  >
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                     <polyline points="7 10 12 15 17 10" />
                     <line x1="12" y1="15" x2="12" y2="3" />
@@ -193,7 +216,10 @@ export function LandingPage() {
             <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-white/[0.1] bg-[#121212]/90 px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-white/75 backdrop-blur-md">
               <span
                 className="inline-block h-2 w-2 rounded-full bg-[#22c55e]"
-                style={{ boxShadow: "0 0 8px #22c55e", animation: "pulseDot 2s ease-in-out infinite" }}
+                style={{
+                  boxShadow: "0 0 8px #22c55e",
+                  animation: "pulseDot 2s ease-in-out infinite",
+                }}
               />
               Available to work
             </div>
@@ -203,8 +229,9 @@ export function LandingPage() {
           </div>
           <div className="pointer-events-auto ml-auto flex max-w-[320px] flex-col items-end text-right">
             <p className="mb-3 text-sm leading-relaxed text-white/70">
-              As a motion designer, I specialize in creating magical visual identities for brands.
-              Great design starts with open communication and respect for your audience.
+              As a motion designer, I specialize in creating magical visual
+              identities for brands. Great design starts with open communication
+              and respect for your audience.
             </p>
             <a
               href="/cv.pdf"
@@ -213,7 +240,17 @@ export function LandingPage() {
             >
               <span>Download CV</span>
               <span className="flex h-8 w-8 items-center justify-center rounded-full bg-black text-white transition-transform duration-200 group-hover:translate-y-0.5">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
                   <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                   <polyline points="7 10 12 15 17 10" />
                   <line x1="12" y1="15" x2="12" y2="3" />
@@ -224,23 +261,29 @@ export function LandingPage() {
         </div>
 
         {/* ── MOBILE: stacked text content below photo ── */}
-        <div className="sm:hidden relative z-10 px-5 pt-5 pb-10">
+        <div className="sm:hidden relative z-10 -mt-10 px-5 pt-0 pb-10">
           {/* Availability badge */}
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/[0.1] bg-[#121212]/90 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.1em] text-white/75 backdrop-blur-md">
             <span
               className="inline-block h-2 w-2 rounded-full bg-[#22c55e]"
-              style={{ boxShadow: "0 0 8px #22c55e", animation: "pulseDot 2s ease-in-out infinite" }}
+              style={{
+                boxShadow: "0 0 8px #22c55e",
+                animation: "pulseDot 2s ease-in-out infinite",
+              }}
             />
             Available to work
           </div>
           {/* Title */}
           <h1 className="text-[28px] font-semibold leading-tight text-white mb-4">
-            Motion Designer &amp; Visual<br />Storyteller based in UK
+            Motion Designer &amp; Visual
+            <br />
+            Storyteller based in UK
           </h1>
           {/* Description */}
           <p className="text-[15px] leading-relaxed text-white/60 mb-6">
-            As a motion designer, I specialize in creating magical visual identities for brands.
-            Great design starts with open communication and respect for your audience.
+            As a motion designer, I specialize in creating magical visual
+            identities for brands. Great design starts with open communication
+            and respect for your audience.
           </p>
           {/* Download CV button */}
           <a
@@ -250,7 +293,17 @@ export function LandingPage() {
           >
             <span>Download CV</span>
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-black text-white">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
                 <polyline points="7 10 12 15 17 10" />
                 <line x1="12" y1="15" x2="12" y2="3" />
@@ -380,91 +433,100 @@ export function LandingPage() {
                 </div>
               ))}
             {projectsError && (
-              <p className="col-span-full text-sm text-red-300">{projectsError}</p>
-            )}
-            {!projectsLoading && !projectsError && featuredProjects.length === 0 && (
-              <p className="col-span-full text-sm text-zinc-400">
-                No projects published yet.
+              <p className="col-span-full text-sm text-red-300">
+                {projectsError}
               </p>
             )}
-            {!projectsLoading && featuredProjects.map((p) => (
-              <Link
-                key={p.id}
-                href={`/project/${p.id}`}
-                className="group relative flex flex-col rounded-[30px] sm:rounded-[34px] border border-white/[0.08] bg-[#0c0c0c] p-5 sm:p-6 transition-all duration-300 hover:border-white/20 hover:bg-[#0f0f0f] no-underline"
-              >
-                {/* Balanced thumbnail height */}
-                <div className={`relative w-full overflow-hidden rounded-[22px] sm:rounded-[24px] bg-[#161616] ${PROJECT_CARD_ASPECT_CLASSES[p.variant]}`}>
-                  {p.thumbnail ? (
-                    <Image
-                      src={p.thumbnail}
-                      alt={p.label}
-                      fill
-                      sizes="(max-width:768px) 100vw, 650px"
-                      className="object-cover transition-transform duration-500 ease-out sm:group-hover:scale-105"
-                    />
-                  ) : (
-                    <div className="flex h-full items-center justify-center bg-gradient-to-br from-white/5 to-transparent">
-                      <span className="text-5xl font-semibold text-white/50">
-                        {p.label.slice(0, 2)}
+            {!projectsLoading &&
+              !projectsError &&
+              featuredProjects.length === 0 && (
+                <p className="col-span-full text-sm text-zinc-400">
+                  No projects published yet.
+                </p>
+              )}
+            {!projectsLoading &&
+              featuredProjects.map((p) => (
+                <Link
+                  key={p.id}
+                  href={`/project/${p.id}`}
+                  className="group relative flex flex-col rounded-[30px] sm:rounded-[34px] border border-white/[0.08] bg-[#0c0c0c] p-5 sm:p-6 transition-all duration-300 hover:border-white/20 hover:bg-[#0f0f0f] no-underline"
+                >
+                  {/* Balanced thumbnail height */}
+                  <div
+                    className={`relative w-full overflow-hidden rounded-[22px] sm:rounded-[24px] bg-[#161616] ${PROJECT_CARD_ASPECT_CLASSES[p.variant]}`}
+                  >
+                    {p.thumbnail ? (
+                      <Image
+                        src={p.thumbnail}
+                        alt={p.label}
+                        fill
+                        sizes="(max-width:768px) 100vw, 650px"
+                        className="object-cover transition-transform duration-500 ease-out sm:group-hover:scale-105"
+                      />
+                    ) : (
+                      <div className="flex h-full items-center justify-center bg-gradient-to-br from-white/5 to-transparent">
+                        <span className="text-5xl font-semibold text-white/50">
+                          {p.label.slice(0, 2)}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Card footer: Name and description */}
+                  <div className="mt-5 px-1">
+                    <h3 className="text-xl sm:text-2xl md:text-[25px] font-bold text-white tracking-tight leading-snug mb-1.5 transition-colors duration-200 group-hover:text-white">
+                      {p.label}
+                    </h3>
+                    <p className="text-sm sm:text-base text-zinc-400 font-medium m-0">
+                      {p.detail.projectType}
+                    </p>
+                  </div>
+
+                  {/* Button placed close below description */}
+                  <div className="mt-4 px-1 flex items-center justify-end">
+                    <div className="inline-flex items-center gap-3 rounded-full bg-[#181818] border border-white/[0.08] pl-5 sm:pl-6 pr-2 sm:pr-2.5 py-2.5 text-sm sm:text-base font-semibold text-white/95 shrink-0 transition-colors duration-200 group-hover:bg-[#222222] group-hover:border-white/15">
+                      <span>View Project</span>
+                      <span className="relative flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-white text-black shrink-0 overflow-hidden">
+                        {/* Straight right arrow (rotates CLOCKWISE +45° and fades out) */}
+                        <svg
+                          width="15"
+                          height="15"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="absolute transition-all duration-300 ease-out opacity-100 rotate-0 scale-100 group-hover:opacity-0 group-hover:rotate-45 group-hover:scale-50"
+                          aria-hidden="true"
+                        >
+                          <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                        {/* Right diagonal arrow (starts at -45° and rotates CLOCKWISE to 0°) */}
+                        <svg
+                          width="15"
+                          height="15"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="absolute transition-all duration-300 ease-out opacity-0 -rotate-45 scale-50 group-hover:opacity-100 group-hover:rotate-0 group-hover:scale-100"
+                          aria-hidden="true"
+                        >
+                          <path d="M7 17L17 7M7 7h10v10" />
+                        </svg>
                       </span>
                     </div>
-                  )}
-                </div>
-
-                {/* Card footer: Name and description */}
-                <div className="mt-5 px-1">
-                  <h3 className="text-xl sm:text-2xl md:text-[25px] font-bold text-white tracking-tight leading-snug mb-1.5 transition-colors duration-200 group-hover:text-white">
-                    {p.label}
-                  </h3>
-                  <p className="text-sm sm:text-base text-zinc-400 font-medium m-0">
-                    {p.detail.projectType}
-                  </p>
-                </div>
-
-                {/* Button placed close below description */}
-                <div className="mt-4 px-1 flex items-center justify-end">
-                  <div className="inline-flex items-center gap-3 rounded-full bg-[#181818] border border-white/[0.08] pl-5 sm:pl-6 pr-2 sm:pr-2.5 py-2.5 text-sm sm:text-base font-semibold text-white/95 shrink-0 transition-colors duration-200 group-hover:bg-[#222222] group-hover:border-white/15">
-                    <span>View Project</span>
-                    <span className="relative flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-white text-black shrink-0 overflow-hidden">
-                      {/* Straight right arrow (rotates CLOCKWISE +45° and fades out) */}
-                      <svg
-                        width="15"
-                        height="15"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="absolute transition-all duration-300 ease-out opacity-100 rotate-0 scale-100 group-hover:opacity-0 group-hover:rotate-45 group-hover:scale-50"
-                        aria-hidden="true"
-                      >
-                        <path d="M5 12h14M12 5l7 7-7 7" />
-                      </svg>
-                      {/* Right diagonal arrow (starts at -45° and rotates CLOCKWISE to 0°) */}
-                      <svg
-                        width="15"
-                        height="15"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="absolute transition-all duration-300 ease-out opacity-0 -rotate-45 scale-50 group-hover:opacity-100 group-hover:rotate-0 group-hover:scale-100"
-                        aria-hidden="true"
-                      >
-                        <path d="M7 17L17 7M7 7h10v10" />
-                      </svg>
-                    </span>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              ))}
           </div>
 
-          <div style={{ marginTop: 52, display: "flex", justifyContent: "center" }}>
+          <div
+            style={{ marginTop: 52, display: "flex", justifyContent: "center" }}
+          >
             <Link
               href="/portfolio"
               className="group inline-flex items-center gap-3.5 rounded-full border border-white/12 bg-[#121212] pl-6 pr-2.5 py-2.5 text-sm sm:text-base font-semibold text-white/80 transition-all duration-200 hover:border-white/30 hover:text-white hover:bg-[#181818]"
@@ -537,40 +599,43 @@ export function LandingPage() {
                 {experiencesError}
               </p>
             )}
-            {!experiencesLoading && !experiencesError && experiences.length === 0 && (
-              <p className="col-span-full text-sm text-zinc-400">
-                No experience published yet.
-              </p>
-            )}
-            {!experiencesLoading && experiences.map((experience) => (
-              <div
-                key={experience.id}
-                className="rounded-[28px] border border-white/[0.08] bg-[#0c0c0c] p-6 sm:p-7 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 transition-all duration-300 hover:border-white/20 hover:bg-[#0f0f0f]"
-              >
-                <div className="w-[62px] h-[62px] sm:w-[82px] sm:h-[82px] rounded-[20px] sm:rounded-[22px] bg-[#1c1c1c] border border-white/[0.06] flex items-center justify-center shrink-0 p-3">
-                  <span className="text-xl font-semibold text-zinc-300">
-                    {experience.company.slice(0, 2).toUpperCase()}
-                  </span>
-                </div>
-                <div>
-                  <h3 className="text-xl sm:text-[22px] font-semibold text-white tracking-tight leading-snug mb-1">
-                    {experience.role}
-                  </h3>
-                  <div className="text-sm sm:text-base text-zinc-400 font-normal mb-1.5">
-                    {experience.period}
+            {!experiencesLoading &&
+              !experiencesError &&
+              experiences.length === 0 && (
+                <p className="col-span-full text-sm text-zinc-400">
+                  No experience published yet.
+                </p>
+              )}
+            {!experiencesLoading &&
+              experiences.map((experience) => (
+                <div
+                  key={experience.id}
+                  className="rounded-[28px] border border-white/[0.08] bg-[#0c0c0c] p-6 sm:p-7 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 transition-all duration-300 hover:border-white/20 hover:bg-[#0f0f0f]"
+                >
+                  <div className="w-[62px] h-[62px] sm:w-[82px] sm:h-[82px] rounded-[20px] sm:rounded-[22px] bg-[#1c1c1c] border border-white/[0.06] flex items-center justify-center shrink-0 p-3">
+                    <span className="text-xl font-semibold text-zinc-300">
+                      {experience.company.slice(0, 2).toUpperCase()}
+                    </span>
                   </div>
-                  <div className="text-xs sm:text-sm text-zinc-500 font-normal">
-                    {experience.company}
-                    {experience.location ? ` · ${experience.location}` : ""}
+                  <div>
+                    <h3 className="text-xl sm:text-[22px] font-semibold text-white tracking-tight leading-snug mb-1">
+                      {experience.role}
+                    </h3>
+                    <div className="text-sm sm:text-base text-zinc-400 font-normal mb-1.5">
+                      {experience.period}
+                    </div>
+                    <div className="text-xs sm:text-sm text-zinc-500 font-normal">
+                      {experience.company}
+                      {experience.location ? ` · ${experience.location}` : ""}
+                    </div>
+                    {experience.description && (
+                      <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+                        {experience.description}
+                      </p>
+                    )}
                   </div>
-                  {experience.description && (
-                    <p className="mt-2 text-sm leading-relaxed text-zinc-400">
-                      {experience.description}
-                    </p>
-                  )}
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
 
           {/* Centered Download CV button */}
